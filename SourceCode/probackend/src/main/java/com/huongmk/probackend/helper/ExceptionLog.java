@@ -12,7 +12,7 @@ public class ExceptionLog {
 
     public static final String NOT_FOUND = "Not found!";
 
-    public static final String ERRORS = "Có lỗi phát sinh mới. Vui lòng thử lại sau.";
+    public static final String ERRORS = "Có lỗi mới phát sinh. Vui lòng thử lại sau.";
 
     public static String createMessage(Exception e) {
         StringBuilder stringBuilder = new StringBuilder(e.toString());

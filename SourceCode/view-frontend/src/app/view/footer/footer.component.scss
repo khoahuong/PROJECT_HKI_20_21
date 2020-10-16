@@ -1,0 +1,23 @@
+/*footer*/
+footer{border-top: solid 3px #337ab7;background: #eee;display: block;padding:15px 0px;}
+footer span.copyright{
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    width: 100%;
+    margin-bottom: 15px;
+    color: #0b08d4;
+    border-bottom:#0748d4 3px double;
+    padding-bottom: 10px;
+}
+.nav-footer li{
+    line-height: 25px;
+    float: left;
+    width: 100%;
+
+    span{
+        margin-left: 6px;
+    }
+}

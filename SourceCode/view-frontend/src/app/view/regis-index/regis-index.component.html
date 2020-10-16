@@ -1,23 +1,93 @@
 <!-- loading -->
-<!-- <div class="loading" *ngIf="loading">Loading&#8230;</div> -->
+<div class="loading" *ngIf="loading">Loading&#8230;</div>
 
 <div class="container-scroller">
   <div class="container-fluid page-body-wrapper">
     <div class="main-panel main-panel-custome">
+      <!-- header -->
       <app-header></app-header>
+      <!-- Page body -->
       <div class="content-wrapper">
 
-        <!-- todo -->
-        <div class="row">
-          <nav aria-label="breadcrumb" class="bre-custome" role="navigation">
-            <ol class="breadcrumb breadcrumb-custom bre-background">
-              <li class="breadcrumb-item"><a href="/">{{'pro.home' | translate}}</a></li>
-            </ol>
-          </nav>
+        <div class="row page-titles">
+          <div class="col-md-12 align-self-center">
+            <div class="d-flex">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">{{'pro.home' | translate}}</a></li>
+                <li class="breadcrumb-item active">Tìm kiếm</li>
+              </ol>
+            </div>
+          </div>
         </div>
 
+        <div class="row">
+          <div class="col-md-12 grid-margin stretch-card frm-primary">
+            <div class="card">
+              <div class="card-header card-custome">
+                <h4 class="m-b-0 card-title card-title-custome">{{'common.search' | translate}}</h4>
+              </div>
+              <div class="card-body">
+                <form class="form-horizontal m-t-30" novalidate [formGroup]="searchForm">
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'home.search.fileCode' | translate}}</label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control" placeholder="{{'home.search.placeholder.fileCode' | translate}}"
+                        formControlName="fileCode">
+                    </div>
+                    <label class="col-md-2 lbl-custome">{{'home.search.status' | translate}}</label>
+                    <div class="col-md-4">
+                      <select class="form-control" formControlName="status">
+                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option *ngFor="let stt of lstStatus" [ngValue]="stt.id">{{stt.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'home.search.dateFrom' | translate}}</label>
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <input type="text" class="form-control datepicker" placeholder="{{'home.search.placeholder.date' | translate}}" bsDatepicker
+                          #dpFrom="bsDatepicker" formControlName="dateFrom">
+                        <div class="input-group-append">
+                          <button class="waves-effect waves-light input-group-text input-group-custome"
+                            (click)="dpFrom.show()">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <label class="col-md-2 lbl-custome">{{'home.search.dateTo' | translate}}</label>
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <input type="text" class="form-control datepicker" placeholder="{{'home.search.placeholder.date' | translate}}" bsDatepicker
+                          #dpTo="bsDatepicker" formControlName="dateTo">
+                        <div class="input-group-append">
+                          <button class="waves-effect waves-light input-group-text input-group-custome"
+                            (click)="dpTo.show()">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group text-center frm-buttom">
+                    <button type="submit" class="btn btn-primary mr-2">
+                      <i class="fa fa-search"></i>
+                      {{'common.btn.search' | translate}}
+                    </button>
+                    <button class="btn btn-success" (click)="clickAddRegis(null)">
+                      <i class="fa fa-pencil-square-o"></i>
+                      {{'common.btn.add' | translate}}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
+      <!-- footer -->
       <app-footer></app-footer>
     </div>
   </div>

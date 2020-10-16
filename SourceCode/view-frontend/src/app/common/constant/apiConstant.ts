@@ -13,4 +13,8 @@ export class API_CONSTANT {
     SAVE: "users/saveOrUpdate",
     GET_INFO: "api/users/getInfo"
   };
+
+  public static STATUS = {
+    GET_DATA_STATUS: "/"
+  }
 }

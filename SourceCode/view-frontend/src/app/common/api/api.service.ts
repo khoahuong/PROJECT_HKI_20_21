@@ -98,7 +98,7 @@ export class ApiService {
       'Content-Type': 'application/json'
     });
     if (!this.isGetToken()) {
-      return this.http.get(API_CONSTANT.API_ROOT + url, {headers: headers, params: param, responseType: 'json'});
+      return this.http.get(API_CONSTANT.API_ROOT + url, { headers: headers, params: param, responseType: 'json' });
     } else {
       this.toast.showError('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại.', '');
       this.router.navigate(['/login']);
@@ -111,18 +111,56 @@ export class ApiService {
    * @param Objects
    * @param param
    */
-  postDataToken(url: string, Objects: any, param: any):Observable<any>{
+  postDataToken(url: string, Objects: any, param: any): Observable<any> {
     let headers = new HttpHeaders({
-      'Authorization':'Bearer '+sessionStorage.getItem("access_token"),
-      'Accept':'application/json',
-      'Content-Type':'application/json'
+      'Authorization': 'Bearer ' + sessionStorage.getItem("access_token"),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     });
 
     if (!this.isGetToken()) {
-      return this.http.post(API_CONSTANT.API_ROOT + url, Objects, {headers: headers, params: param, responseType: 'json'});
+      return this.http.post(API_CONSTANT.API_ROOT + url, Objects, { headers: headers, params: param, responseType: 'json' });
     } else {
       this.toast.showError('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại.', '');
       this.router.navigate(['/login']);
     }
   }
+
+  /**
+   * function PUT data with Token
+   * @param url
+   */
+  put(url: string): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + sessionStorage.getItem('access_token'),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+
+    if (!this.isGetToken()) {
+      return this.http.put(API_CONSTANT.API_ROOT + url, null, { headers });
+    } else {
+      this.toast.showError('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại', '');
+      this.router.navigate(['/login']);
+    }
+  }
+
+  uploadFileToken(files: any): Observable<any> {
+    if (!this.isGetToken()) {
+      return this.http.post(API_CONSTANT.API_ROOT + API_CONSTANT.API_FILE.UPLOAD_MULTI_FILES, files);
+    } else {
+      this.toast.showError('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại', '');
+      this.router.navigate(['/login']);
+    }
+  }
+
+  uploadOneFile(file: any): Observable<any> {
+    if (!this.isGetToken()) {
+      return this.http.post(API_CONSTANT.API_ROOT + API_CONSTANT.API_FILE.UPLOAD_FILE, file);
+    } else {
+      this.toast.showError('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại', '');
+      this.router.navigate(['/login']);
+    }
+  }
+
 }

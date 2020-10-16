@@ -5,5 +5,30 @@
   },
   "pro":{
     "home":"Trang chủ"
+  },
+  "common":{
+    "search":"Thông tin tìm kiếm",
+    "result":"Kết quả tìm kiếm",
+    "btn":{
+      "search":"Tìm kiếm",
+      "add":"Thêm mới",
+      "save":"Lưu",
+      "send":"Gửi",
+      "delete":"Xóa",
+      "close":"Đóng"
+    }
+  },
+  "home":{
+    "search":{
+      "fileCode":"Mã hồ sơ",
+      "status":"Trạng thái hồ sơ",
+      "dateFrom":"Ngày tạo từ ngày",
+      "dateTo":"Ngày tạo đến ngày",
+      "placeholder":{
+        "fileCode":"Nhập vào mã hồ sơ",
+        "selectAll":"---Tất cả---",
+        "date":"dd/mm/yyyy"
+      }
+    }
   }
 }

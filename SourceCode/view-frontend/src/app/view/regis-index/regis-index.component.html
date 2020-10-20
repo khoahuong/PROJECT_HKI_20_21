@@ -31,8 +31,8 @@
                   <div class="form-group row">
                     <label class="col-md-2 lbl-custome">{{'home.search.fileCode' | translate}}</label>
                     <div class="col-md-4">
-                      <input type="text" class="form-control" placeholder="{{'home.search.placeholder.fileCode' | translate}}"
-                        formControlName="fileCode">
+                      <input type="text" class="form-control"
+                        placeholder="{{'home.search.placeholder.fileCode' | translate}}" formControlName="fileCode">
                     </div>
                     <label class="col-md-2 lbl-custome">{{'home.search.status' | translate}}</label>
                     <div class="col-md-4">
@@ -46,7 +46,8 @@
                     <label class="col-md-2 lbl-custome">{{'home.search.dateFrom' | translate}}</label>
                     <div class="col-md-4">
                       <div class="input-group">
-                        <input type="text" class="form-control datepicker" placeholder="{{'home.search.placeholder.date' | translate}}" bsDatepicker
+                        <input type="text" class="form-control datepicker"
+                          placeholder="{{'home.search.placeholder.date' | translate}}" bsDatepicker
                           #dpFrom="bsDatepicker" formControlName="dateFrom">
                         <div class="input-group-append">
                           <button class="waves-effect waves-light input-group-text input-group-custome"
@@ -59,8 +60,9 @@
                     <label class="col-md-2 lbl-custome">{{'home.search.dateTo' | translate}}</label>
                     <div class="col-md-4">
                       <div class="input-group">
-                        <input type="text" class="form-control datepicker" placeholder="{{'home.search.placeholder.date' | translate}}" bsDatepicker
-                          #dpTo="bsDatepicker" formControlName="dateTo">
+                        <input type="text" class="form-control datepicker"
+                          placeholder="{{'home.search.placeholder.date' | translate}}" bsDatepicker #dpTo="bsDatepicker"
+                          formControlName="dateTo">
                         <div class="input-group-append">
                           <button class="waves-effect waves-light input-group-text input-group-custome"
                             (click)="dpTo.show()">
@@ -81,6 +83,57 @@
                     </button>
                   </div>
                 </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 stretch-card frm-primary">
+            <div class="card">
+              <div class="card-header card-custome">
+                <h4 class="m-b-0 card-title">{{'common.result' | translate}}</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover table-custome">
+                    <thead>
+                      <tr>
+                        <td class="text-center" style="width: 1%;">{{'department.search.no' | translate}}</td>
+                        <td class="text-center">{{'department.search.code' | translate}}</td>
+                        <td class="text-center">{{'department.search.name' | translate}}</td>
+                        <td class="text-center">{{'department.search.dateCreated' | translate}}</td>
+                        <td class="text-center">{{'department.search.status' | translate}}</td>
+                        <!-- <td class="text-center">{{'department.search.officials' | translate}}</td>
+                        <td class="text-center">{{'department.search.field' | translate}}</td> -->
+                        <td class="text-center" colspan="2">Thống kê</td>
+                        <td class="text-center">{{'department.search.action' | translate}}</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of lstRecord;index as i">
+                        <td class="text-center">{{((page-1)*size)+(i+1)}}</td>
+                        <td>{{item.code}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.dateCreated | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{item.deleted == 'N' ? 'Hoạt động' : "Không hoạt động"}}</td>
+                        <td class="text-center"><a (click)="openOfficials(item)">{{item.offiTotal}} (Cán bộ)</a></td>
+                        <td class="text-center"><a (click)="openField(item)">{{item.fieldTotal}} (Lĩnh vực)</a></td>
+                        <td>
+                          <ul class="nav list-inline text-center action-search">
+                            <li><a (click)="openOfficials(item)" ngbTooltip="Danh sách cán bộ"><i class="fa fa-address-book-o" aria-hidden="true"></i></a></li>
+                            <li><a (click)="openField(item)" ngbTooltip="Danh sách lĩnh vực xử lý"><i class="fa fa-book" aria-hidden="true"></i></a></li>
+                            <li><a (click)="openDialog(item)" ngbTooltip="Sửa thông tin đơn vị"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></li>
+                            <li><a (click)="deleted(item)" ngbTooltip="Xóa đơn vị"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>
+                            <li *ngIf="item.status == 1" ><a (click)="lockOrUnlock(item,'lock')" ngbTooltip="Không hoạt động"><i class="fa fa-lock" aria-hidden="true"></i></a></li>
+                            <li *ngIf="item.status == 0"><a (click)="lockOrUnlock(item,'unlock')" ngbTooltip="Hoạt động"><i class="fa fa-unlock-alt" aria-hidden="true"></i></a></li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr *ngIf="lstRecord.length==0">
+                        <td class="text-center" colspan="8">{{'common.noresult' | translate}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div> 
               </div>
             </div>
           </div>

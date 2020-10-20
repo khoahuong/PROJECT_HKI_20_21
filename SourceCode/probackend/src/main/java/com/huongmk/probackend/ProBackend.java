@@ -26,6 +26,13 @@ public class ProBackend extends SpringBootServletInitializer implements WebAppli
 
     public static void main(String[] args) {
         SpringApplication.run(ProBackend.class, args);
+        System.out.println(" ");
+        System.out.println("  ||||||   ||    ||  |||    ||  |||    ||  ||  |||    ||    ||||||    \\\\ ");
+        System.out.println("  ||   ||  ||    ||  ||||   ||  ||||   ||  ||  ||||   ||   ||          \\\\");
+        System.out.println("  ||||||   ||    ||  ||  || ||  ||  || ||  ||  ||  || ||  ||   ====   =====>>>>>>>");
+        System.out.println("  ||  ||   ||    ||  ||   ||||  ||   ||||  ||  ||   ||||   ||   ||     //");
+        System.out.println("  ||   ||    ||||    ||    |||  ||    |||  ||  ||    |||    ||||||    //  -----(HuongMK)----- ");
+        System.out.println(" ");
         System.out.println("ProBackend is running: Profile: " + AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME);
     }
 }

@@ -33,8 +33,6 @@ public class TableUsersDomain implements Serializable {
     @Size(max = 512)
     @Column(name = "SALT_KEY_PASS")
     private String saltKeyPass;
-    @Column(name = "USER_ID")
-    private Long userId;
     @Size(max = 50)
     @Column(name = "FIRST_NAME")
     private String firstName;
@@ -117,14 +115,6 @@ public class TableUsersDomain implements Serializable {
 
     public void setSaltKeyPass(String saltKeyPass) {
         this.saltKeyPass = saltKeyPass;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getFirstName() {

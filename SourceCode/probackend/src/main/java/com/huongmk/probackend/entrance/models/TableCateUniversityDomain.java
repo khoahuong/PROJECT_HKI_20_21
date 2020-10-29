@@ -21,6 +21,11 @@ public class TableCateUniversityDomain {
     @Size(max = 255)
     @Column(name = "TEN_TRUONG_DHCD")
     private String tenTruongDhcd;
+    @Size(max = 255)
+    @Column(name = "LOAIHINH_DAOTAO")
+    private String loaihinhDaotao;
+    @Column(name = "ID_TINH")
+    private Long idTinh;
 
     public Long getId() {
         return id;
@@ -44,5 +49,21 @@ public class TableCateUniversityDomain {
 
     public void setTenTruongDhcd(String tenTruongDhcd) {
         this.tenTruongDhcd = tenTruongDhcd;
+    }
+
+    public String getLoaihinhDaotao() {
+        return loaihinhDaotao;
+    }
+
+    public void setLoaihinhDaotao(String loaihinhDaotao) {
+        this.loaihinhDaotao = loaihinhDaotao;
+    }
+
+    public Long getIdTinh() {
+        return idTinh;
+    }
+
+    public void setIdTinh(Long idTinh) {
+        this.idTinh = idTinh;
     }
 }

@@ -23,6 +23,9 @@ public class TableCateWardsDomain {
     @Size(max = 255)
     @Column(name = "WARDS_NAME")
     private String wardsName;
+    @Size(max = 255)
+    @Column(name = "TYPE_WARDS")
+    private String typeWards;
 
     public Long getId() {
         return id;
@@ -54,5 +57,13 @@ public class TableCateWardsDomain {
 
     public void setWardsName(String wardsName) {
         this.wardsName = wardsName;
+    }
+
+    public String getTypeWards() {
+        return typeWards;
+    }
+
+    public void setTypeWards(String typeWards) {
+        this.typeWards = typeWards;
     }
 }

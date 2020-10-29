@@ -23,6 +23,12 @@ public class TableCateSchoolDomain {
     @Size(max = 255)
     @Column(name = "SCHOOL_NAME")
     private String schoolName;
+    @Size(max = 512)
+    @Column(name = "FULL_ADDRESS")
+    private String fullAddress;
+    @Size(max = 255)
+    @Column(name = "AREA")
+    private String area;
 
     public Long getId() {
         return id;
@@ -54,5 +60,21 @@ public class TableCateSchoolDomain {
 
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
+    }
+
+    public String getFullAddress() {
+        return fullAddress;
+    }
+
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 }

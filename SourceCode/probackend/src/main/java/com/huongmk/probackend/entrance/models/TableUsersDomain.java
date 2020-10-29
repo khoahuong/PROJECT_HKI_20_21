@@ -1,6 +1,7 @@
 package com.huongmk.probackend.entrance.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,7 +15,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "TABLE_USERS", schema = "ENTRANCE_REGIS")
-public class TableUsersDomain implements Serializable {
+public class TableUsersDomain {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TABLE_USERS_SEQ")
@@ -24,15 +25,13 @@ public class TableUsersDomain implements Serializable {
     @Size(max = 50)
     @Column(name = "USER_NAME")
     private String userName;
-    @JsonIgnore
+//    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Size(max = 512)
     @Column(name = "PASS_WORD")
     private String passWord;
     @Column(name = "IS_ROLE")
     private Long isRole;
-    @Size(max = 512)
-    @Column(name = "SALT_KEY_PASS")
-    private String saltKeyPass;
     @Size(max = 50)
     @Column(name = "FIRST_NAME")
     private String firstName;
@@ -76,6 +75,8 @@ public class TableUsersDomain implements Serializable {
     @Column(name = "DATE_UPDATED")
     @Temporal(TemporalType.DATE)
     private Date dateUpdated;
+    @Column(name = "SO_CMND")
+    private Long soCmnd;
 
     public Long getId() {
         return id;
@@ -107,14 +108,6 @@ public class TableUsersDomain implements Serializable {
 
     public void setIsRole(Long isRole) {
         this.isRole = isRole;
-    }
-
-    public String getSaltKeyPass() {
-        return saltKeyPass;
-    }
-
-    public void setSaltKeyPass(String saltKeyPass) {
-        this.saltKeyPass = saltKeyPass;
     }
 
     public String getFirstName() {
@@ -235,5 +228,13 @@ public class TableUsersDomain implements Serializable {
 
     public void setDateUpdated(Date dateUpdated) {
         this.dateUpdated = dateUpdated;
+    }
+
+    public Long getSoCmnd() {
+        return soCmnd;
+    }
+
+    public void setSoCmnd(Long soCmnd) {
+        this.soCmnd = soCmnd;
     }
 }

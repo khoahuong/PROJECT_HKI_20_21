@@ -1,1 +1,79 @@
-<p>login works!</p>
+<div class="loading" *ngIf="loading">Loading&#8230;</div>
+
+<section id="wrapper">
+	<div class="login-register" style="background-image:url(../../assets/images/bg3.jpg);">
+		<div class="login-box card">
+			<div class="card-body">
+        <!-- form login -->
+				<form class="form-horizontal form-material" id="loginform" novalidate [formGroup]="userLoginForm">
+					<h2 class="text-center m-b-20">
+						{{'login.title' | translate}}
+					</h2>
+					<div class="form-group">
+						<div class="col-xs-12">
+							<input class="form-control userIcon" type="text" formControlName="username" placeholder="{{'login.username' | translate}}" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+						</div>
+						<div *ngIf="submitted && f.username.errors">
+							<span class="msg-invalid" *ngIf="f.username.errors.required">{{'common.invalid' | translate}}</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12">
+							<input class="form-control passwordIcon" type="password" formControlName="password" placeholder="{{'login.password' | translate}}" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+						</div>
+						<div *ngIf="submitted && f.password.errors">
+							<span class="msg-invalid" *ngIf="f.password.errors.required">{{'common.invalid' | translate}}</span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-12">
+							<div class="d-flex no-block align-items-center">
+								<div class="custom-control">
+                  <a id="to-regis" class="text-muted" (click)="createUser()"><i class="fa fa-plus-square"></i> {{'login.registration' | translate}}</a>
+								</div>
+								<div class="ml-auto">
+									<a id="to-recover" class="text-muted" (click)="forgotPass()"><i class="fa fa-refresh"></i> {{'login.forgetPass' | translate}}</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group text-center" style="margin-bottom: 0px !important;">
+						<div class="col-xs-12 p-b-20">
+							<button class="btn btn-block btn-lg btn-success btn-rounded" type="submit" (click)="clickLogin()">{{'login.title' | translate}}</button>
+						</div>
+					</div>
+        </form>
+        <!-- end form login -->
+        <!-- form recover -->
+				<form class="form-horizontal" id="resetform" novalidate [formGroup]="resetPassForm">
+					<div class="form-group">
+						<div class="col-xs-12">
+							<h3>
+								<i class="fa fa-arrow-circle-o-left hoverPointer" aria-hidden="true" (click)="backLogin()"></i>
+								{{'login.forgetPass' | translate}}</h3>
+							<p class="text-muted">{{'login.note' | translate}}</p>
+						</div>
+					</div>
+					<div class="form-group ">
+						<div class="col-xs-12">
+							<input class="form-control emailIcon" type="text" formControlName="email" placeholder="{{'login.email' | translate}}" [ngClass]="{ 'is-invalid': subForgot && fg.email.errors }" trim="blur">
+							<div *ngIf="subForgot && fg.email.errors">
+								<span class="msg-invalid" *ngIf="fg.email.errors.required">{{'common.invalid' | translate}}</span>
+								<span class="msg-invalid" *ngIf="fg.email.errors.email">{{'common.valid_email' | translate}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row text-center m-t-20">
+						<div class="col-md-6 col-xs-12">
+							<button class="btn btn-block btn-lg btn-info" type="button" (click)="sendForgotPass()">{{'common.btn.confirm' | translate}}</button>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<button class="btn btn-block btn-lg btn-success" type="button" (click)="backLogin()">{{'login.title' | translate}}</button>
+						</div>
+					</div>
+        </form>
+        <!-- end form recover -->
+			</div>
+		</div>
+	</div>
+</section>

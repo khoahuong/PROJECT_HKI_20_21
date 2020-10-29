@@ -1,24 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { PaginationModule,  } from 'ngx-bootstrap/pagination';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ToastrModule } from 'ngx-toastr';
-
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
-import { RegisIndexComponent } from './view/regis-index/regis-index.component';
-import { HeaderComponent } from './view/header/header.component';
+import { LoginComponent } from './login/login.component';
+import { CreateUserComponent } from './view/create-user/create-user.component';
 import { FooterComponent } from './view/footer/footer.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { from } from 'rxjs';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from './view/header/header.component';
+import { RegisIndexComponent } from './view/regis-index/regis-index.component';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AuthComponent,
     RegisIndexComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CreateUserComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         deps: [HttpClient]
       }
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxTrimDirectiveModule
   ],
   providers: [],
   bootstrap: [AppComponent]

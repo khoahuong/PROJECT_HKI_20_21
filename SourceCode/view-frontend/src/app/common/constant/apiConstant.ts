@@ -1,5 +1,6 @@
 export class API_CONSTANT {
-  public static API_ROOT = "http://localhost:9999/probackend/";
+  public static API_ROOT = "http://localhost:9999/";
+  // public static API_ROOT = "http://localhost:9999/probackend/";
 
   public static API_FILE = {
     DOWNLOAD: "file/fileStore/",
@@ -8,6 +9,7 @@ export class API_CONSTANT {
   };
 
   public static API_USER = {
+    CREATE_USER: "users/create/",
     INFO: "api/users/getUserInfo",
     SEARCH: "api/users/searchUsersAdmin",
     SAVE: "users/saveOrUpdate",

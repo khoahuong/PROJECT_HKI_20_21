@@ -2,9 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { API_CONSTANT } from '../constant/apiConstant';
-import { ToastUltilsService } from '../toast/toast-ultils.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private toast: ToastUltilsService
+    private toast: ToastrService
   ) { }
 
   /**
@@ -33,7 +33,7 @@ export class ApiService {
    * @param strUrl
    * @param param
    */
-  get(strUrl: string, param: any): Observable<any> {
+  get(strUrl: string, param: any):Observable<any> {
     let headers = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ export class ApiService {
    * @param paramBody
    * @param param
    */
-  post(strUrl: string, paramBody: any, param: any): Observable<any> {
+  post(strUrl: string, paramBody: any, param: any):Observable<any> {
     let headers = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ export class ApiService {
    * upload multi files with no token
    * @param files
    */
-  uploadFile(files: any): Observable<any> {
+  uploadFile(files: any):Observable<any> {
     return this.http.post(API_CONSTANT.API_ROOT + API_CONSTANT.API_FILE.UPLOAD_MULTI_FILES, files);
   }
 
@@ -67,7 +67,7 @@ export class ApiService {
    * Check token
    * return true or false
    */
-  isGetToken(): boolean {
+  isGetToken():boolean {
     let token = sessionStorage.getItem("access_token");
     const date = this.getTokenDate(token);
     if (date === undefined) return false;
@@ -78,7 +78,7 @@ export class ApiService {
    * GET token date
    * @param token
    */
-  getTokenDate(token: string): Date {
+  getTokenDate(token: string):Date {
     const decoded = jwt_decode(token);
     if (decoded.exp === undefined) return null;
     const date = new Date(0);
@@ -91,7 +91,7 @@ export class ApiService {
    * @param url
    * @param param
    */
-  getDataToken(url: string, param: any): Observable<any> {
+  getDataToken(url: string, param: any):Observable<any> {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + sessionStorage.getItem("access_token"),
       'Accept': 'application/json',
@@ -100,7 +100,7 @@ export class ApiService {
     if (!this.isGetToken()) {
       return this.http.get(API_CONSTANT.API_ROOT + url, { headers: headers, params: param, responseType: 'json' });
     } else {
-      this.toast.showError('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại.', '');
+      this.toast.error('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại.', '');
       this.router.navigate(['/login']);
     }
   }
@@ -111,7 +111,7 @@ export class ApiService {
    * @param Objects
    * @param param
    */
-  postDataToken(url: string, Objects: any, param: any): Observable<any> {
+  postDataToken(url: string, Objects: any, param: any):Observable<any> {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + sessionStorage.getItem("access_token"),
       'Accept': 'application/json',
@@ -121,7 +121,7 @@ export class ApiService {
     if (!this.isGetToken()) {
       return this.http.post(API_CONSTANT.API_ROOT + url, Objects, { headers: headers, params: param, responseType: 'json' });
     } else {
-      this.toast.showError('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại.', '');
+      this.toast.error('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại.', '');
       this.router.navigate(['/login']);
     }
   }
@@ -130,7 +130,7 @@ export class ApiService {
    * function PUT data with Token
    * @param url
    */
-  put(url: string): Observable<any> {
+  put(url: string):Observable<any> {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + sessionStorage.getItem('access_token'),
       'Accept': 'application/json',
@@ -140,25 +140,25 @@ export class ApiService {
     if (!this.isGetToken()) {
       return this.http.put(API_CONSTANT.API_ROOT + url, null, { headers });
     } else {
-      this.toast.showError('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại', '');
+      this.toast.error('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại', '');
       this.router.navigate(['/login']);
     }
   }
 
-  uploadFileToken(files: any): Observable<any> {
+  uploadFileToken(files: any):Observable<any> {
     if (!this.isGetToken()) {
       return this.http.post(API_CONSTANT.API_ROOT + API_CONSTANT.API_FILE.UPLOAD_MULTI_FILES, files);
     } else {
-      this.toast.showError('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại', '');
+      this.toast.error('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại', '');
       this.router.navigate(['/login']);
     }
   }
 
-  uploadOneFile(file: any): Observable<any> {
+  uploadOneFile(file: any):Observable<any> {
     if (!this.isGetToken()) {
       return this.http.post(API_CONSTANT.API_ROOT + API_CONSTANT.API_FILE.UPLOAD_FILE, file);
     } else {
-      this.toast.showError('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại', '');
+      this.toast.error('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại', '');
       this.router.navigate(['/login']);
     }
   }

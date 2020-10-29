@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/common/api/api.service';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
-import { ToastUltilsService } from 'src/app/common/toast/toast-ultils.service';
 
 @Component({
   selector: 'app-regis-index',
@@ -18,7 +18,7 @@ export class RegisIndexComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private toast: ToastUltilsService
+    private toast: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +54,7 @@ export class RegisIndexComponent implements OnInit {
     this.api.get(API_CONSTANT.STATUS.GET_DATA_STATUS, {}).subscribe(data => {
       this.lstStatus = data;
     }, error => {
-      this.toast.showError('Lỗi', 'Không lấy được danh mục trạng thái hồ sơ');
+      this.toast.error('Lỗi', 'Không lấy được danh mục trạng thái hồ sơ');
     });
   }
 

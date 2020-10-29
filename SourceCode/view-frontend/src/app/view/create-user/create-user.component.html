@@ -1,0 +1,219 @@
+<!-- loading -->
+<div class="loading" *ngIf="loading">Loading&#8230;</div>
+<!-- style="min-height: 780px;" -->
+<div id="main-wrapper">
+  <!-- header -->
+  <app-header></app-header>
+  <div class="page-wrapper">
+    <div class="container-fluid">
+
+      <div class="container navbar-container">
+        <div class="user-name">
+          <div class="account-box">
+            <div class="login-actions-box">
+              <nav aria-label="breadcrumb" class="bre-custome" role="navigation">
+                <ol class="breadcrumb breadcrumb-custom bre-background">
+                  <li class=""><a href="/login">{{'pro.login' | translate}}</a></li>
+                  <li class="active">{{'pro.regis' | translate}}</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- form đăng kí -->
+      <div class="card">
+        <div class="card-header card-custome row">
+          <div class="col-md-6">
+            <h3 class="m-b-0 card-title">{{'createUser.title' | translate}}</h3>
+          </div>
+          <div class="noteHeader col-md-6">
+            <span>{{'createUser.note' | translate}} <a href="/login">{{'pro.login' | translate}}</a></span>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <form class="form-horizontal" novalidate [formGroup]="createUserForm">
+            <div class="form-group row">
+              <label class="col-md-2 lbl-custome">
+                {{'createUser.username' | translate}}
+                <sup class="msg-invalid">(*)</sup>
+              </label>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="userName"
+                  [ngClass]="{ 'is-invalid': submitted && f.userName.errors }"
+                  placeholder="{{'createUser.placeholder.username' | translate}}" trim="blur" maxlength="50">
+                <div *ngIf="submitted && f.userName.errors">
+                  <span class="msg-invalid" *ngIf="f.userName.errors.required">{{'common.invalid' | translate}}</span>
+                  <span class="msg-invalid" *ngIf="f.userName.errors.maxlength">Không được nhập quá 50 ký tự</span>
+                </div>
+                <!-- <div *ngIf="submitted && isExitUsername">
+                  <span class="msg-invalid">Tên đăng nhập đã tồn tại</span>
+                </div> -->
+              </div>
+              <label class="col-md-2 lbl-custome">
+                {{'createUser.password' | translate}}
+                <sup class="msg-invalid">(*)</sup>
+              </label>
+              <div class="col-md-4">
+                <input type="password" class="form-control" formControlName="passWord"
+                  [ngClass]="{ 'is-invalid': submitted && f.passWord.errors }"
+                  placeholder="{{'createUser.placeholder.password' | translate}}" trim="blur" maxlength="512">
+                <div *ngIf="submitted && f.passWord.errors">
+                  <span class="msg-invalid" *ngIf="f.passWord.errors.required">{{'common.invalid' | translate}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-2 lbl-custome">
+                {{'createUser.rePassword' | translate}}
+                <sup class="msg-invalid">(*)</sup>
+              </label>
+              <div class="col-md-4">
+                <input type="password" class="form-control" formControlName="rePassWord"
+                  [ngClass]="{ 'is-invalid': submitted && f.rePassWord.errors }"
+                  placeholder="{{'createUser.placeholder.rePassword' | translate}}" trim="blur" maxlength="512"
+                  (change)="checkPassword()">
+                <div *ngIf="submitted && f.rePassWord.errors">
+                  <span class="msg-invalid" *ngIf="f.rePassWord.errors.required">{{'common.invalid' | translate}}</span>
+                </div>
+                <span class="msg-invalid" style="display: none;" id="errorCheckRepass">Mật khẩu nhập lại không trùng với mật khẩu yêu cầu</span>
+              </div>
+              <label class="col-md-2 lbl-custome">
+                {{'createUser.idUser' | translate}}
+                <sup class="msg-invalid">(*)</sup>
+              </label>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="soCmnd"
+                  [ngClass]="{ 'is-invalid': submitted && f.soCmnd.errors }"
+                  placeholder="{{'createUser.placeholder.idUser' | translate}}" trim maxlength="12">
+                <div *ngIf="submitted && f.soCmnd.errors">
+                  <span class="msg-invalid" *ngIf="f.soCmnd.errors.required">{{'common.invalid' | translate}}</span>
+                  <span class="msg-invalid" *ngIf="f.soCmnd.errors.maxlength">Không được nhập quá 12 ký tự</span>
+                  <span class="msg-invalid" *ngIf="f.soCmnd.errors.pattern">Không được nhập kí tự chữ</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-2 lbl-custome">
+                {{'createUser.firstName' | translate}}
+                <sup class="msg-invalid">(*)</sup>
+              </label>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="firstName"
+                  [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+                  placeholder="{{'createUser.placeholder.firstName' | translate}}" trim="blur" maxlength="50">
+                <div *ngIf="submitted && f.firstName.errors">
+                  <span class="msg-invalid" *ngIf="f.firstName.errors.required">{{'common.invalid' | translate}}</span>
+                </div>
+              </div>
+              <label class="col-md-2 lbl-custome">
+                {{'createUser.lastName' | translate}}
+                <sup class="msg-invalid">(*)</sup>
+              </label>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="lastName"
+                  [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+                  placeholder="{{'createUser.placeholder.lastName' | translate}}" trim="blur" maxlength="50">
+                <div *ngIf="submitted && f.lastName.errors">
+                  <span class="msg-invalid" *ngIf="f.lastName.errors.required">{{'common.invalid' | translate}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-2 lbl-custome">
+                {{'createUser.position' | translate}}
+                <sup class="msg-invalid">(*)</sup>
+              </label>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="position"
+                  [ngClass]="{ 'is-invalid': submitted && f.position.errors }"
+                  placeholder="{{'createUser.placeholder.position' | translate}}" trim="blur" maxlength="255">
+                <div *ngIf="submitted && f.position.errors">
+                  <span class="msg-invalid" *ngIf="f.position.errors.required">{{'common.invalid' | translate}}</span>
+                </div>
+              </div>
+              <label class="col-md-2 lbl-custome">
+                {{'createUser.birthday' | translate}}
+                <sup class="msg-invalid">(*)</sup>
+              </label>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <input type="text" class="form-control datepicker"
+                    placeholder="{{'createUser.placeholder.birthday' | translate}}" bsDatepicker #dpFrom="bsDatepicker"
+                    formControlName="birthday" [ngClass]="{ 'is-invalid': submitted && f.birthday.errors }">
+                  <div class="input-group-append">
+                    <button class="waves-effect waves-light input-group-text input-group-custome"
+                      (click)="dpFrom.show()">
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.birthday.errors">
+                  <span class="msg-invalid" *ngIf="f.birthday.errors.required">{{'common.invalid' | translate}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-2 lbl-custome">
+                {{'createUser.address' | translate}}
+                <sup class="msg-invalid">(*)</sup>
+              </label>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="address"
+                  [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+                  placeholder="{{'createUser.placeholder.address' | translate}}" trim="blur" maxlength="512">
+                <div *ngIf="submitted && f.address.errors">
+                  <span class="msg-invalid" *ngIf="f.address.errors.required">{{'common.invalid' | translate}}</span>
+                </div>
+              </div>
+              <label class="col-md-2 lbl-custome">
+                {{'createUser.phone' | translate}}
+                <sup class="msg-invalid">(*)</sup>
+              </label>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="phone"
+                  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
+                  placeholder="{{'createUser.placeholder.phone' | translate}}" trim="blur" maxlength="15">
+                <div *ngIf="submitted && f.phone.errors">
+                  <span class="msg-invalid" *ngIf="f.phone.errors.required">{{'common.invalid' | translate}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-2 lbl-custome">
+                {{'createUser.email' | translate}}
+                <sup class="msg-invalid">(*)</sup>
+              </label>
+              <div class="col-md-4">
+                <input class="form-control" type="text" formControlName="email"
+                  placeholder="{{'createUser.placeholder.email' | translate}}"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" trim="blur" maxlength="50">
+                <div *ngIf="submitted && f.email.errors">
+                  <span class="msg-invalid" *ngIf="f.email.errors.required">{{'common.invalid' | translate}}</span>
+                  <span class="msg-invalid" *ngIf="f.email.errors.email">{{'common.valid_email' | translate}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group text-center frm-buttom">
+              <button type="submit" class="btn btn-success mr-2" (click)="clickRegis()">
+                <i class="fa fa-pencil-square-o"></i>
+                {{'pro.regis' | translate}}
+              </button>
+              <button class="btn btn-primary" (click)="clickBack()">
+                <i class="fa fa-backward"></i>
+                {{'common.btn.back' | translate}}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- footer -->
+  <app-footer></app-footer>
+</div>

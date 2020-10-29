@@ -4,7 +4,10 @@
     "en":"Tiếng anh"
   },
   "pro":{
-    "home":"Trang chủ"
+    "home":"Trang chủ",
+    "login":"Đăng nhập",
+    "logout":"Đăng xuất",
+    "regis":"Đăng ký"
   },
   "common":{
     "search":"Thông tin tìm kiếm",
@@ -15,8 +18,22 @@
       "save":"Lưu",
       "send":"Gửi",
       "delete":"Xóa",
-      "close":"Đóng"
-    }
+      "close":"Đóng",
+      "confirm":"Xác nhận",
+      "back":"Trở lại"
+    },
+    "invalid":"Thông tin bắt buộc nhập",
+    "valid_email":"Email không đúng định dạng"
+  },
+  "login":{
+    "title":"Đăng nhập",
+    "username":"Tên đăng nhập",
+    "password":"Mật khẩu",
+    "savePass":"Lưu mật khẩu",
+    "forgetPass":"Quên mật khẩu?",
+    "registration":"Tạo tài khoản mới",
+    "email":"Nhập vào email đăng ký",
+    "note":"Nhập vào email đăng ký tài khoản của bạn để nhận mã xác nhận!"
   },
   "home":{
     "search":{
@@ -29,6 +46,34 @@
         "selectAll":"---Tất cả---",
         "date":"dd/mm/yyyy"
       }
+    }
+  },
+  "createUser": {
+    "title":"Tạo tài khoản",
+    "note":"Bạn đã có tài khoản đăng nhập?",
+    "username":"Tên đăng nhập",
+    "password":"Mật khẩu",
+    "rePassword":"Nhập lại mật khẩu",
+    "idUser":"Số CMND/CCCD",
+    "firstName":"Họ",
+    "lastName":"Tên",
+    "position":"Nghề nghiệp",
+    "birthday":"Ngày sinh",
+    "address":"Địa chỉ",
+    "phone":"Số điện thoại",
+    "email":"Email",
+    "placeholder": {
+      "username":"Nhập vào tên đăng nhập",
+      "password":"Nhập vào mật khẩu",
+      "rePassword":"Nhập lại mật khẩu",
+      "idUser":"Nhập vào số CMND/CCCD",
+      "firstName":"Nhập vào họ",
+      "lastName":"Nhập vào tên",
+      "position":"Nhập vào nghề nghiệp",
+      "birthday":"dd/mm/yyyy",
+      "address":"Nhập vào địa chỉ",
+      "phone":"Nhập vào số điện thoại",
+      "email":"Nhập vào email"
     }
   }
 }

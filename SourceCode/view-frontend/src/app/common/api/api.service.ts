@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
-import * as jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { API_CONSTANT } from '../constant/apiConstant';

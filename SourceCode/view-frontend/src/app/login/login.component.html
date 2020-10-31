@@ -12,17 +12,17 @@
 					<div class="form-group">
 						<div class="col-xs-12">
 							<input class="form-control userIcon" type="text" formControlName="username" placeholder="{{'login.username' | translate}}" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
-						</div>
-						<div *ngIf="submitted && f.username.errors">
-							<span class="msg-invalid" *ngIf="f.username.errors.required">{{'common.invalid' | translate}}</span>
+              <div *ngIf="submitted && f.username.errors">
+                <span class="msg-invalid" *ngIf="f.username.errors.required">{{'common.invalid' | translate}}</span>
+              </div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-xs-12">
 							<input class="form-control passwordIcon" type="password" formControlName="password" placeholder="{{'login.password' | translate}}" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-						</div>
-						<div *ngIf="submitted && f.password.errors">
-							<span class="msg-invalid" *ngIf="f.password.errors.required">{{'common.invalid' | translate}}</span>
+              <div *ngIf="submitted && f.password.errors">
+                <span class="msg-invalid" *ngIf="f.password.errors.required">{{'common.invalid' | translate}}</span>
+              </div>
 						</div>
 					</div>
 					<div class="form-group row">

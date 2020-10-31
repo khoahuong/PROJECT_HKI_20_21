@@ -1,12 +1,10 @@
 package com.huongmk.probackend.entrance.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -25,7 +23,7 @@ public class TableUsersDomain {
     @Size(max = 50)
     @Column(name = "USER_NAME")
     private String userName;
-//    @JsonIgnore
+    //    @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Size(max = 512)
     @Column(name = "PASS_WORD")
@@ -75,8 +73,9 @@ public class TableUsersDomain {
     @Column(name = "DATE_UPDATED")
     @Temporal(TemporalType.DATE)
     private Date dateUpdated;
+    @Size(max = 50)
     @Column(name = "SO_CMND")
-    private Long soCmnd;
+    private String soCmnd;
 
     public Long getId() {
         return id;
@@ -230,11 +229,11 @@ public class TableUsersDomain {
         this.dateUpdated = dateUpdated;
     }
 
-    public Long getSoCmnd() {
+    public String getSoCmnd() {
         return soCmnd;
     }
 
-    public void setSoCmnd(Long soCmnd) {
+    public void setSoCmnd(String soCmnd) {
         this.soCmnd = soCmnd;
     }
 }

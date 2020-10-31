@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,8 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-    private api: ApiService,
     private fb: FormBuilder,
+    private api: ApiService,
     private toast: ToastrService
   ) {
     if (!this.authService.isTokenExpired()) {
@@ -76,7 +77,28 @@ export class LoginComponent implements OnInit {
    * function dang nhap he thong
    */
   clickLogin(): void {
-    // todo
+    this.submitted = true;
+    if (this.userLoginForm.invalid) {
+      this.toast.warning('Cảnh báo', 'Kiểm tra lại thông tin đăng nhập.');
+      return;
+    }
+
+    this.loading = true;
+    let userName = this.userLoginForm.controls.username.value;
+    let password = this.userLoginForm.controls.password.value;
+
+    const body = new HttpParams()
+      .set('username', userName)
+      .set('password', password)
+      .set('grant_type', 'password');
+
+    this.api.login(body.toString()).subscribe(data => {
+      this.authService.authenticate(JSON.stringify(data), userName, password);
+      this.loading = false;
+    }, error => {
+      this.toast.error('Lỗi', 'Tên đăng nhập hoặc mật khẩu không đúng.');
+      this.loading = false;
+    });
   }
 
   /**

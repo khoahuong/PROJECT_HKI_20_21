@@ -4,6 +4,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthGaurdService } from './common/grant/auth-gaurd.service';
 import { LoginComponent } from './login/login.component';
 import { CreateUserComponent } from './view/create-user/create-user.component';
+import { RegisEditComponent } from './view/regis-edit/regis-edit.component';
 import { RegisIndexComponent } from './view/regis-index/regis-index.component';
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   {
     path: 'regis', component: AuthComponent,
     children: [
-      { path: 'home', component: RegisIndexComponent, canActivate: [AuthGaurdService] }
+      { path: 'home', component: RegisIndexComponent, canActivate: [AuthGaurdService] },
+      { path: 'edit', component: RegisEditComponent, canActivate: [AuthGaurdService] }
     ]
   }
 ];

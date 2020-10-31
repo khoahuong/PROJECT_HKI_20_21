@@ -7,4 +7,6 @@ import com.huongmk.probackend.entrance.models.TableUsersDomain;
  */
 public interface UsersService {
     Long createUser(TableUsersDomain users);
+
+    TableUsersDomain getUserInfo(String username, String password);
 }

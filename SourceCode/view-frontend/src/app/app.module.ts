@@ -19,6 +19,7 @@ import { CreateUserComponent } from './view/create-user/create-user.component';
 import { FooterComponent } from './view/footer/footer.component';
 import { HeaderComponent } from './view/header/header.component';
 import { RegisIndexComponent } from './view/regis-index/regis-index.component';
+import { RegisEditComponent } from './view/regis-edit/regis-edit.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { RegisIndexComponent } from './view/regis-index/regis-index.component';
     RegisIndexComponent,
     HeaderComponent,
     FooterComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    RegisEditComponent
   ],
   imports: [
     BrowserModule,

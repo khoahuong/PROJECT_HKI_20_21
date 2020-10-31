@@ -124,10 +124,9 @@ export class CreateUserComponent implements OnInit {
       address: this.createUserForm.controls.address.value,
       phone: this.createUserForm.controls.phone.value,
       email: this.createUserForm.controls.email.value,
-      soCmnd: Number(this.createUserForm.controls.soCmnd.value)
+      soCmnd: this.createUserForm.controls.soCmnd.value
     }
 
-    debugger;
     this.api.post(API_CONSTANT.API_USER.CREATE_USER, objectUser, {}).subscribe(data => {
       this.loading = false;
       if (data.data === 2) {

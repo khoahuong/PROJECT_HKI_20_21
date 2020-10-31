@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -72,5 +73,17 @@ public class UsersServiceImpl implements UsersService {
         msg.setText(contentMail);
 
         javaMailSender.send(msg);
+    }
+
+    @Override
+    @Transactional
+    public TableUsersDomain getUserInfo(String username, String password) {
+        TableUsersDomain usersDomain = userRepo.findByUserNameAndIsActive(username, Constants.STATUS.ACTIVE);
+        if (usersDomain != null && cryptPassword.matches(password, usersDomain.getPassWord())) {
+            usersDomain.setLastLogin(new Date());
+            userRepo.save(usersDomain);
+            return usersDomain;
+        }
+        return new TableUsersDomain();
     }
 }

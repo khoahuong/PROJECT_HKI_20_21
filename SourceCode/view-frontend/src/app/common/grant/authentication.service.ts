@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import * as jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../api/api.service';
 import { API_CONSTANT } from '../constant/apiConstant';
 
@@ -11,7 +12,8 @@ export class AuthenticationService {
 
   constructor(
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
+    private toastr: ToastrService
   ) { }
 
   authenticate(token: string, username: string, password: string) {
@@ -25,10 +27,15 @@ export class AuthenticationService {
       username: username,
       password: password
     }
-
-    this.api.get(API_CONSTANT.API_USER.INFO, userParam).subscribe(data => {
-      sessionStorage.setItem("userLogin", JSON.stringify(data.data));
-      this.router.navigate(['auth/dashboard']); //todo
+    this.api.getDataToken(API_CONSTANT.API_USER.INFO, userParam).subscribe(data => {
+      debugger;
+      if (data.data.isRole === 1) {
+        sessionStorage.setItem("userLogin", JSON.stringify(data.data));
+        this.router.navigate(['regis/home']);
+      } else {
+        this.toastr.error('Lỗi', 'Tên đăng nhập hoặc mật khẩu không đúng.');
+        this.router.navigate(['/login']);
+      }
     }, error => {
       //todo
     })

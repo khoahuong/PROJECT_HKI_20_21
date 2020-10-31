@@ -17,6 +17,6 @@ export class API_CONSTANT {
   };
 
   public static STATUS = {
-    GET_DATA_STATUS: "/"
+    GET_DATA_STATUS: "api/danhmuc/trangthai"
   }
 }

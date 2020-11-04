@@ -1,14 +1,14 @@
 package com.huongmk.probackend.helper;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.logging.Logger;
 
 /**
  * @author HuongMk
  */
 public class ExceptionLog {
-    public static final Logger logger = (Logger) LoggerFactory.getLogger(ExceptionLog.class);
+    public static final Logger logger = LoggerFactory.getLogger(ExceptionLog.class);
 
     public static final String NOT_FOUND = "Not found!";
 
@@ -24,6 +24,14 @@ public class ExceptionLog {
         } else {
             message.append(ERRORS);
         }
+        // ghi log ra file log
+        LogUtil logUtil = new LogUtil();
+        logUtil.className = Thread.currentThread().getStackTrace()[2].getClassName();
+        logUtil.methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+        logUtil.lineOfCode = Thread.currentThread().getStackTrace()[2].getLineNumber();
+        logger.error(e.toString());
+        logger.error("ERROR|| Class name: " + logUtil.className + ", method name: " + logUtil.methodName + ", line code: " + logUtil.lineOfCode);
+
         return message.toString();
     }
 }

@@ -12,4 +12,8 @@ public interface TableUsersRepository extends JpaRepository<TableUsersDomain, Lo
     TableUsersDomain findByUserNameAndIsActive(String userName, Long status);
 
     List<TableUsersDomain> findByIsActive(Long active);
+
+    TableUsersDomain findByUserNameAndIsActiveAndIsRole(String username, Long active, Long userNormal);
+
+    TableUsersDomain findByEmailAndIsActive(String email, Long active);
 }

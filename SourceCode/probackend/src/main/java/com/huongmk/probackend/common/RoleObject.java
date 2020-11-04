@@ -1,5 +1,8 @@
 package com.huongmk.probackend.common;
 
+/**
+ * @author HuongMK
+ */
 public class RoleObject {
     private Long id;
     private String name;

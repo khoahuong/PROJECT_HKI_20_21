@@ -24,7 +24,7 @@ public class ApiDanhmucController {
     private DanhmucService dmService;
 
     @RequestMapping(value = "/trangthai", method = RequestMethod.GET)
-    public ResponseEntity<?> getStatus(){
+    public ResponseEntity<?> getStatus() {
         ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
         List<TableCateStatusDomain> listStatus;
         try {

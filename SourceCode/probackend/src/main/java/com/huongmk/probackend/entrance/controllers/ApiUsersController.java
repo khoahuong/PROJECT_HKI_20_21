@@ -3,6 +3,7 @@ package com.huongmk.probackend.entrance.controllers;
 import com.huongmk.probackend.entrance.models.TableUsersDomain;
 import com.huongmk.probackend.entrance.services.UsersService;
 import com.huongmk.probackend.helper.ExceptionLog;
+import com.huongmk.probackend.helper.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ public class ApiUsersController {
     @Autowired
     private UsersService usersService;
 
+    // ham check get data cua user nguoi dung dang ki ho so tuyen sinh
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.GET)
     public ResponseEntity<?> getUserInfo(@RequestParam String username,
                                          @RequestParam String password) {

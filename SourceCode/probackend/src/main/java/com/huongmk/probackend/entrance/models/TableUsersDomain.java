@@ -76,6 +76,12 @@ public class TableUsersDomain {
     @Size(max = 50)
     @Column(name = "SO_CMND")
     private String soCmnd;
+    @Size(max = 50)
+    @Column(name = "CODE_RESET_PASS")
+    private String codeResetPass;
+    @Column(name = "TIME_SET_CODE")
+    @Temporal(TemporalType.DATE)
+    private Date timeSetCode;
 
     public Long getId() {
         return id;
@@ -235,5 +241,21 @@ public class TableUsersDomain {
 
     public void setSoCmnd(String soCmnd) {
         this.soCmnd = soCmnd;
+    }
+
+    public String getCodeResetPass() {
+        return codeResetPass;
+    }
+
+    public void setCodeResetPass(String codeResetPass) {
+        this.codeResetPass = codeResetPass;
+    }
+
+    public Date getTimeSetCode() {
+        return timeSetCode;
+    }
+
+    public void setTimeSetCode(Date timeSetCode) {
+        this.timeSetCode = timeSetCode;
     }
 }

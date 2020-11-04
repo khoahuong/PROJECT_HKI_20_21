@@ -129,18 +129,23 @@ export class CreateUserComponent implements OnInit {
 
     this.api.post(API_CONSTANT.API_USER.CREATE_USER, objectUser, {}).subscribe(data => {
       this.loading = false;
-      if (data.data === 2) {
+      if (data.data === 1) {
+        this.toastr.success('Thành công', 'Tạo tài khoản thành công');
+        this.router.navigate(['/login']);
+      } else if (data.data === 2) {
         this.toastr.warning('Cảnh báo', 'Tên đăng nhập đã được sử dụng');
         return;
       } else if (data.data === 3) {
         this.toastr.warning('Cảnh báo', 'Email đăng ký đã được sử dụng cho tài khoản khác. Vui lòng nhập email khác.');
         return;
+      } else if (data.data === 4) {
+        this.toastr.warning('Cảnh báo', 'Số CMND/CCCD của bạn đã được sử dụng để đăng ký tài khoản.');
+        return;
       } else {
-        this.toastr.success('Thành công', 'Tạo tài khoản thành công');
-        this.router.navigate(['/login']);
+        this.toastr.error('Lỗi', 'Tạo tài khoản không thành công.');
       }
     }, error => {
-      this.toastr.error('Lỗi', 'Tạo tài khoản không thành công');
+      this.toastr.error('Lỗi', 'Hệ thống đang có lỗi, vui lòng thử lại sau.');
       this.loading = false;
     })
   }

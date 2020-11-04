@@ -116,7 +116,7 @@
             </div>
           </div>
 
-          <div class="col-md-12 stretch-card frm-primary">
+          <div class="col-md-12 grid-margin stretch-card frm-primary">
             <div class="card">
               <div class="card-header card-custome">
                 <h4 class="m-b-0 card-title">{{'common.result' | translate}}</h4>
@@ -124,8 +124,7 @@
               <div class="card-body">
                 <!-- pagination -->
                 <div class="form-group pagination-custome">
-                  <span class="search-title">Kết quả tìm kiếm <span class="fw-bold">{{totalRecord}}</span> bản
-                    ghi</span>
+                  <span class="search-title">{{'common.total' | translate}} <span class="fw-bold">{{totalRecord}}</span> {{'common.record' | translate}}</span>
                   <pagination class="pagi" [totalItems]="totalRecord" [itemsPerPage]="maxPageView"
                     previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
                     [boundaryLinks]="true" [maxSize]="size" [(ngModel)]="page" (pageChanged)="searchDataRegis($event)">
@@ -163,7 +162,7 @@
                         </td>
                       </tr>
                       <tr *ngIf="lstRecord.length==0">
-                        <td class="text-center" colspan="7">Không có bản ghi nào</td>
+                        <td class="text-center" colspan="7">{{'common.no_record' | translate}}</td>
                       </tr>
                     </tbody>
                   </table>

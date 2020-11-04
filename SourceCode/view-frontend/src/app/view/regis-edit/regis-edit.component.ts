@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -8,16 +9,32 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RegisEditComponent implements OnInit {
 
+  loading: boolean = false;
+
+  titleEdit: String = "";
+  data: any;
+
+  editForm: FormGroup;
+
   constructor(
-    private router: Router,
-    private route: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      let data = params['data'];
-       console.log(params);
+    this.activeRoute.params.subscribe(params => {
+      this.data = params['data'];
     });
+    this.titleEdit = this.data != "null" ? "Cập nhật thông tin hồ sơ" : "Thêm mới thông tin hồ sơ";
+    this.buildForm();
+  }
+
+  buildForm(): void {
+    this.editForm = this.fb.group({
+      maHoso: ['', []],
+      tenTrangthai: ['', []],
+      ngayTao: ['', []]
+    })
   }
 
 }

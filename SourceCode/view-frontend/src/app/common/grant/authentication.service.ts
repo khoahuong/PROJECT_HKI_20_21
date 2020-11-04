@@ -28,7 +28,6 @@ export class AuthenticationService {
       password: password
     }
     this.api.getDataToken(API_CONSTANT.API_USER.INFO, userParam).subscribe(data => {
-      debugger;
       if (data.data.isRole === 1) {
         sessionStorage.setItem("userLogin", JSON.stringify(data.data));
         this.router.navigate(['regis/home']);

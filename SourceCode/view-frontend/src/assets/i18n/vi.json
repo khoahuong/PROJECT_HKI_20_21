@@ -7,11 +7,14 @@
     "home":"Trang chủ",
     "login":"Đăng nhập",
     "logout":"Đăng xuất",
-    "regis":"Đăng ký"
+    "regis":"Đăng ký",
+    "edit":"Thông tin hồ sơ"
   },
   "common":{
     "search":"Thông tin tìm kiếm",
     "result":"Kết quả tìm kiếm",
+    "total":"Tổng số",
+    "record":"bản ghi",
     "btn":{
       "search":"Tìm kiếm",
       "add":"Thêm mới",
@@ -23,7 +26,9 @@
       "back":"Trở lại"
     },
     "invalid":"Thông tin bắt buộc nhập",
-    "valid_email":"Email không đúng định dạng"
+    "valid_email":"Email không đúng định dạng",
+    "errorLogin":"Tên đăng nhập hoặc mật khẩu không đúng",
+    "no_record":"Không có bản ghi nào"
   },
   "login":{
     "title":"Đăng nhập",
@@ -33,7 +38,18 @@
     "forgetPass":"Quên mật khẩu?",
     "registration":"Tạo tài khoản mới",
     "email":"Nhập vào email đăng ký",
-    "note":"Nhập vào email đăng ký tài khoản của bạn để nhận mã xác nhận!"
+    "note":"Nhập vào email đăng ký tài khoản của bạn để nhận mã xác nhận!",
+    "newPassword":"Mật khẩu mới",
+    "reNewPass":"Nhập lại mật khẩu mới",
+    "confirmCode":"Mã xác nhận",
+    "placeholder":{
+      "newPassword":"Nhập vào mật khẩu mới",
+      "confirmCode":"Nhập vào mã xác nhận"
+    },
+    "replacePass":"Đổi mật khẩu",
+    "noteRePass":"Nhập mã xác nhận gồm 6 kí tự đã được gửi vào mail đăng ký của bạn vào Mã xác nhận.",
+    "notCodeConfirm":"Mã xác nhận nhập vào không chính xác",
+    "notPassTimeCode":"Thời gian mã xác nhận đã hết hiệu lực 10 phút."
   },
   "home":{
     "search":{
@@ -74,6 +90,21 @@
       "address":"Nhập vào địa chỉ",
       "phone":"Nhập vào số điện thoại",
       "email":"Nhập vào email"
+    },
+    "notDuplicate":"Mật khẩu nhập lại không trùng khớp"
+  },
+  "editRegis": {
+    "personInfo": {
+      "title":"Thông tin chung",
+      "fileCode":"Mã hồ sơ",
+      "status":"Trạng thái hồ sơ",
+      "createDate":"Ngày tạo",
+      "name":"Họ và tên thí sinh",
+      "gender":"Giới tính",
+      "birthday":"Ngày sinh",
+      "addressBorn":"Nơi sinh",
+      "nation":"Dân tộc",
+      "nationality":"Quốc tịch"
     }
   }
 }

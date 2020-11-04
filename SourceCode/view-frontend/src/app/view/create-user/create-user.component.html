@@ -59,7 +59,8 @@
               <div class="col-md-4">
                 <input type="password" class="form-control" formControlName="passWord"
                   [ngClass]="{ 'is-invalid': submitted && f.passWord.errors }"
-                  placeholder="{{'createUser.placeholder.password' | translate}}" trim="blur" maxlength="512">
+                  placeholder="{{'createUser.placeholder.password' | translate}}" trim="blur" maxlength="512"
+                  (change)="checkPassword()">
                 <div *ngIf="submitted && f.passWord.errors">
                   <span class="msg-invalid" *ngIf="f.passWord.errors.required">{{'common.invalid' | translate}}</span>
                 </div>
@@ -78,7 +79,7 @@
                 <div *ngIf="submitted && f.rePassWord.errors">
                   <span class="msg-invalid" *ngIf="f.rePassWord.errors.required">{{'common.invalid' | translate}}</span>
                 </div>
-                <span class="msg-invalid" style="display: none;" id="errorCheckRepass">Mật khẩu nhập lại không trùng với mật khẩu yêu cầu</span>
+                <span class="msg-invalid" style="display: none;" id="errorCheckRepass">{{'createUser.notDuplicate' | translate}}</span>
               </div>
               <label class="col-md-2 lbl-custome">
                 {{'createUser.idUser' | translate}}

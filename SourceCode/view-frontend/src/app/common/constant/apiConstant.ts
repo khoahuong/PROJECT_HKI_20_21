@@ -11,9 +11,9 @@ export class API_CONSTANT {
   public static API_USER = {
     CREATE_USER: "users/create/",
     INFO: "api/users/getUserInfo",
-    SEARCH: "api/users/searchUsersAdmin",
-    SAVE: "users/saveOrUpdate",
-    GET_INFO: "api/users/getInfo"
+    GET_CODE_CONFIRM: "users/getCodeConfirm",
+    RE_PASSWORD: "users/rePassword",
+    SEARCH: "api/users/searchUsersAdmin"
   };
 
   public static STATUS = {

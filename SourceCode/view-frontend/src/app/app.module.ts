@@ -20,6 +20,8 @@ import { FooterComponent } from './view/footer/footer.component';
 import { HeaderComponent } from './view/header/header.component';
 import { RegisIndexComponent } from './view/regis-index/regis-index.component';
 import { RegisEditComponent } from './view/regis-edit/regis-edit.component';
+import { UppercaseDirective } from './common/ulti/stringUppercase/upper.directive';
+import { UserInfoComponent } from './view/user-info/user-info.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { RegisEditComponent } from './view/regis-edit/regis-edit.component';
     HeaderComponent,
     FooterComponent,
     CreateUserComponent,
-    RegisEditComponent
+    RegisEditComponent,
+    UppercaseDirective,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,

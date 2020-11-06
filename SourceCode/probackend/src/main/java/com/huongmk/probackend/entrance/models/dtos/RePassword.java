@@ -4,12 +4,21 @@ package com.huongmk.probackend.entrance.models.dtos;
  * @author HuongMK
  */
 public class RePassword {
+    private Long id;
     private String email;
     private String password;
     private String newPassword;
     private String confirmCode;
 
     public RePassword() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {

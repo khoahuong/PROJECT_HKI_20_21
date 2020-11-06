@@ -60,7 +60,7 @@ public class UsersServiceImpl implements UsersService {
         userRepo.save(users); //create tai khoan
 
         // send mail thong bao tao tai khoan thanh cong
-        StringBuilder contentMail = new StringBuilder("Chào " + users.getLastName() + "!" +"\n");
+        StringBuilder contentMail = new StringBuilder("Chào " + users.getLastName() + "!" + "\n");
         contentMail.append("Bạn đã tạo thành công tài khoản đăng kí hồ sơ dự thi THPT Quốc gia " +
                 "và tuyển sinh đại học năm 2020 với tên đăng nhập là: " + users.getUserName()
                 + " vào lúc " + new Date() + "." + "\n");
@@ -120,6 +120,7 @@ public class UsersServiceImpl implements UsersService {
 
     /**
      * hàm sinh auto mã code đổi mật khẩu
+     *
      * @param number
      * @return
      */
@@ -171,5 +172,77 @@ public class UsersServiceImpl implements UsersService {
             }
         }
         return number;
+    }
+
+    @Override
+    public Long updateUserInfo(TableUsersDomain usersDomain) {
+        Long num = null;
+        if (usersDomain.getId() != null) {
+            //get thong tin user dc luu trong database
+            TableUsersDomain userInfo = userRepo.findByIdAndIsRoleAndIsActive(usersDomain.getId(), Constants.ROLE.USER_NORMAL, Constants.STATUS.ACTIVE);
+            if (userInfo != null) {
+                if (!(userInfo.getUserName()).equals(usersDomain.getUserName())) {
+                    num = 1L; // dang co gang sua doi de lieu goc - username khac voi username cap nhat
+                } else {
+                    List<TableUsersDomain> lstUsers = userRepo.findByIsActive(Constants.STATUS.ACTIVE);
+
+                    // check email da duoc dang ky
+                    TableUsersDomain checkEmail = lstUsers.stream().filter(d -> (d.getEmail()).equals(usersDomain.getEmail())).findAny().orElse(null);
+                    if (checkEmail != null && !(checkEmail.getEmail()).equals(userInfo.getEmail())) {
+                        num = 2L; // email da bi trung
+                        return num;
+                    }
+                    //check so CNMD/CCCD da duoc dang ky
+                    TableUsersDomain checkCmnd = lstUsers.stream().filter(d -> (d.getSoCmnd()).equals(usersDomain.getSoCmnd())).findAny().orElse(null);
+                    if (checkCmnd != null && !(checkCmnd.getSoCmnd()).equals(userInfo.getSoCmnd())) {
+                        num = 3L; // so cmnd da dc dang ki
+                        return num;
+                    }
+
+                    //set lai cac gia tri co the dc thay doi truyen vao tu frontend
+                    userInfo.setFirstName(usersDomain.getFirstName());
+                    userInfo.setLastName(usersDomain.getLastName());
+                    userInfo.setPosition(usersDomain.getPosition());
+                    userInfo.setBirthday(usersDomain.getBirthday());
+                    userInfo.setAddress(usersDomain.getAddress());
+                    userInfo.setPhone(usersDomain.getPhone());
+                    userInfo.setEmail(usersDomain.getEmail());
+                    userInfo.setSoCmnd(usersDomain.getSoCmnd());
+                    userInfo.setDateUpdated(new Date());// set ngay cap nhat
+                    userRepo.save(userInfo); // luu lai thong tin user
+                    num = 0L; // luu thong tin thanh cong;
+                }
+            } else {
+                num = 1L; // dang co sua doi du lieu goc - khong ton tai tai khoan user binh thuong
+            }
+        } else {
+            num = 1L; // khong phai chinh sua thong tin, ma la dang co gang them moi du lieu
+        }
+        return num;
+    }
+
+    @Override
+    public TableUsersDomain getUserById(Long idUser) {
+        return userRepo.findByIdAndIsActive(idUser, Constants.STATUS.ACTIVE);
+    }
+
+    @Override
+    public Long replacePasswordApi(Long id, String password, String newPassword) {
+        Long num = null;
+        // get thong tin nguoi dung tu database
+        TableUsersDomain userInfo = userRepo.findByIdAndIsRoleAndIsActive(id, Constants.ROLE.USER_NORMAL, Constants.STATUS.ACTIVE);
+        if (userInfo != null) {
+            if (cryptPassword.matches(password, userInfo.getPassWord())) {
+                userInfo.setPassWord(cryptPassword.encode(newPassword)); // set lai password moi
+                userInfo.setDateUpdated(new Date());
+                userRepo.save(userInfo); // luu lai thong tin
+                num = 0L; // cap nhat mat khau thanh cong
+            } else {
+                num = 2L; // mat khau cu khong trung khop
+            }
+        } else {
+            num = 1L; // khong ton tai tai khoan cua user binh thuong nay
+        }
+        return num;
     }
 }

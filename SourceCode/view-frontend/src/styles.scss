@@ -1,10 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 // @author HuongMk
-// .form-group {
-  // font-size: 18px !important;
-  // float: left;
-  // width: 100%;
-// }
 .resize-vertical {
   resize: vertical;
 }
@@ -57,6 +52,7 @@
 .msg-invalid {
   font-size: 12px;
   color: red;
+  top: -2px !important;
 }
 
 // custome css for select2
@@ -568,11 +564,9 @@
     background: transparent !important;
     border: none !important;
     position: absolute !important;
-    top: 4px !important;
+    top: 5px !important;
     right: 0 !important;
     z-index: 999 !important;
-
-
 }
 .btn:focus{
     outline: dotted 0px !important;
@@ -718,4 +712,7 @@
   100% {
     transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
   }
+}
+.input-group{
+  width: 100%;
 }

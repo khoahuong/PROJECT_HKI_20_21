@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/common/api/api.service';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
 import { CONSTANT } from 'src/app/common/constant/constant';
+import { UserInfoComponent } from '../user-info/user-info.component';
 
 @Component({
   selector: 'app-regis-index',
@@ -20,18 +22,23 @@ export class RegisIndexComponent implements OnInit {
   userLogin: any;
 
   // khai báo biến cho phân trang
-  totalRecord:number = 0;
-  maxPageView:number = CONSTANT.PAGE.SIZE5;
-  page:number = 1;
-  size:number = CONSTANT.PAGE.SIZE10;// so ban ghi tren 1 trang
+  totalRecord: number = 0;
+  maxPageView: number = CONSTANT.PAGE.SIZE5;
+  page: number = 1;
+  size: number = CONSTANT.PAGE.SIZE10;// so ban ghi tren 1 trang
 
   lstRecord: any = [];
+
+  bsModalRef: BsModalRef;
+
+  userInfoView: any = {};
 
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
     private toast: ToastrService,
-    private router: Router
+    private router: Router,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +46,7 @@ export class RegisIndexComponent implements OnInit {
     this.buildForm();
     this.searchDataRegis(null);
     this.getStatus();
+    this.getUserInfo(this.userLogin.id);
   }
 
   /**
@@ -55,7 +63,7 @@ export class RegisIndexComponent implements OnInit {
 
   /**
    * hàm tìm kiếm hồ sơ
-   * @param event
+   * @param item
    */
   searchDataRegis(item: any): void {
 
@@ -99,7 +107,34 @@ export class RegisIndexComponent implements OnInit {
   /**
    * View thông tin cá nhân
    */
-  viewInfo(): void {
+  viewInfo(num: number): void {
+    const initialState = {
+      idForm: num,
+      infoUser: this.userInfoView,
+      title: num == 1 ? "Thông tin cá nhân" : "Đổi mật khẩu"
+    };
 
+    let sizeModal: string = num == 1 ? "modal-lg" : "";
+
+    this.bsModalRef = this.modalService.show(UserInfoComponent, { initialState, class: sizeModal });
+    this.bsModalRef.content.event.subscribe(result => {
+      if (result === "OK") {
+        this.getUserInfo(this.userLogin.id);
+        this.searchDataRegis(null);
+      }
+    });
   }
+
+  /**
+   * get thong tin tai khoan tu database
+   * @param id
+   */
+  getUserInfo(id: number) {
+    this.api.getDataToken(API_CONSTANT.API_USER.GET_USER_BY_ID, { idUser: id }).subscribe(data => {
+      this.userInfoView = data.data;
+    }, error => {
+
+    });
+  }
+
 }

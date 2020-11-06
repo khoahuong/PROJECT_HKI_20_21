@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit {
 
   emailRegis: String = "";
 
+  textTypePass: boolean;
+  textTypeRePass: boolean;
+
   constructor(
     private authService: AuthenticationService,
     private router: Router,
@@ -220,5 +223,12 @@ export class LoginComponent implements OnInit {
       this.toast.error('Lỗi', 'Hệ thống đang có lỗi, vui lòng thử lại sau.');
       this.loading = false;
     })
+  }
+
+  toggleTextTypePass() {
+    this.textTypePass = !this.textTypePass;
+  }
+  toggleTextTypeRePass() {
+    this.textTypeRePass = !this.textTypeRePass;
   }
 }

@@ -9,7 +9,7 @@
     position: fixed;
 }
 .login-box {
-    width: 22%;
+    width: 360px;
     // height: 60%;
     margin: 0 auto;
 }
@@ -64,4 +64,12 @@ input[type=text], input[type=password] {
 
 #doimatkhauform {
   display: none;
+}
+.quenmk{
+  text-align: right !important;
+  position: relative !important;
+}
+.margin-show-hide-pass {
+  right: 7px !important;
+  top: 9px !important;
 }

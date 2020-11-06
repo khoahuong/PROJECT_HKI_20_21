@@ -14,14 +14,17 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
+import { ConfirmPopupComponent } from './common/confirm-popup/confirm-popup.component';
+import { UppercaseDirective } from './common/ulti/stringUppercase/upper.directive';
 import { LoginComponent } from './login/login.component';
 import { CreateUserComponent } from './view/create-user/create-user.component';
 import { FooterComponent } from './view/footer/footer.component';
 import { HeaderComponent } from './view/header/header.component';
-import { RegisIndexComponent } from './view/regis-index/regis-index.component';
 import { RegisEditComponent } from './view/regis-edit/regis-edit.component';
-import { UppercaseDirective } from './common/ulti/stringUppercase/upper.directive';
+import { RegisIndexComponent } from './view/regis-index/regis-index.component';
 import { UserInfoComponent } from './view/user-info/user-info.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NotiPopupComponent } from './common/noti-popup/noti-popup.component';
 
 
 @NgModule({
@@ -35,7 +38,9 @@ import { UserInfoComponent } from './view/user-info/user-info.component';
     CreateUserComponent,
     RegisEditComponent,
     UppercaseDirective,
-    UserInfoComponent
+    UserInfoComponent,
+    ConfirmPopupComponent,
+    NotiPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -56,10 +61,16 @@ import { UserInfoComponent } from './view/user-info/user-info.component';
       }
     }),
     BrowserAnimationsModule,
-    NgxTrimDirectiveModule
+    NgxTrimDirectiveModule,
+    NgbModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ConfirmPopupComponent,
+    UserInfoComponent,
+    NotiPopupComponent
+  ]
 })
 export class AppModule { }
 

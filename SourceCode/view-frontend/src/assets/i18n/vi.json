@@ -23,7 +23,9 @@
       "delete":"Xóa",
       "close":"Đóng",
       "confirm":"Xác nhận",
-      "back":"Trở lại"
+      "back":"Trở lại",
+      "edit":"Chỉnh sửa",
+      "update":"Cập nhật"
     },
     "invalid":"Thông tin bắt buộc nhập",
     "valid_email":"Email không đúng định dạng",
@@ -43,6 +45,7 @@
     "reNewPass":"Nhập lại mật khẩu mới",
     "confirmCode":"Mã xác nhận",
     "placeholder":{
+      "password":"Nhập vào mật khẩu",
       "newPassword":"Nhập vào mật khẩu mới",
       "confirmCode":"Nhập vào mã xác nhận"
     },
@@ -60,7 +63,7 @@
       "placeholder":{
         "fileCode":"Nhập vào mã hồ sơ",
         "selectAll":"---Tất cả---",
-        "date":"dd/mm/yyyy"
+        "date":"dd/MM/yyyy"
       }
     }
   },
@@ -86,7 +89,7 @@
       "firstName":"Nhập vào họ",
       "lastName":"Nhập vào tên",
       "position":"Nhập vào nghề nghiệp",
-      "birthday":"dd/mm/yyyy",
+      "birthday":"dd/MM/yyyy",
       "address":"Nhập vào địa chỉ",
       "phone":"Nhập vào số điện thoại",
       "email":"Nhập vào email"

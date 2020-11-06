@@ -13,6 +13,9 @@ export class API_CONSTANT {
     INFO: "api/users/getUserInfo",
     GET_CODE_CONFIRM: "users/getCodeConfirm",
     RE_PASSWORD: "users/rePassword",
+    UPDATE_USER: "api/users/updateUser",
+    GET_USER_BY_ID: "api/users/getUserById",
+    API_RE_PASS: "api/users/rePassword",
     SEARCH: "api/users/searchUsersAdmin"
   };
 

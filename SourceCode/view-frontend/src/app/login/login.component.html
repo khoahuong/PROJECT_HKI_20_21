@@ -34,11 +34,11 @@
           <div class="form-group row">
             <div class="col-md-12">
               <div class="d-flex no-block align-items-center">
-                <div class="custom-control">
+                <div class="custom-control col-md-6">
                   <a id="to-regis" class="text-muted" (click)="createUser()"><i class="fa fa-plus-square"></i>
                     {{'login.registration' | translate}}</a>
                 </div>
-                <div class="ml-auto">
+                <div class="col-md-6 quenmk">
                   <a id="to-recover" class="text-muted" (click)="forgotPass()"><i class="fa fa-refresh"></i>
                     {{'login.forgetPass' | translate}}</a>
                 </div>
@@ -97,10 +97,18 @@
           <div class="form-group">
             <div class="col-xs-12">
               <label>{{'login.newPassword' | translate}}</label>
-              <input type="password" class="form-control" formControlName="newPassword"
-                placeholder="{{'login.placeholder.newPassword' | translate}}"
-                [ngClass]="{ 'is-invalid': subRepass && fpass.newPassword.errors }" trim="blur" maxlength="512"
-                (change)="checkPassword()">
+              <div class="input-group">
+                <input [type]="textTypePass ? 'text' : 'password'" class="form-control" formControlName="newPassword"
+                  placeholder="{{'login.placeholder.newPassword' | translate}}"
+                  [ngClass]="{ 'is-invalid': subRepass && fpass.newPassword.errors }" trim="blur" maxlength="512"
+                  (change)="checkPassword()">
+                <div class="input-group-append">
+                  <span class="input-group-text input-group-custome margin-show-hide-pass">
+                    <i class="fa" [ngClass]="{ 'fa-eye-slash': !textTypePass, 'fa-eye': textTypePass }"
+                      (click)="toggleTextTypePass()"></i>
+                  </span>
+                </div>
+              </div>
               <div *ngIf="subRepass && fpass.newPassword.errors">
                 <span class="msg-invalid"
                   *ngIf="fpass.newPassword.errors.required">{{'common.invalid' | translate}}</span>
@@ -108,10 +116,18 @@
             </div>
             <div class="col-xs-12">
               <label>{{'login.reNewPass' | translate}}</label>
-              <input type="password" class="form-control" formControlName="reNewPassword"
-                placeholder="{{'login.reNewPass' | translate}}"
-                [ngClass]="{ 'is-invalid': subRepass && fpass.reNewPassword.errors }" trim="blur" maxlength="512"
-                (change)="checkPassword()">
+              <div class="input-group">
+                <input [type]="textTypeRePass ? 'text' : 'password'" class="form-control"
+                  formControlName="reNewPassword" placeholder="{{'login.reNewPass' | translate}}"
+                  [ngClass]="{ 'is-invalid': subRepass && fpass.reNewPassword.errors }" trim="blur" maxlength="512"
+                  (change)="checkPassword()">
+                <div class="input-group-append">
+                  <span class="input-group-text input-group-custome margin-show-hide-pass">
+                    <i class="fa" [ngClass]="{ 'fa-eye-slash': !textTypeRePass, 'fa-eye': textTypeRePass }"
+                      (click)="toggleTextTypeRePass()"></i>
+                  </span>
+                </div>
+              </div>
               <div *ngIf="subRepass && fpass.reNewPassword.errors">
                 <span class="msg-invalid"
                   *ngIf="fpass.reNewPassword.errors.required">{{'common.invalid' | translate}}</span>

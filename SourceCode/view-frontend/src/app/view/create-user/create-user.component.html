@@ -48,19 +48,24 @@
                   <span class="msg-invalid" *ngIf="f.userName.errors.required">{{'common.invalid' | translate}}</span>
                   <span class="msg-invalid" *ngIf="f.userName.errors.maxlength">Không được nhập quá 50 ký tự</span>
                 </div>
-                <!-- <div *ngIf="submitted && isExitUsername">
-                  <span class="msg-invalid">Tên đăng nhập đã tồn tại</span>
-                </div> -->
               </div>
               <label class="col-md-2 lbl-custome">
                 {{'createUser.password' | translate}}
                 <sup class="msg-invalid">(*)</sup>
               </label>
               <div class="col-md-4">
-                <input type="password" class="form-control" formControlName="passWord"
-                  [ngClass]="{ 'is-invalid': submitted && f.passWord.errors }"
-                  placeholder="{{'createUser.placeholder.password' | translate}}" trim="blur" maxlength="512"
-                  (change)="checkPassword()">
+                <div class="input-group">
+                  <input [type]="textTypePass ? 'text' : 'password'" class="form-control" formControlName="passWord"
+                    [ngClass]="{ 'is-invalid': submitted && f.passWord.errors }"
+                    placeholder="{{'createUser.placeholder.password' | translate}}" trim="blur" maxlength="512"
+                    (change)="checkPassword()">
+                  <div class="input-group-append">
+                    <span class="input-group-text input-group-custome margin-show-hide-pass">
+                      <i class="fa" [ngClass]="{ 'fa-eye-slash': !textTypePass, 'fa-eye': textTypePass }"
+                        (click)="toggleTextTypePass()"></i>
+                    </span>
+                  </div>
+                </div>
                 <div *ngIf="submitted && f.passWord.errors">
                   <span class="msg-invalid" *ngIf="f.passWord.errors.required">{{'common.invalid' | translate}}</span>
                 </div>
@@ -72,14 +77,23 @@
                 <sup class="msg-invalid">(*)</sup>
               </label>
               <div class="col-md-4">
-                <input type="password" class="form-control" formControlName="rePassWord"
-                  [ngClass]="{ 'is-invalid': submitted && f.rePassWord.errors }"
-                  placeholder="{{'createUser.placeholder.rePassword' | translate}}" trim="blur" maxlength="512"
-                  (change)="checkPassword()">
+                <div class="input-group">
+                  <input [type]="textTypeRePass ? 'text' : 'password'" class="form-control" formControlName="rePassWord"
+                    [ngClass]="{ 'is-invalid': submitted && f.rePassWord.errors }"
+                    placeholder="{{'createUser.placeholder.rePassword' | translate}}" trim="blur" maxlength="512"
+                    (change)="checkPassword()">
+                  <div class="input-group-append">
+                    <span class="input-group-text input-group-custome margin-show-hide-pass">
+                      <i class="fa" [ngClass]="{ 'fa-eye-slash': !textTypeRePass, 'fa-eye': textTypeRePass }"
+                        (click)="toggleTextTypeRePass()"></i>
+                    </span>
+                  </div>
+                </div>
                 <div *ngIf="submitted && f.rePassWord.errors">
                   <span class="msg-invalid" *ngIf="f.rePassWord.errors.required">{{'common.invalid' | translate}}</span>
                 </div>
-                <span class="msg-invalid" style="display: none;" id="errorCheckRepass">{{'createUser.notDuplicate' | translate}}</span>
+                <span class="msg-invalid" style="display: none;"
+                  id="errorCheckRepass">{{'createUser.notDuplicate' | translate}}</span>
               </div>
               <label class="col-md-2 lbl-custome">
                 {{'createUser.idUser' | translate}}
@@ -198,12 +212,12 @@
               </div>
             </div>
 
-            <div class="form-group text-center frm-buttom">
-              <button type="submit" class="btn btn-success mr-2" (click)="clickRegis()">
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-success" (click)="clickRegis()">
                 <i class="fa fa-pencil-square-o"></i>
                 {{'pro.regis' | translate}}
-              </button>
-              <button class="btn btn-primary" (click)="clickBack()">
+              </button>&nbsp;
+              <button type="button" class="btn btn-primary" (click)="clickBack()">
                 <i class="fa fa-backward"></i>
                 {{'common.btn.back' | translate}}
               </button>

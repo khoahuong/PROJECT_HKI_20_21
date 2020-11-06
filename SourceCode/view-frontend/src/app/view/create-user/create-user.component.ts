@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/common/api/api.service';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
+import { AppService } from 'src/app/common/services/app.service';
 declare var $: any;
 
 @Component({
@@ -19,12 +20,16 @@ export class CreateUserComponent implements OnInit {
 
   createUserForm: FormGroup;
 
+  textTypePass: boolean;
+  textTypeRePass: boolean;
+
   constructor(
     private fb: FormBuilder,
     private location: Location,
     private toastr: ToastrService,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private app: AppService
   ) { }
 
   ngOnInit(): void {
@@ -134,19 +139,30 @@ export class CreateUserComponent implements OnInit {
         this.router.navigate(['/login']);
       } else if (data.data === 2) {
         this.toastr.warning('Cảnh báo', 'Tên đăng nhập đã được sử dụng');
+        this.app.popupAlert('Thông báo', 'Tên đăng nhập đã được sử dụng.');
         return;
       } else if (data.data === 3) {
         this.toastr.warning('Cảnh báo', 'Email đăng ký đã được sử dụng cho tài khoản khác. Vui lòng nhập email khác.');
+        this.app.popupAlert('Thông báo', 'Email đăng ký đã được sử dụng cho tài khoản khác. Vui lòng nhập email khác.');
         return;
       } else if (data.data === 4) {
         this.toastr.warning('Cảnh báo', 'Số CMND/CCCD của bạn đã được sử dụng để đăng ký tài khoản.');
+        this.app.popupAlert('Thông báo', 'Số CMND/CCCD của bạn đã được sử dụng để đăng ký tài khoản.');
         return;
       } else {
         this.toastr.error('Lỗi', 'Tạo tài khoản không thành công.');
+        return;
       }
     }, error => {
       this.toastr.error('Lỗi', 'Hệ thống đang có lỗi, vui lòng thử lại sau.');
       this.loading = false;
     })
+  }
+
+  toggleTextTypePass() {
+    this.textTypePass = !this.textTypePass;
+  }
+  toggleTextTypeRePass() {
+    this.textTypeRePass = !this.textTypeRePass;
   }
 }

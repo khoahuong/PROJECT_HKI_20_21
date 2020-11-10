@@ -59,6 +59,9 @@ public class TableRegisDomain {
     @Column(name = "NGAY_SINH")
     @Temporal(TemporalType.DATE)
     private Date ngaySinh;
+    @Size(max = 255)
+    @Column(name = "MA_NOISINH")
+    private String maNoisinh;
     @Size(max = 512)
     @Column(name = "NOI_SINH")
     private String noiSinh;
@@ -296,6 +299,14 @@ public class TableRegisDomain {
 
     public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
+    }
+
+    public String getMaNoisinh() {
+        return maNoisinh;
+    }
+
+    public void setMaNoisinh(String maNoisinh) {
+        this.maNoisinh = maNoisinh;
     }
 
     public String getNoiSinh() {

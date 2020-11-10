@@ -20,6 +20,8 @@ export class API_CONSTANT {
   };
 
   public static STATUS = {
-    GET_DATA_STATUS: "api/danhmuc/trangthai"
+    GET_DATA_STATUS: "api/danhmuc/trangthai",
+    GET_DATA_PROVINCE: "api/danhmuc/tinhthanh",
+    GET_DATA_DISTRICT: "api/danhmuc/quanhuyen"
   }
 }

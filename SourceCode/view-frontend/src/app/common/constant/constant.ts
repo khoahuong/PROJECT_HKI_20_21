@@ -4,6 +4,11 @@ export class CONSTANT {
     { id: 1, name: "Hoạt động" }
   ];
 
+  public static GENDER = [
+    { id: 0, name: "Nam" },
+    { id: 1, name: "Nữ" }
+  ]
+
   public static PAGE = {
     SIZE5: 5,
     SIZE10: 10

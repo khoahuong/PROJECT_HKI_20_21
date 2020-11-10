@@ -25,19 +25,124 @@
                   <div class="form-group row">
                     <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.fileCode' | translate}}</label>
                     <div class="col-md-4">
-                      <input type="text" class="form-control" placeholder="Mã hồ sơ" formControlName="maHoso" disabled>
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.fileCode' | translate}}" formControlName="maHoso"
+                        trim="blur" disabled>
                     </div>
                     <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.status' | translate}}</label>
                     <div class="col-md-4">
-                      <input type="text" class="form-control" placeholder="Trạng thái hồ sơ"
-                        formControlName="tenTrangthai" disabled>
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.status' | translate}}" formControlName="tenTrangthai"
+                        disabled trim="blur">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.createDate' | translate}}</label>
                     <div class="col-md-4">
-                      <input type="text" class="form-control datepicker" placeholder="dd/MM/yyyy" bsDatepicker
+                      <input type="text" class="form-control datepicker"
+                        placeholder="{{'editRegis.personInfo.placeholder.date' | translate}}" bsDatepicker
                         #dpFrom="bsDatepicker" formControlName="ngayTao" disabled>
+                    </div>
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.sendDate' | translate}}</label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control datepicker"
+                        placeholder="{{'editRegis.personInfo.placeholder.date' | translate}}" bsDatepicker
+                        #dpFrom="bsDatepicker" formControlName="ngayGui" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.name' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.placeholder.name' | translate}}"
+                        formControlName="hotenThisinh" trim="blur" maxlength="255">
+                    </div>
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.gender' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <select class="form-control selectpicker" formControlName="maGioitinh"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option *ngFor="let gen of lstGender" [ngValue]="gen.id">{{gen.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.birthday' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <input type="text" class="form-control datepicker"
+                          placeholder="{{'createUser.placeholder.birthday' | translate}}" bsDatepicker
+                          #dpFrom="bsDatepicker" formControlName="ngaySinh">
+                        <div class="input-group-append">
+                          <button class="waves-effect waves-light input-group-text input-group-custome"
+                            (click)="dpFrom.show()">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.addressBorn' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <select class="form-control selectpicker" formControlName="maNoisinh"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option *ngFor="let born of lstProvince" [ngValue]="born.id">{{born.provinceName}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.nation' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.placeholder.nation' | translate}}" formControlName="danToc"
+                        trim="blur" maxlength="255">
+                    </div>
+                    <label class="col-md-2 lbl-custome"></label>
+                    <div class="col-md-4 right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="isNational" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.nationality' | translate}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.idCard' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control text-right"
+                        placeholder="{{'editRegis.personInfo.placeholder.idCard' | translate}}" formControlName="soCmnd"
+                        trim="blur" maxlength="15">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome" style="color: indianred; font-size: 17px;">Hộ khẩu thường
+                      trú</label>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.province' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <select class="form-control selectpicker" id="col1" formControlName="maTinhthanhTt"
+                        (change)="getDistrictHKTT()" data-none-results-text="Không tìm thấy kết quả"
+                        data-live-search="true">
+                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option *ngFor="let pro of lstProvince" [ngValue]="pro.id">{{pro.provinceName}}
+                        </option>
+                      </select>
+                    </div>
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.district' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <select class="form-control selectpicker" id="val1" formControlName="maQuanhuyenTt"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option *ngFor="let dist of lstDistrict" [ngValue]="dist.id">{{dist.districtName}}
+                        </option>
+                      </select>
                     </div>
                   </div>
                 </form>

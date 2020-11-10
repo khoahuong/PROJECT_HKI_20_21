@@ -98,16 +98,27 @@
   },
   "editRegis": {
     "personInfo": {
+      "placeholder":{
+        "date":"dd/MM/yyyy",
+        "name":"Nhập vào họ tên đầy đủ",
+        "nation":"Nhập vào dân tộc",
+        "idCard":"Nhập vào số CMND/ thẻ CCCD"
+      },
       "title":"Thông tin chung",
       "fileCode":"Mã hồ sơ",
       "status":"Trạng thái hồ sơ",
       "createDate":"Ngày tạo",
+      "sendDate":"Ngày gửi",
       "name":"Họ và tên thí sinh",
       "gender":"Giới tính",
       "birthday":"Ngày sinh",
       "addressBorn":"Nơi sinh",
       "nation":"Dân tộc",
-      "nationality":"Quốc tịch"
+      "nationality":"Quốc tịch nước ngoài",
+      "idCard":"Số CMND/ Thẻ CCCD",
+      "province":"Tỉnh, thành phố",
+      "district":"Quận, huyện",
+      "ward":"Xã, phường"
     }
   }
 }

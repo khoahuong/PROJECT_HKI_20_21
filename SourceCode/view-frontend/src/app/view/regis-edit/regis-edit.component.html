@@ -113,22 +113,45 @@
                     <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.idCard' | translate}}<sup
                         class="msg-invalid">(*)</sup></label>
                     <div class="col-md-4">
-                      <input type="text" class="form-control text-right"
+                      <input type="text" class="form-control"
                         placeholder="{{'editRegis.personInfo.placeholder.idCard' | translate}}" formControlName="soCmnd"
                         trim="blur" maxlength="15">
                     </div>
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.phone' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.placeholder.phone' | translate}}"
+                        formControlName="sdtThisinh" trim="blur" maxlength="50">
+                    </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-md-2 lbl-custome" style="color: indianred; font-size: 17px;">Hộ khẩu thường
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.email' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.placeholder.email' | translate}}"
+                        formControlName="emailThisinh" trim="blur" maxlength="100">
+                    </div>
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.infoContact' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.placeholder.infoContact' | translate}}"
+                        formControlName="thongtinLienhe" trim="blur" maxlength="512">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome" style="color: indianred; font-size: 16px;">Hộ khẩu thường
                       trú</label>
                   </div>
                   <div class="form-group row">
                     <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.province' | translate}}<sup
                         class="msg-invalid">(*)</sup></label>
                     <div class="col-md-4">
-                      <select class="form-control selectpicker" id="col1" formControlName="maTinhthanhTt"
+                      <select class="form-control selectpicker" formControlName="maTinhthanhTt"
                         (change)="getDistrictHKTT()" data-none-results-text="Không tìm thấy kết quả"
-                        data-live-search="true">
+                        data-live-search="true" data-live-search-add="true">
                         <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
                         <option *ngFor="let pro of lstProvince" [ngValue]="pro.id">{{pro.provinceName}}
                         </option>
@@ -137,15 +160,372 @@
                     <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.district' | translate}}<sup
                         class="msg-invalid">(*)</sup></label>
                     <div class="col-md-4">
-                      <select class="form-control selectpicker" id="val1" formControlName="maQuanhuyenTt"
-                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                      <select class="form-control selectpicker" formControlName="maQuanhuyenTt"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true"
+                        data-live-search-add="true" (change)="getWardHKTT()">
                         <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
                         <option *ngFor="let dist of lstDistrict" [ngValue]="dist.id">{{dist.districtName}}
                         </option>
                       </select>
                     </div>
                   </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.ward' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <select class="form-control selectpicker" formControlName="maXaphuongTt"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true"
+                        data-live-search-add="true" (change)="getWardHKTTKhac()">
+                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option *ngFor="let w of lstWard" [ngValue]="w.id">{{w.wardsName}}
+                        </option>
+                        <!-- <option value="6578">Xã, phường, thị trấn khác</option> -->
+                      </select>
+                    </div>
+                    <label class="col-md-2 lbl-custome"
+                      [hidden]="isShowXaphuong">{{'editRegis.personInfo.otherWard' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4" [hidden]="isShowXaphuong">
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.placeholder.ward' | translate}}"
+                        formControlName="tenXaphuongTtKhac" trim="blur" maxlength="255">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome"></label>
+                    <div class="col-md-4 right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="hkttKvi" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.18monthsKvI' | translate}}</label>
+                    </div>
+                    <label class="col-md-2 lbl-custome"></label>
+                    <div class="col-md-4 right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="hkttDbkk" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.18monthsDbkk' | translate}}</label>
+                    </div>
+                  </div>
                 </form>
+                <div class="form-group row">
+                  <label class="col-md-2 lbl-custome" style="color: indianred; font-size: 16px;">
+                    Nơi học THPT
+                  </label>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <!-- <div class="table-responsive"> -->
+                    <table class="table table-bordered table-hover table-custome">
+                      <thead>
+                        <tr>
+                          <td class="text-center" style="width: 1%;">STT</td>
+                          <td class="text-center" style="width: 15%;">Tên lớp</td>
+                          <td class="text-center" style="width: 19%;">Thí sinh</td>
+                          <td class="text-center" style="width: 20%;">Tỉnh, thành phố</td>
+                          <td class="text-center" style="width: 20%;">Quận, huyện</td>
+                          <td class="text-center" style="width: 25%;">Trường THPT</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of lstShool; index as i; first as first">
+                          <td class="text-center" style="vertical-align: middle;width: 1%">{{i+1}}</td>
+                          <td>
+                            <span>{{item.tenKhoilop}}</span>
+                          </td>
+                          <td>
+                            <select class="form-control selectpicker" [(ngModel)]="item.loaiThisinh"
+                              data-none-results-text="Không tìm thấy kết quả" data-live-search="true"
+                              (ngModelChange)="selectLoaiThisinh(item, i+1)">
+                              <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                              <option *ngFor="let pro of lstKieuthisinh" [ngValue]="pro.id">{{pro.name}}
+                              </option>
+                            </select>
+                          </td>
+                          <td>
+                            <div>
+                              <select class="form-control selectpicker" [(ngModel)]="item.idTinh"
+                                data-none-results-text="Không tìm thấy kết quả" data-live-search="true"
+                                (ngModelChange)="getHuyenTHPT(item)">
+                                <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                                <option *ngFor="let pro of lstProvince" [ngValue]="pro.id">{{pro.provinceName}}
+                                </option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <div [attr.id]="'huyenlb_' + (i+1)" style="display: none;">
+                              <select class="form-control selectpicker" [(ngModel)]="item.idHuyen"
+                                data-none-results-text="Không tìm thấy kết quả" data-live-search="true"
+                                (ngModelChange)="getTHPT(item)">
+                                <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                                <option *ngFor="let dist of item.lstHuyen" [ngValue]="dist.id">{{dist.districtName}}
+                                </option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <div [attr.id]="'thptlb_' + (i+1)" style="display: none;">
+                              <select class="form-control selectpicker" [(ngModel)]="item.idThpt"
+                                data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                                <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                                <option *ngFor="let dist of item.lstThpt" [ngValue]="dist.id">{{dist.schoolName}}
+                                </option>
+                              </select>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- </div> -->
+                  </div>
+                </div>
+                <form class="form-horizontal m-t-30" novalidate [formGroup]="editForm">
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.nameClass12' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.placeholder.nameClass12' | translate}}"
+                        formControlName="tenLop12" trim="blur" maxlength="255">
+                    </div>
+                  </div>
+                  <legend style="color: dodgerblue;"><b>{{'editRegis.personInfo.title2' | translate}}</b></legend>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome"></label>
+                    <div class="col-md-4 right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="xettuyenDhcd" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.xettuyen' | translate}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.chuongtrinhhoc' | translate}}</label>
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-4">
+                      <input type="radio" formControlName="chuongtrinhHocthisinh" value="0" />&nbsp;&nbsp;THPT
+                    </div>
+                    <div class="col-md-4">
+                      <input type="radio" formControlName="chuongtrinhHocthisinh" value="1" />&nbsp;&nbsp;GDTX
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.thisinhtudo' | translate}}</label>
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-4">
+                      <input type="radio" formControlName="thisinhTudoTn" value="0" />&nbsp;&nbsp;Chưa tốt nghiệp THPT
+                    </div>
+                    <div class="col-md-4">
+                      <input type="radio" formControlName="thisinhTudoTn" value="1" />&nbsp;&nbsp;Đã tốt nghiệp THPT
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.hoidongthi' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <select class="form-control selectpicker" formControlName="maSoGddt"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option *ngFor="let pro of lstSoGddt" [ngValue]="pro.id">{{pro.tenSoGddt}}
+                        </option>
+                      </select>
+                    </div>
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.noiDkdt' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.placeholder.noiDkdt' | translate}}"
+                        formControlName="tenNoiDkdt" trim="blur" maxlength="255">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.maNoiDkdt' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.placeholder.maNoiDkdt' | translate}}"
+                        formControlName="maNoiDkdt" trim="blur" maxlength="50">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome" style="color: indianred; font-size: 16px;">Đăng ký bài
+                      thi</label>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-2 text-right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="monToan" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.math' | translate}}</label>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="monNguvan" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.litr' | translate}}</label>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <input type="checkbox" class="form-check-input" (change)="clickSelectLang($event)"
+                        formControlName="monNgoaingu" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.lang' | translate}}</label>
+                    </div>
+                    <div class="col-md-2" [hidden]="isShowMonNgoaingu">
+                      <select class="form-control selectpicker" formControlName="monNgoainguChitiet"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true"
+                        tooltip="Lựa chọn môn thi ngoại ngữ">
+                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option *ngFor="let pro of lstMonNgoaingu" [ngValue]="pro.code">{{pro.name}}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="monKhtn" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.khtn' | translate}}</label>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="monKhxh" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.khxh' | translate}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome" style="color: indianred; font-size: 16px;">Đăng ký môn thi thành
+                      phần</label>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-2 text-right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="monVatly" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.phys' | translate}}</label>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="monHoahoc" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.chemis' | translate}}</label>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="monSinhhoc" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.bio' | translate}}</label>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="monLichsu" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.his' | translate}}</label>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="monDialy" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.geo' | translate}}</label>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <input type="checkbox" class="form-check-input"
+                        formControlName="monGdcd" />&nbsp;&nbsp;<label>{{'editRegis.personInfo.gdcd' | translate}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.chungchiNN' | translate}}</label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.placeholder.chungchiNN' | translate}}"
+                        formControlName="chungchiNgoaingu" trim="blur" maxlength="255">
+                    </div>
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.diemthichungchi' | translate}}</label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control"
+                        placeholder="{{'editRegis.personInfo.placeholder.diemthichungchi' | translate}}"
+                        formControlName="diemthiChungchiNn" trim="blur" maxlength="30">
+                    </div>
+                  </div>
+                </form>
+                <legend style="color: dodgerblue;"><b>{{'editRegis.personInfo.title3' | translate}}</b></legend>
+                <div class="form-group row">
+                  <label class="col-md-3 lbl-custome" style="color: indianred; font-size: 16px;">Bài / môn thi xin bảo
+                    lưu
+                    &nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary" (click)="addMonhocBaoluuDiem()" tooltip="Thêm mới">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </label>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <table class="table table-bordered table-hover table-custome">
+                      <thead>
+                        <tr>
+                          <td class="text-center" style="width: 1%;">STT</td>
+                          <td class="text-center" style="width: 35%;">Bài / môn thi xin bảo lưu</td>
+                          <td class="text-center" style="width: 20%;">Điểm thi</td>
+                          <td class="text-center" style="width: 5%;">Chức năng</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of lstMonhocXtn; index as i; first as first">
+                          <td class="text-center" style="vertical-align: middle;width: 1%">{{i+1}}</td>
+                          <td>
+                            <select class="form-control selectpicker" [(ngModel)]="item.maMonthi"
+                              data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                              <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                              <option *ngFor="let pro of lstMonhocBaoluu" [ngValue]="pro.id">{{pro.tenMonthi}}
+                              </option>
+                            </select>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" placeholder="Nhập vào điểm bài /môn thi bảo lưu"
+                              [(ngModel)]="item.diemMonthi">
+                          </td>
+                          <td>
+                            <ul class="nav list-inline text-center action-search">
+                              <li><a (click)="deleted(item)" tooltip="Xóa"><i class="fa fa-trash-o"
+                                    aria-hidden="true"></i></a></li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <form class="form-horizontal m-t-30" novalidate [formGroup]="editForm">
+                  <legend style="color: dodgerblue;"><b>{{'editRegis.personInfo.title4' | translate}}</b></legend>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.doituonguutien' | translate}}</label>
+                    <div class="col-md-4">
+                      <select class="form-control selectpicker" formControlName="maDtUutien"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option *ngFor="let w of lstDoituongUutien" [ngValue]="w.id">{{w.tenDoituong}}
+                        </option>
+                      </select>
+                    </div>
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.khuvucts' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <select class="form-control selectpicker" formControlName="maKhuvucTs"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option *ngFor="let w of lstKhuvucTs" [ngValue]="w.id">{{w.tenKhuvuc}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.namtotnghiep' | translate}}<sup
+                        class="msg-invalid">(*)</sup></label>
+                    <div class="col-md-4">
+                      <select class="form-control selectpicker" formControlName="namTotnghiep"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true"
+                        tooltip="Lựa chọn năm tốt nghiệp THPT">
+                        <option value="">{{'home.search.placeholder.selected' | translate}}</option>
+                        <option *ngFor="let w of lstYear" [ngValue]="w.value">{{w.value}}
+                        </option>
+                      </select>
+                    </div>
+                    <label class="col-md-2 lbl-custome">{{'editRegis.personInfo.xettuyenlienthong' | translate}}</label>
+                    <div class="col-md-4">
+                      <select class="form-control selectpicker" formControlName="maLienthong"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                        <option value="">{{'home.search.placeholder.selected' | translate}}</option>
+                        <option *ngFor="let w of lstXettuyenLienthong" [ngValue]="w.id">{{w.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </form>
+                <div class="form-group row">
+                  <label class="col-md-3 lbl-custome" style="color: indianred; font-size: 16px;">Thông tin nguyện vọng xét tuyển
+                    &nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary" (click)="addMonhocBaoluuDiem()" tooltip="Thêm mới">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </label>
+                </div>
+
               </div>
             </div>
           </div>

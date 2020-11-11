@@ -63,6 +63,7 @@
       "placeholder":{
         "fileCode":"Nhập vào mã hồ sơ",
         "selectAll":"---Tất cả---",
+        "selected":"---Chọn---",
         "date":"dd/MM/yyyy"
       }
     }
@@ -102,9 +103,21 @@
         "date":"dd/MM/yyyy",
         "name":"Nhập vào họ tên đầy đủ",
         "nation":"Nhập vào dân tộc",
-        "idCard":"Nhập vào số CMND/ thẻ CCCD"
+        "idCard":"Nhập vào số CMND/ thẻ CCCD",
+        "ward":"Nhập vào tên xã, phường khác",
+        "phone":"Nhập vào số điện thoại thí sinh",
+        "email":"Nhập vào email của thí sinh",
+        "infoContact":"Nhập vào thông tin chi tiết người liên hệ",
+        "nameClass12":"Nhập vào tên lớp 12",
+        "noiDkdt":"Nhập vào nơi đăng ký dự tuyển",
+        "maNoiDkdt":"Nhập vào mã nơi đăng ký dự tuyển",
+        "chungchiNN":"Nhập vào chứng chỉ miễn thi ngoại ngữ",
+        "diemthichungchi":"Nhập vào điểm thi của chứng chỉ"
       },
       "title":"Thông tin chung",
+      "title2":"Thông tin đăng ký thi",
+      "title3":"Thông tin để xét công nhận tốt nghiệp THPT",
+      "title4":"Thông tin dùng để xét tuyển sinh vào đại học, cao đẳng",
       "fileCode":"Mã hồ sơ",
       "status":"Trạng thái hồ sơ",
       "createDate":"Ngày tạo",
@@ -118,7 +131,37 @@
       "idCard":"Số CMND/ Thẻ CCCD",
       "province":"Tỉnh, thành phố",
       "district":"Quận, huyện",
-      "ward":"Xã, phường"
+      "ward":"Xã, phường",
+      "otherWard":"Xã, phường khác",
+      "18monthsKvI":"Hộ khẩu thường trú trên 18 tháng tại khu vực I",
+      "18monthsDbkk":"Hộ khẩu thường trú trên 18 tháng tại xã đặc biệt khó khăn",
+      "phone":"Số điện thoại",
+      "email":"Email",
+      "infoContact":"Thông tin người liên hệ",
+      "nameClass12":"Tên lớp 12",
+      "xettuyen":"Thí sinh có dùng kết quả thi để xét tuyển sinh ĐH, CĐ",
+      "chuongtrinhhoc":"Thí sinh học chương trình",
+      "thisinhtudo":"Thí sinh tự do",
+      "hoidongthi":"Dự thi tại Hội đồng thi",
+      "noiDkdt":"Nơi đăng ký dự tuyển",
+      "maNoiDkdt":"Mã nơi đăng ký dự tuyển",
+      "math":"Toán",
+      "litr":"Ngữ văn",
+      "lang":"Ngoại ngữ",
+      "khtn":"KHTN",
+      "khxh":"KHXH",
+      "phys":"Vật lý",
+      "chemis":"Hóa học",
+      "bio":"Sinh học",
+      "his":"Lịch sử",
+      "geo":"Địa lý",
+      "gdcd":"GDCD",
+      "chungchiNN":"Đăng ký miễn thi ngoại ngữ",
+      "diemthichungchi":"Điểm thi (nếu có)",
+      "doituonguutien":"Đối tượng ưu tiên tuyển sinh",
+      "khuvucts":"Khu vực tuyển sinh",
+      "namtotnghiep":"Năm tốt nghiệp THPT hoặc tương đương",
+      "xettuyenlienthong":"Thí sinh dự thi để xét tuyển liên thông"
     }
   }
 }

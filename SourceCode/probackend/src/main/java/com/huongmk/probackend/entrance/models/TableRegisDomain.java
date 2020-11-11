@@ -91,28 +91,16 @@ public class TableRegisDomain {
     @Size(max = 255)
     @Column(name = "TEN_XAPHUONG_TT")
     private String tenXaphuongTt;
+    @Size(max = 255)
+    @Column(name = "TEN_XAPHUONG_TT_KHAC")
+    private String tenXaphuongTtKhac;
     @Column(name = "HKTT_KVI")
     private Long hkttKvi; // check ho khau thuong tru KVI tren 18 thang: 0: Không, 1: Có
     @Column(name = "HKTT_DBKK")
     private Long hkttDbkk; // check HKTT tai cac xa dac biet kho khan tren 18 thang: 0: Không; 1: Có
-    @Size(max = 50)
-    @Column(name = "MA_TINHTP_THPT")
-    private String maTinhtpThpt;
-    @Size(max = 255)
-    @Column(name = "TEN_TINHTP_THPT")
-    private String tenTinhtpThpt;
-    @Size(max = 50)
-    @Column(name = "MA_QUANHUYEN_THPT")
-    private String maQuanhuyenThpt;
-    @Size(max = 255)
-    @Column(name = "TEN_QUANHUYEN_THPT")
-    private String tenQuanhuyenThpt;
-    @Size(max = 50)
-    @Column(name = "MA_THPT")
-    private String maThpt;
-    @Size(max = 255)
-    @Column(name = "TEN_THPT")
-    private String tenThpt;
+    @Transient
+    private List<TableRegisSchoolDomain> lstShool;
+
     @Size(max = 255)
     @Column(name = "TEN_LOP12")
     private String tenLop12;
@@ -129,19 +117,44 @@ public class TableRegisDomain {
     // thong tin dang ky
     @Column(name = "XETTUYEN_DHCD")
     private Long xettuyenDhcd; // Có: 1; Không: 0
-    @Column(name = "MA_PHANLOAI_THISINH")
-    private Long maPhanloaiThisinh;
-    @Size(max = 125)
-    @Column(name = "TEN_PHANLOAI_THISINH")
-    private String tenPhanloaiThisinh;
+    @Column(name = "CHUONGTRINH_HOC_THISINH")
+    private Long chuongtrinhHocthisinh; // 0: THPT, 1: GDTX
+    @Column(name = "THISINH_TUDO_TN")
+    private Long thisinhTudoTn; // 0: chua TN THPT, 1: TN THPT
     @Size(max = 50)
     @Column(name = "MA_NOI_DKDT")
     private String maNoiDkdt;
     @Size(max = 255)
     @Column(name = "TEN_NOI_DKDT")
     private String tenNoiDkdt;
-    @Transient
-    private List<TableRegisSubjectDomain> lstSubjects; // list dang ky bai thi, mon thi
+
+    @Column(name = "MON_TOAN")
+    private Long monToan;
+    @Column(name = "MON_NGUVAN")
+    private Long monNguvan;
+    @Column(name = "MON_NGOAINGU")
+    private Long monNgoaingu;
+    @Size(max = 255)
+    @Column(name = "MON_NGOAINGU_CHITIET")
+    private String monNgoainguChitiet;
+    @Column(name = "MON_KHTN")
+    private Long monKhtn;
+    @Column(name = "MON_KHXH")
+    private Long monKhxh;
+    @Column(name = "MON_VATLY")
+    private Long monVatly;
+    @Column(name = "MON_HOAHOC")
+    private Long monHoahoc;
+    @Column(name = "MON_SINHHOC")
+    private Long monSinhhoc;
+    @Column(name = "MON_LICHSU")
+    private Long monLichsu;
+    @Column(name = "MON_DIALY")
+    private Long monDialy;
+    @Column(name = "MON_GDCD")
+    private Long monGdcd;
+    //    @Transient
+//    private List<TableRegisSubjectDomain> lstSubjects; // list dang ky bai thi, mon thi
     @Size(max = 255)
     @Column(name = "CHUNGCHI_NGOAINGU")
     private String chungchiNgoaingu;
@@ -389,6 +402,14 @@ public class TableRegisDomain {
         this.tenXaphuongTt = tenXaphuongTt;
     }
 
+    public String getTenXaphuongTtKhac() {
+        return tenXaphuongTtKhac;
+    }
+
+    public void setTenXaphuongTtKhac(String tenXaphuongTtKhac) {
+        this.tenXaphuongTtKhac = tenXaphuongTtKhac;
+    }
+
     public Long getHkttKvi() {
         return hkttKvi;
     }
@@ -403,54 +424,6 @@ public class TableRegisDomain {
 
     public void setHkttDbkk(Long hkttDbkk) {
         this.hkttDbkk = hkttDbkk;
-    }
-
-    public String getMaTinhtpThpt() {
-        return maTinhtpThpt;
-    }
-
-    public void setMaTinhtpThpt(String maTinhtpThpt) {
-        this.maTinhtpThpt = maTinhtpThpt;
-    }
-
-    public String getTenTinhtpThpt() {
-        return tenTinhtpThpt;
-    }
-
-    public void setTenTinhtpThpt(String tenTinhtpThpt) {
-        this.tenTinhtpThpt = tenTinhtpThpt;
-    }
-
-    public String getMaQuanhuyenThpt() {
-        return maQuanhuyenThpt;
-    }
-
-    public void setMaQuanhuyenThpt(String maQuanhuyenThpt) {
-        this.maQuanhuyenThpt = maQuanhuyenThpt;
-    }
-
-    public String getTenQuanhuyenThpt() {
-        return tenQuanhuyenThpt;
-    }
-
-    public void setTenQuanhuyenThpt(String tenQuanhuyenThpt) {
-        this.tenQuanhuyenThpt = tenQuanhuyenThpt;
-    }
-
-    public String getMaThpt() {
-        return maThpt;
-    }
-
-    public void setMaThpt(String maThpt) {
-        this.maThpt = maThpt;
-    }
-
-    public String getTenThpt() {
-        return tenThpt;
-    }
-
-    public void setTenThpt(String tenThpt) {
-        this.tenThpt = tenThpt;
     }
 
     public String getTenLop12() {
@@ -493,20 +466,20 @@ public class TableRegisDomain {
         this.xettuyenDhcd = xettuyenDhcd;
     }
 
-    public Long getMaPhanloaiThisinh() {
-        return maPhanloaiThisinh;
+    public Long getChuongtrinhHocthisinh() {
+        return chuongtrinhHocthisinh;
     }
 
-    public void setMaPhanloaiThisinh(Long maPhanloaiThisinh) {
-        this.maPhanloaiThisinh = maPhanloaiThisinh;
+    public void setChuongtrinhHocthisinh(Long chuongtrinhHocthisinh) {
+        this.chuongtrinhHocthisinh = chuongtrinhHocthisinh;
     }
 
-    public String getTenPhanloaiThisinh() {
-        return tenPhanloaiThisinh;
+    public Long getThisinhTudoTn() {
+        return thisinhTudoTn;
     }
 
-    public void setTenPhanloaiThisinh(String tenPhanloaiThisinh) {
-        this.tenPhanloaiThisinh = tenPhanloaiThisinh;
+    public void setThisinhTudoTn(Long thisinhTudoTn) {
+        this.thisinhTudoTn = thisinhTudoTn;
     }
 
     public String getMaNoiDkdt() {
@@ -525,12 +498,12 @@ public class TableRegisDomain {
         this.tenNoiDkdt = tenNoiDkdt;
     }
 
-    public List<TableRegisSubjectDomain> getLstSubjects() {
-        return lstSubjects;
+    public List<TableRegisSubXtnDomain> getLstMonhocXtn() {
+        return lstMonhocXtn;
     }
 
-    public void setLstSubjects(List<TableRegisSubjectDomain> lstSubjects) {
-        this.lstSubjects = lstSubjects;
+    public void setLstMonhocXtn(List<TableRegisSubXtnDomain> lstMonhocXtn) {
+        this.lstMonhocXtn = lstMonhocXtn;
     }
 
     public String getChungchiNgoaingu() {
@@ -549,12 +522,100 @@ public class TableRegisDomain {
         this.diemthiChungchiNn = diemthiChungchiNn;
     }
 
-    public List<TableRegisSubXtnDomain> getLstMonhocXtn() {
-        return lstMonhocXtn;
+    public Long getMonToan() {
+        return monToan;
     }
 
-    public void setLstMonhocXtn(List<TableRegisSubXtnDomain> lstMonhocXtn) {
-        this.lstMonhocXtn = lstMonhocXtn;
+    public void setMonToan(Long monToan) {
+        this.monToan = monToan;
+    }
+
+    public Long getMonNguvan() {
+        return monNguvan;
+    }
+
+    public void setMonNguvan(Long monNguvan) {
+        this.monNguvan = monNguvan;
+    }
+
+    public Long getMonNgoaingu() {
+        return monNgoaingu;
+    }
+
+    public void setMonNgoaingu(Long monNgoaingu) {
+        this.monNgoaingu = monNgoaingu;
+    }
+
+    public String getMonNgoainguChitiet() {
+        return monNgoainguChitiet;
+    }
+
+    public void setMonNgoainguChitiet(String monNgoainguChitiet) {
+        this.monNgoainguChitiet = monNgoainguChitiet;
+    }
+
+    public Long getMonKhtn() {
+        return monKhtn;
+    }
+
+    public void setMonKhtn(Long monKhtn) {
+        this.monKhtn = monKhtn;
+    }
+
+    public Long getMonKhxh() {
+        return monKhxh;
+    }
+
+    public void setMonKhxh(Long monKhxh) {
+        this.monKhxh = monKhxh;
+    }
+
+    public Long getMonVatly() {
+        return monVatly;
+    }
+
+    public void setMonVatly(Long monVatly) {
+        this.monVatly = monVatly;
+    }
+
+    public Long getMonHoahoc() {
+        return monHoahoc;
+    }
+
+    public void setMonHoahoc(Long monHoahoc) {
+        this.monHoahoc = monHoahoc;
+    }
+
+    public Long getMonSinhhoc() {
+        return monSinhhoc;
+    }
+
+    public void setMonSinhhoc(Long monSinhhoc) {
+        this.monSinhhoc = monSinhhoc;
+    }
+
+    public Long getMonLichsu() {
+        return monLichsu;
+    }
+
+    public void setMonLichsu(Long monLichsu) {
+        this.monLichsu = monLichsu;
+    }
+
+    public Long getMonDialy() {
+        return monDialy;
+    }
+
+    public void setMonDialy(Long monDialy) {
+        this.monDialy = monDialy;
+    }
+
+    public Long getMonGdcd() {
+        return monGdcd;
+    }
+
+    public void setMonGdcd(Long monGdcd) {
+        this.monGdcd = monGdcd;
     }
 
     public String getMaDtUutien() {
@@ -627,5 +688,13 @@ public class TableRegisDomain {
 
     public void setLstDinhkem(List<TableRegisAttachmentsDomain> lstDinhkem) {
         this.lstDinhkem = lstDinhkem;
+    }
+
+    public List<TableRegisSchoolDomain> getLstShool() {
+        return lstShool;
+    }
+
+    public void setLstShool(List<TableRegisSchoolDomain> lstShool) {
+        this.lstShool = lstShool;
     }
 }

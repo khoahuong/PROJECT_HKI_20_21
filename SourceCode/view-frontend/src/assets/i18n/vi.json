@@ -118,6 +118,7 @@
       "title2":"Thông tin đăng ký thi",
       "title3":"Thông tin để xét công nhận tốt nghiệp THPT",
       "title4":"Thông tin dùng để xét tuyển sinh vào đại học, cao đẳng",
+      "title5":"Thông tin tệp đính kèm",
       "fileCode":"Mã hồ sơ",
       "status":"Trạng thái hồ sơ",
       "createDate":"Ngày tạo",
@@ -162,6 +163,19 @@
       "khuvucts":"Khu vực tuyển sinh",
       "namtotnghiep":"Năm tốt nghiệp THPT hoặc tương đương",
       "xettuyenlienthong":"Thí sinh dự thi để xét tuyển liên thông"
+    },
+    "nguyenvong": {
+      "ngvong":"Nguyện vọng",
+      "university":"Trường ĐH, CĐ",
+      "nhomnganh":"Tên nhóm ngành",
+      "manganh":"Mã nhóm ngành",
+      "tohop":"Mã tổ hợp môn",
+      "placeholder":{
+        "ngvong":"Nhập vào thứ tự nguyện vọng",
+        "nhomnganh":"Nhập vào tên ngành/ nhóm ngành",
+        "manganh":"Nhập vào mã ngành/ nhóm ngành",
+        "tohop":"Nhập vào mã tổ hợp môn xét tuyển"
+      }
     }
   }
 }

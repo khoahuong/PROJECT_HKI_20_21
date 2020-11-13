@@ -41,7 +41,8 @@
                     </div>
                     <label class="col-md-2 lbl-custome">{{'home.search.status' | translate}}</label>
                     <div class="col-md-4">
-                      <select class="form-control selectpicker" formControlName="status" data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                      <select class="form-control selectpicker" formControlName="status"
+                        data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
                         <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
                         <option *ngFor="let stt of lstStatus" [ngValue]="stt.codeStatus">{{stt.nameStatus}}</option>
                       </select>

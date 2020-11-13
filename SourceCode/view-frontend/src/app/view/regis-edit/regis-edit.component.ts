@@ -7,6 +7,8 @@ import { ApiService } from 'src/app/common/api/api.service';
 import { ConfirmPopupComponent } from 'src/app/common/confirm-popup/confirm-popup.component';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
 import { CONSTANT } from 'src/app/common/constant/constant';
+import { RegisEditPopupComponent } from '../regis-edit-popup/regis-edit-popup.component';
+import * as _ from 'lodash';
 declare var $: any;
 @Component({
   selector: 'app-regis-edit',
@@ -36,6 +38,7 @@ export class RegisEditComponent implements OnInit {
   lstKhuvucTs: any = [];
   lstYear: any = [];
   lstXettuyenLienthong: any = [];
+  lstExam: any = [];
 
   isShowXaphuong: boolean = true;
   isShowMonNgoaingu: boolean = true;
@@ -66,8 +69,14 @@ export class RegisEditComponent implements OnInit {
     this.getDmDoituongUutien();
     this.getDmKhuvucTs();
     this.getListYear();
+    this.refreshSelect();
   }
 
+  refreshSelect(): void {
+    setTimeout(function () {
+      $('.selectpicker').selectpicker('refresh');
+    }, 100);
+  }
   /**
    * khoi tao form
    */
@@ -171,6 +180,9 @@ export class RegisEditComponent implements OnInit {
   getDmKhuvucTs(): void {
     this.api.getDataToken(API_CONSTANT.STATUS.GET_DATA_KHUVUC_TS, {}).subscribe(d => {
       this.lstKhuvucTs = d.list;
+      setTimeout(function () {
+        $('.selectpicker').selectpicker('refresh');   // refresh the selectpicker with fetched courses after 0.1s
+      }, 100);
     }, error => {
       this.toastr.error('Lỗi', 'Không lấy được danh mục khu vực tuyển sinh.');
     });
@@ -192,10 +204,9 @@ export class RegisEditComponent implements OnInit {
     };
     this.lstDistrict = [];
     this.editForm.controls.maQuanhuyenTt.setValue('');
-    if (param.idProvince === '') {
-      this.lstWard = [];
-      this.editForm.controls.maXaphuongTt.setValue('');
-    } else {
+    this.lstWard = [];
+    this.editForm.controls.maXaphuongTt.setValue('');
+    if (param.idProvince !== '') {
       this.api.getDataToken(API_CONSTANT.STATUS.GET_DATA_DISTRICT, param).subscribe(d => {
         this.lstDistrict = d.list;
       }, error => {
@@ -269,10 +280,9 @@ export class RegisEditComponent implements OnInit {
     };
     item.lstHuyen = [];
     item.idHuyen = '';
-    if (param.idProvince === '') {
-      item.lstThpt = [];
-      item.idThpt = '';
-    } else {
+    item.lstThpt = [];
+    item.idThpt = '';
+    if (param.idProvince !== '') {
       this.api.getDataToken(API_CONSTANT.STATUS.GET_DATA_DISTRICT, param).subscribe(d => {
         item.lstHuyen = d.list;
       }, error => {
@@ -307,7 +317,6 @@ export class RegisEditComponent implements OnInit {
   }
 
   clickSelectLang(event: any): void {
-    console.log(this.editForm.controls.monNgoaingu.value);
     this.editForm.controls.monNgoainguChitiet.setValue('');
     if (event.target.checked) {
       this.isShowMonNgoaingu = false;
@@ -351,6 +360,32 @@ export class RegisEditComponent implements OnInit {
       if (result == "OK") {
         this.lstMonhocXtn = this.lstMonhocXtn.filter(d => d.idSubXtn != item.idSubXtn);
         this.toastr.success('Thành công', 'Xóa thành công bản ghi.');
+      }
+    });
+  }
+
+  /**
+   * hàm gọi popup thêm mới nguyện vọng xét tuyển
+   */
+  addNguyenvongXt(item: any): void {
+    const initialState = {
+      title: item != null ? 'Cập nhật thông tin nguyện vọng' : 'Thêm mới thông tin nguyện vọng',
+      item: item
+    };
+    this.bsModalRef = this.modalService.show(RegisEditPopupComponent, { initialState, class: 'modal-lg' });
+    this.bsModalRef.content.event.subscribe(result => {
+      if (result !== null) {
+        if (result.idExam === null) {
+          result.idExam = -1 * new Date().getTime();
+          this.lstExam.push(result);
+        } else {
+          for (let i = 0; i < this.lstExam.length; i++) {
+            if (this.lstExam[i].idExam === result.idExam) {
+              this.lstExam[i] = result;
+              break;
+            }
+          }
+        }
       }
     });
   }

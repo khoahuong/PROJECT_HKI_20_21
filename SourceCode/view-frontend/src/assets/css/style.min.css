@@ -503,7 +503,7 @@ textarea.form-control.is-valid {
 
 .modal-header .close {
 	padding: 1rem;
-	margin: -1rem -1rem -1rem auto
+  margin: -1rem -1rem -1rem auto;
 }
 
 .modal-title {
@@ -611,4 +611,9 @@ textarea.form-control.is-valid {
 
 .fade:not(.show) {
 	opacity: 0
+}
+
+ul.list-inline li {
+	display: inline-block;
+	margin: 0 5px
 }

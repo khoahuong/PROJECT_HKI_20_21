@@ -7,7 +7,7 @@ import { ApiService } from 'src/app/common/api/api.service';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
 import { CONSTANT } from 'src/app/common/constant/constant';
 import { UserInfoComponent } from '../user-info/user-info.component';
-
+declare var $: any;
 @Component({
   selector: 'app-regis-index',
   templateUrl: './regis-index.component.html',
@@ -47,6 +47,13 @@ export class RegisIndexComponent implements OnInit {
     this.searchDataRegis(null);
     this.getStatus();
     this.getUserInfo(this.userLogin.id);
+    this.refreshSelect();
+  }
+
+  refreshSelect(): void {
+    setTimeout(function () {
+      $('.selectpicker').selectpicker('refresh');
+    }, 100);
   }
 
   /**

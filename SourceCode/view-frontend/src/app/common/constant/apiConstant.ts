@@ -28,6 +28,7 @@ export class API_CONSTANT {
     GET_DATA_GDDT: "api/danhmuc/sogd",
     GET_DATA_SUBJECTS: "api/danhmuc/dmMonthiBaoluu",
     GET_DATA_DOITUONG_UUTIEN: "api/danhmuc/dmDoituongUutien",
-    GET_DATA_KHUVUC_TS: "api/danhmuc/dmKhuvucTs"
+    GET_DATA_KHUVUC_TS: "api/danhmuc/dmKhuvucTs",
+    GET_DATA_DHCD: "api/danhmuc/dmTruongDh"
   }
 }

@@ -1,0 +1,102 @@
+<!-- loading -->
+<div class="loading" *ngIf="loading">Loading&#8230;</div>
+
+<!-- <ng-template #template> -->
+<div class="modal-header modal-primary">
+  <h4 class="modal-title pull-left" [innerHTML]=title></h4>
+  <button type="button" class="close" aria-label="Close" (click)="closePopup()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form class="form-horizontal" novalidate [formGroup]="nguyenvongXettuyen" id="addNguyenvong">
+    <div class="form-group row">
+      <label class="col-md-2 lbl-custome">
+        {{'editRegis.nguyenvong.ngvong' | translate}}
+        <sup class="msg-invalid">(*)</sup>
+      </label>
+      <div class="col-md-4">
+        <input type="text" class="form-control" formControlName="thutuNv"
+          [ngClass]="{ 'is-invalid': submitted && f.thutuNv.errors }" (change)="clickThutuNgVong()"
+          placeholder="{{'editRegis.nguyenvong.placeholder.ngvong' | translate}}" trim="blur" maxlength="2">
+        <div *ngIf="submitted && f.thutuNv.errors">
+          <span class="msg-invalid" *ngIf="f.thutuNv.errors.required">{{'common.invalid' | translate}}</span>
+          <span class="msg-invalid" *ngIf="f.thutuNv.errors.maxlength">Không được nhập quá 2 ký tự</span>
+        </div>
+        <span class="msg-invalid" id="thutuChu" style="display: none;">Không được nhập kí tự chữ</span>
+        <span class="msg-invalid" id="giatriThutu" style="display: none;">Không được nhập giá trị 0</span>
+      </div>
+      <label class="col-md-2 lbl-custome">
+        {{'editRegis.nguyenvong.university' | translate}}
+        <sup class="msg-invalid">(*)</sup>
+      </label>
+      <div class="col-md-4">
+        <select class="form-control selectpicker" formControlName="maTruong"
+          data-none-results-text="Không tìm thấy kết quả" data-live-search="true"
+          [ngClass]="{ 'is-invalid': submitted && f.maTruong.errors }">
+          <option value="">{{'home.search.placeholder.selected' | translate}}</option>
+          <option *ngFor="let pro of lstUniversity" [ngValue]="pro.maTruongDhcd">{{pro.tenTruongDhcd}}
+          </option>
+        </select>
+        <div *ngIf="submitted && f.maTruong.errors">
+          <span class="msg-invalid" *ngIf="f.maTruong.errors.required">{{'common.invalid' | translate}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 lbl-custome">
+        {{'editRegis.nguyenvong.nhomnganh' | translate}}
+        <sup class="msg-invalid">(*)</sup>
+      </label>
+      <div class="col-md-4">
+        <input type="text" class="form-control" formControlName="tenNhomnganh"
+          [ngClass]="{ 'is-invalid': submitted && f.tenNhomnganh.errors }"
+          placeholder="{{'editRegis.nguyenvong.placeholder.nhomnganh' | translate}}" trim="blur" maxlength="255">
+        <div *ngIf="submitted && f.tenNhomnganh.errors">
+          <span class="msg-invalid" *ngIf="f.tenNhomnganh.errors.required">{{'common.invalid' | translate}}</span>
+          <span class="msg-invalid" *ngIf="f.tenNhomnganh.errors.maxlength">Không được nhập quá 255 ký tự</span>
+        </div>
+      </div>
+      <label class="col-md-2 lbl-custome">
+        {{'editRegis.nguyenvong.manganh' | translate}}
+        <sup class="msg-invalid">(*)</sup>
+      </label>
+      <div class="col-md-4">
+        <input type="text" class="form-control" formControlName="maNhomnganh"
+          [ngClass]="{ 'is-invalid': submitted && f.maNhomnganh.errors }"
+          placeholder="{{'editRegis.nguyenvong.placeholder.manganh' | translate}}" trim="blur" maxlength="50">
+        <div *ngIf="submitted && f.maNhomnganh.errors">
+          <span class="msg-invalid" *ngIf="f.maNhomnganh.errors.required">{{'common.invalid' | translate}}</span>
+          <span class="msg-invalid" *ngIf="f.maNhomnganh.errors.maxlength">Không được nhập quá 50 ký tự</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 lbl-custome">
+        {{'editRegis.nguyenvong.tohop' | translate}}
+        <sup class="msg-invalid">(*)</sup>
+      </label>
+      <div class="col-md-4">
+        <input type="text" class="form-control" formControlName="maTohopMonxt"
+          [ngClass]="{ 'is-invalid': submitted && f.maTohopMonxt.errors }" upper
+          placeholder="{{'editRegis.nguyenvong.placeholder.tohop' | translate}}" trim="blur" maxlength="50">
+        <div *ngIf="submitted && f.maTohopMonxt.errors">
+          <span class="msg-invalid" *ngIf="f.maTohopMonxt.errors.required">{{'common.invalid' | translate}}</span>
+          <span class="msg-invalid" *ngIf="f.maTohopMonxt.errors.maxlength">Không được nhập quá 50 ký tự</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button id="saveInfo" type="button" class="btn btn-success" (click)="savePopup()">
+    <i class="fa fa-floppy-o"></i>
+    {{'common.btn.save' | translate}}
+  </button>
+  <button type="button" class="btn btn-danger" (click)="closePopup()">
+    <i class="fa fa-times-circle"></i>
+    {{'common.btn.close' | translate}}
+  </button>
+</div>

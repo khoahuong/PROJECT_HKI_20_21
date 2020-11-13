@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwt_decode from "jwt-decode";
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../api/api.service';
 import { API_CONSTANT } from '../constant/apiConstant';
@@ -9,6 +10,8 @@ import { API_CONSTANT } from '../constant/apiConstant';
   providedIn: 'root'
 })
 export class AuthenticationService {
+
+  bsModalRef: BsModalRef;
 
   constructor(
     private router: Router,
@@ -34,6 +37,7 @@ export class AuthenticationService {
       } else {
         this.toastr.error('Lỗi', 'Tên đăng nhập hoặc mật khẩu không đúng.');
         this.router.navigate(['/login']);
+        this.bsModalRef.hide();
       }
     }, error => {
       //todo

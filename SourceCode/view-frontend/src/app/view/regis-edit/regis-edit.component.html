@@ -433,6 +433,10 @@
                       <i class="fa fa-plus"></i>
                     </button>
                   </label>
+                  <div class="col-md-9 lbl-custome">
+                    <i style="color: red; font-size: 14px;">(Lưu ý: Thí sinh dự thi chỉ để lấy kết quả xét tuyển ĐH, CĐ
+                      thì bỏ qua phần này.)</i>
+                  </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-md-12">
@@ -478,7 +482,7 @@
                     <div class="col-md-4">
                       <select class="form-control selectpicker" formControlName="maDtUutien"
                         data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
-                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option value="">{{'home.search.placeholder.selected' | translate}}</option>
                         <option *ngFor="let w of lstDoituongUutien" [ngValue]="w.id">{{w.tenDoituong}}
                         </option>
                       </select>
@@ -488,7 +492,7 @@
                     <div class="col-md-4">
                       <select class="form-control selectpicker" formControlName="maKhuvucTs"
                         data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
-                        <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
+                        <option value="">{{'home.search.placeholder.selected' | translate}}</option>
                         <option *ngFor="let w of lstKhuvucTs" [ngValue]="w.id">{{w.tenKhuvuc}}
                         </option>
                       </select>
@@ -518,13 +522,50 @@
                   </div>
                 </form>
                 <div class="form-group row">
-                  <label class="col-md-3 lbl-custome" style="color: indianred; font-size: 16px;">Thông tin nguyện vọng xét tuyển
+                  <label class="col-md-3 lbl-custome" style="color: indianred; font-size: 16px;">Thông tin nguyện vọng
+                    xét tuyển
                     &nbsp;&nbsp;
-                    <button type="button" class="btn btn-primary" (click)="addMonhocBaoluuDiem()" tooltip="Thêm mới">
+                    <button type="button" class="btn btn-primary" (click)="addNguyenvongXt(null)" tooltip="Thêm mới">
                       <i class="fa fa-plus"></i>
                     </button>
                   </label>
                 </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <table class="table table-bordered table-hover table-custome">
+                      <thead>
+                        <tr>
+                          <td class="text-center" style="width: 1%;">STT</td>
+                          <td class="text-center" style="width: 7%">Nguyện vọng</td>
+                          <td class="text-center" style="width: 35%;">Tên trường</td>
+                          <td class="text-center" style="width: 20%;">Nhóm ngành</td>
+                          <td class="text-center" style="width: 13%;">Mã nhóm ngành</td>
+                          <td class="text-center" style="width: 14%;">Mã tổ hợp xét tuyển</td>
+                          <td class="text-center" style="width: 10%;">Chức năng</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of lstExam; index as i; first as first">
+                          <td class="text-center" style="vertical-align: middle;width: 1%">{{i+1}}</td>
+                          <td style="vertical-align: middle;">{{item.thutuNv}}</td>
+                          <td style="vertical-align: middle;">{{item.tenTruong}}</td>
+                          <td style="vertical-align: middle;">{{item.tenNhomnganh}}</td>
+                          <td style="vertical-align: middle;">{{item.maNhomnganh}}</td>
+                          <td style="vertical-align: middle;">{{item.maTohopMonxt}}</td>
+                          <td class="text-center">
+                            <ul class="nav list-inline nav-center">
+                              <li tooltip="Sửa" (click)="addNguyenvongXt(item)"><i class="fa fa-pencil-square-o"
+                                  aria-hidden="true"></i></li>
+                              <li (click)="deleted(item)" tooltip="Xóa"><i class="fa fa-trash-o" aria-hidden="true"></i>
+                              </li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <legend style="color: dodgerblue;"><b>{{'editRegis.personInfo.title5' | translate}}</b></legend>
 
               </div>
             </div>

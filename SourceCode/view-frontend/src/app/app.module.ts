@@ -25,6 +25,7 @@ import { RegisIndexComponent } from './view/regis-index/regis-index.component';
 import { UserInfoComponent } from './view/user-info/user-info.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotiPopupComponent } from './common/noti-popup/noti-popup.component';
+import { RegisEditPopupComponent } from './view/regis-edit-popup/regis-edit-popup.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { NotiPopupComponent } from './common/noti-popup/noti-popup.component';
     UppercaseDirective,
     UserInfoComponent,
     ConfirmPopupComponent,
-    NotiPopupComponent
+    NotiPopupComponent,
+    RegisEditPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ import { NotiPopupComponent } from './common/noti-popup/noti-popup.component';
   entryComponents: [
     ConfirmPopupComponent,
     UserInfoComponent,
-    NotiPopupComponent
+    NotiPopupComponent,
+    RegisEditPopupComponent
   ]
 })
 export class AppModule { }

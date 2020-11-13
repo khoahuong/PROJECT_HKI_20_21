@@ -1,8 +1,10 @@
 package com.huongmk.probackend;
 
+import com.huongmk.probackend.common.file.FileProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.core.env.AbstractEnvironment;
@@ -17,6 +19,9 @@ import org.springframework.web.WebApplicationInitializer;
 @SpringBootApplication
 @EnableCaching
 @EnableScheduling
+@EnableConfigurationProperties({
+        FileProperties.class
+})
 public class ProBackend extends SpringBootServletInitializer implements WebApplicationInitializer {
 
     @Override

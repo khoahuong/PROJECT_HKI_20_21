@@ -25,4 +25,6 @@ public interface DanhmucService {
     List<TableCateDoituongUutienDomain> getDmDoituongUutien();
 
     List<TableCateKhuvucTsDomain> getDmKhuvucTs();
+
+    List<TableCateUniversityDomain> getDmTruongDaihoc();
 }

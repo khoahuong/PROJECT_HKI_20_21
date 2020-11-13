@@ -25,4 +25,8 @@ public class Constants {
         public static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
         public static final String DIGITS = "0123456789";
     }
+
+    public interface INFO {
+        String SUCCESS_FILE = "Tải tệp đính kèm thành công";
+    }
 }

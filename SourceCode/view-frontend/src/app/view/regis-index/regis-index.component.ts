@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/common/api/api.service';
+import { ConfirmPopupComponent } from 'src/app/common/confirm-popup/confirm-popup.component';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
 import { CONSTANT } from 'src/app/common/constant/constant';
 import { UserInfoComponent } from '../user-info/user-info.component';
@@ -22,8 +23,8 @@ export class RegisIndexComponent implements OnInit {
   userLogin: any;
 
   // khai báo biến cho phân trang
+  maxPageView: number = 3; // hien thi so page tren thanh phan trang
   totalRecord: number = 0;
-  maxPageView: number = CONSTANT.PAGE.SIZE5;
   page: number = 1;
   size: number = CONSTANT.PAGE.SIZE10;// so ban ghi tren 1 trang
 
@@ -70,10 +71,42 @@ export class RegisIndexComponent implements OnInit {
 
   /**
    * hàm tìm kiếm hồ sơ
-   * @param item
+   * @param event
    */
-  searchDataRegis(item: any): void {
+  searchDataRegis(event: any): void {
+    this.loading = true;
+    if (event != null) {
+      this.page = event.page;
+    } else {
+      this.page = 1;
+    }
 
+    let searchRegisDto = {
+      fileCode: this.searchForm.controls.fileCode.value,
+      status: this.searchForm.controls.status.value != "" ? this.searchForm.controls.status.value : null,
+      dateFrom: this.searchForm.controls.dateFrom.value != "" ? this.searchForm.controls.dateFrom.value : null,
+      dateTo: this.searchForm.controls.dateTo.value != "" ? this.searchForm.controls.dateTo.value : null,
+      userId: this.userLogin.id ? this.userLogin.id : null,
+      page: this.page - 1,
+      size: this.size
+    }
+
+    let params = {
+      searchRegisDto: JSON.stringify(searchRegisDto)
+    }
+
+    this.api.getDataToken(API_CONSTANT.REGISTRATION.SEARCH, params).subscribe(d => {
+      this.loading = false;
+      if (d.success) {
+        this.lstRecord = d.data.list;
+        this.totalRecord = d.data.count;
+      } else {
+        this.toast.error('Lỗi', "Tìm kiếm hồ sơ có lỗi phát sinh.");
+      }
+    }, error => {
+      this.loading = false;
+      this.toast.error('Lỗi', 'Hệ thống đang có lỗi, vui lòng thử lại sau.');
+    });
   }
 
   /**
@@ -141,6 +174,32 @@ export class RegisIndexComponent implements OnInit {
       this.userInfoView = data.data;
     }, error => {
 
+    });
+  }
+
+  /**
+   * Hàm xóa hồ sơ
+   * @param item
+   */
+  deleted(item: any): void {
+    const initialState = {
+      title: 'Thông báo',
+      message: 'Bạn chắc chắn muốn xóa thông tin hồ sơ <b>' + item.maHoso + '</b> này không?'
+    }
+    this.bsModalRef = this.modalService.show(ConfirmPopupComponent, { initialState });
+    this.bsModalRef.content.event.subscribe(result => {
+      if (result == "OK") {
+        this.api.postDataToken(API_CONSTANT.REGISTRATION.DELETE, {}, { idRegis: item.idHoso, userId: item.userId }).subscribe(data => {
+          if (data.success) {
+            this.toast.success('Thành công', 'Xóa thông tin hồ sơ thành công.');
+            this.searchDataRegis(null);
+          } else {
+            this.toast.error('Lỗi', 'Xóa hồ sơ không thành công. Vui lòng thử lại.');
+          }
+        }, error => {
+          this.toast.error('Lỗi', 'Hệ thống có lỗi, vui lòng thực hiện lại sau.');
+        });
+      }
     });
   }
 

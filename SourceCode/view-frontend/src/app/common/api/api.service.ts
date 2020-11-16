@@ -33,7 +33,7 @@ export class ApiService {
    * @param strUrl
    * @param param
    */
-  get(strUrl: string, param: any):Observable<any> {
+  get(strUrl: string, param: any): Observable<any> {
     let headers = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ export class ApiService {
    * @param paramBody
    * @param param
    */
-  post(strUrl: string, paramBody: any, param: any):Observable<any> {
+  post(strUrl: string, paramBody: any, param: any): Observable<any> {
     let headers = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -56,18 +56,10 @@ export class ApiService {
   }
 
   /**
-   * upload multi files with no token
-   * @param files
-   */
-  uploadFile(files: any):Observable<any> {
-    return this.http.post(API_CONSTANT.API_ROOT + API_CONSTANT.API_FILE.UPLOAD_MULTI_FILES, files);
-  }
-
-  /**
    * Check token
    * return true or false
    */
-  isGetToken():boolean {
+  isGetToken(): boolean {
     let token = sessionStorage.getItem("access_token");
     const date = this.getTokenDate(token);
     if (date === undefined) return false;
@@ -78,7 +70,7 @@ export class ApiService {
    * GET token date
    * @param token
    */
-  getTokenDate(token: string):Date {
+  getTokenDate(token: string): Date {
     const decoded = jwt_decode(token);
     if (decoded.exp === undefined) return null;
     const date = new Date(0);
@@ -91,7 +83,7 @@ export class ApiService {
    * @param url
    * @param param
    */
-  getDataToken(url: string, param: any):Observable<any> {
+  getDataToken(url: string, param: any): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + sessionStorage.getItem("access_token"),
       'Accept': 'application/json',
@@ -111,7 +103,7 @@ export class ApiService {
    * @param Objects
    * @param param
    */
-  postDataToken(url: string, Objects: any, param: any):Observable<any> {
+  postDataToken(url: string, Objects: any, param: any): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + sessionStorage.getItem("access_token"),
       'Accept': 'application/json',
@@ -130,7 +122,7 @@ export class ApiService {
    * function PUT data with Token
    * @param url
    */
-  put(url: string):Observable<any> {
+  put(url: string): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + sessionStorage.getItem('access_token'),
       'Accept': 'application/json',
@@ -145,7 +137,11 @@ export class ApiService {
     }
   }
 
-  uploadFileToken(files: any):Observable<any> {
+  /**
+   * upload nhiều file với data token
+   * @param files
+   */
+  uploadFileToken(files: any): Observable<any> {
     if (!this.isGetToken()) {
       return this.http.post(API_CONSTANT.API_ROOT + API_CONSTANT.API_FILE.UPLOAD_MULTI_FILES, files);
     } else {
@@ -154,9 +150,34 @@ export class ApiService {
     }
   }
 
-  uploadOneFile(file: any):Observable<any> {
+  /**
+   * upload 1 file với data token
+   * @param file
+   */
+  uploadOneFile(file: any): Observable<any> {
     if (!this.isGetToken()) {
       return this.http.post(API_CONSTANT.API_ROOT + API_CONSTANT.API_FILE.UPLOAD_FILE, file);
+    } else {
+      this.toast.error('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại', '');
+      this.router.navigate(['/login']);
+    }
+  }
+
+  /**
+   * upload multi files with no token
+   * @param files
+   */
+  uploadFile(files: any): Observable<any> {
+    return this.http.post(API_CONSTANT.API_ROOT + API_CONSTANT.API_FILE.UPLOAD_MULTI_FILES, files);
+  }
+
+  /**
+   * hàm thực hiện download file
+   * @param filePath
+   */
+  downloadFile(filePath: any): any {
+    if (!this.isGetToken()) {
+      return this.http.get(API_CONSTANT.API_ROOT + API_CONSTANT.API_FILE.DOWNLOAD, { params: filePath, responseType: 'blob' });
     } else {
       this.toast.error('Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại', '');
       this.router.navigate(['/login']);

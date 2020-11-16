@@ -3,9 +3,9 @@ export class API_CONSTANT {
   // public static API_ROOT = "http://localhost:9999/probackend/";
 
   public static API_FILE = {
-    DOWNLOAD: "file/fileStore/",
-    UPLOAD_MULTI_FILES: "file/uploadMultipleFiles",
-    UPLOAD_FILE: "file/uploadFile"
+    UPLOAD_FILE: "file/uploadFile",
+    UPLOAD_MULTI_FILES: "file/uploadMultiFile",
+    DOWNLOAD: "file/downloadFile"
   };
 
   public static API_USER = {
@@ -29,6 +29,14 @@ export class API_CONSTANT {
     GET_DATA_SUBJECTS: "api/danhmuc/dmMonthiBaoluu",
     GET_DATA_DOITUONG_UUTIEN: "api/danhmuc/dmDoituongUutien",
     GET_DATA_KHUVUC_TS: "api/danhmuc/dmKhuvucTs",
-    GET_DATA_DHCD: "api/danhmuc/dmTruongDh"
+    GET_DATA_DHCD: "api/danhmuc/dmTruongDh",
+    GET_DATA_DINHKEM: "api/danhmuc/dmDinhkem"
+  };
+
+  public static REGISTRATION = {
+    CREATE: "api/regis/createRegis",
+    SEARCH: "api/regis/searchRegis",
+    UPDATE: "api/regis",
+    DELETE: "api/regis/deleteRegis"
   }
 }

@@ -37,6 +37,7 @@ export class CONSTANT {
   ]
 
   public static PAGE = {
+    SIZE2: 2,
     SIZE5: 5,
     SIZE10: 10
   }

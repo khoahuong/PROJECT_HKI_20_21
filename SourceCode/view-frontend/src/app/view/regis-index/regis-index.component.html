@@ -40,7 +40,7 @@
                         placeholder="{{'home.search.placeholder.fileCode' | translate}}" formControlName="fileCode">
                     </div>
                     <label class="col-md-2 lbl-custome">{{'home.search.status' | translate}}</label>
-                    <div class="col-md-4">
+                    <div class="col-md-4" tooltip="Lựa chọn trạng thái hồ sơ">
                       <select class="form-control selectpicker" formControlName="status"
                         data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
                         <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
@@ -79,12 +79,12 @@
                     </div>
                   </div>
                   <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary" (click)="searchDataRegis(null)">
+                    <button tooltip="Tìm kiếm hồ sơ" type="submit" class="btn btn-primary" (click)="searchDataRegis(null)">
                       <i class="fa fa-search"></i>
                       {{'common.btn.search' | translate}}
                     </button>&nbsp;
-                    <button type="button" class="btn btn-success" (click)="clickAddRegis(null)">
-                      <i class="fa fa-pencil-square-o"></i>
+                    <button tooltip="Thêm mới hồ sơ" type="button" class="btn btn-success" (click)="clickAddRegis(null)">
+                      <i class="fa fa-plus-circle"></i>
                       {{'common.btn.add' | translate}}
                     </button>
                   </div>
@@ -104,10 +104,9 @@
                   <div class="pagination-custome col-md-12">
                     <span class="search-title">{{'common.total' | translate}} <span
                         class="fw-bold">{{totalRecord}}</span> {{'common.record' | translate}}</span>
-                    <pagination class="pagi" [totalItems]="totalRecord" [itemsPerPage]="maxPageView"
-                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
-                      [boundaryLinks]="true" [maxSize]="size" [(ngModel)]="page"
-                      (pageChanged)="searchDataRegis($event)">
+                    <pagination class="pagi" [totalItems]="totalRecord" [itemsPerPage]="size" previousText="Trang trước"
+                      nextText="Trang sau" firstText="Trang đầu" lastText="Trang cuối" [boundaryLinks]="true"
+                      [maxSize]="maxPageView" [(ngModel)]="page" (pageChanged)="searchDataRegis($event)">
                     </pagination>
                   </div>
                 </div>
@@ -117,31 +116,34 @@
                   <table class="table table-bordered table-hover table-custome">
                     <thead>
                       <tr>
-                        <td class="text-center" style="width: 1%;">STT</td>
-                        <td class="text-center">Lịch sử</td>
+                        <td class="text-center w1">STT</td>
+                        <td class="text-center w5">Lịch sử</td>
                         <td class="text-center">Mã hồ sơ</td>
-                        <td class="text-center">Ngày gửi</td>
-                        <td class="text-center">Ngày xác nhận</td>
+                        <td class="text-center w15">Ngày tạo</td>
+                        <td class="text-center w15">Ngày xác nhận</td>
                         <td class="text-center">Trạng thái hồ sơ</td>
-                        <td class="text-center">Chức năng</td>
+                        <td class="text-center w10">Chức năng</td>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let item of lstRecord;index as i">
-                        <td class="text-center">{{((page-1)*size)+(i+1)}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
+                        <td style="vertical-align: middle;" class="text-center">{{((page-1)*size)+(i+1)}}</td>
+                        <td class="text-center"><a href="javascript: void(0);" tooltip="Lịch sử hồ sơ"><i class="fa fa-history"
+                              aria-hidden="true"></i></a></td>
+                        <td style="vertical-align: middle;">{{item.maHoso}}</td>
+                        <td style="vertical-align: middle;" class="text-center">{{item.ngayTao | date: 'dd/MM/yyyy'}}
+                        </td>
+                        <td style="vertical-align: middle;" class="text-center">
+                          {{item.ngayPheduyet | date: 'dd/MM/yyyy'}}</td>
+                        <td style="vertical-align: middle;">{{item.tenTrangthai}}</td>
+                        <td style="vertical-align: middle;">
                           <ul class="nav list-inline text-center action-search">
-                            <li><a (click)="clickAddRegis(item)" ngbTooltip="Sửa hồ sơ"><i class="fa fa-address-book-o"
-                                  aria-hidden="true"></i></a></li>
-                            <li><a (click)="clickXinrut(item)" ngbTooltip="Xin rút hồ sơ"><i class="fa fa-lock"
-                                  aria-hidden="true"></i></a></li>
-                            <li><a (click)="deleted(item)" ngbTooltip="Xóa hồ sơ"><i class="fa fa-trash-o"
-                                  aria-hidden="true"></i></a></li>
+                            <li (click)="clickAddRegis(item)" tooltip="Sửa hồ sơ" style="color:dodgerblue"><i
+                                class="fa fa-pencil-square-o" aria-hidden="true"></i></li>
+                            <li (click)="clickXinrut(item)" tooltip="Xin rút hồ sơ" style="color:dodgerblue"><i
+                                class="fa fa-arrow-circle-o-down" aria-hidden="true"></i></li>
+                            <li *ngIf="item.maTrangthai == 0" (click)="deleted(item)" tooltip="Xóa hồ sơ"
+                              style="color:red"><i class="fa fa-trash-o" aria-hidden="true"></i></li>
                           </ul>
                         </td>
                       </tr>

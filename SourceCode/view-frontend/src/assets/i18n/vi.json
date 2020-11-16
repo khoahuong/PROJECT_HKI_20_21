@@ -111,7 +111,7 @@
         "nameClass12":"Nhập vào tên lớp 12",
         "noiDkdt":"Nhập vào nơi đăng ký dự tuyển",
         "maNoiDkdt":"Nhập vào mã nơi đăng ký dự tuyển",
-        "chungchiNN":"Nhập vào chứng chỉ miễn thi ngoại ngữ",
+        "chungchiNN":"Nhập vào chứng chỉ miễn thi ngoại ngữ, ví dụ: IELTS, TOEFL,...",
         "diemthichungchi":"Nhập vào điểm thi của chứng chỉ"
       },
       "title":"Thông tin chung",

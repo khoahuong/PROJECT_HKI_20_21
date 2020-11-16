@@ -90,7 +90,7 @@
                       <select class="form-control selectpicker" formControlName="maNoisinh"
                         data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
                         <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
-                        <option *ngFor="let born of lstProvince" [ngValue]="born.id">{{born.provinceName}}
+                        <option *ngFor="let born of lstProvince" [ngValue]="born.provinceCode">{{born.provinceName}}
                         </option>
                       </select>
                     </div>
@@ -226,7 +226,7 @@
                       <tbody>
                         <tr *ngFor="let item of lstShool; index as i; first as first">
                           <td class="text-center" style="vertical-align: middle;width: 1%">{{i+1}}</td>
-                          <td>
+                          <td style="vertical-align: middle;">
                             <span>{{item.tenKhoilop}}</span>
                           </td>
                           <td>
@@ -323,7 +323,7 @@
                       <select class="form-control selectpicker" formControlName="maSoGddt"
                         data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
                         <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
-                        <option *ngFor="let pro of lstSoGddt" [ngValue]="pro.id">{{pro.tenSoGddt}}
+                        <option *ngFor="let pro of lstSoGddt" [ngValue]="pro.maSoGddt">{{pro.tenSoGddt}}
                         </option>
                       </select>
                     </div>
@@ -466,7 +466,7 @@
                           </td>
                           <td>
                             <ul class="nav list-inline text-center action-search">
-                              <li><a (click)="deleted(item)" tooltip="Xóa"><i class="fa fa-trash-o"
+                              <li><a (click)="deleted(item)" tooltip="Xóa"><i class="fa fa-trash-o" style="color:red"
                                     aria-hidden="true"></i></a></li>
                             </ul>
                           </td>
@@ -555,8 +555,9 @@
                           <td class="text-center">
                             <ul class="nav list-inline nav-center">
                               <li tooltip="Sửa" (click)="addNguyenvongXt(item)"><i class="fa fa-pencil-square-o"
-                                  aria-hidden="true"></i></li>
-                              <li (click)="deleted(item)" tooltip="Xóa"><i class="fa fa-trash-o" aria-hidden="true"></i>
+                                  style="color: dodgerblue;" aria-hidden="true"></i></li>
+                              <li (click)="deleteNguyenvong(item)" tooltip="Xóa"><i class="fa fa-trash-o" style="color:red"
+                                  aria-hidden="true"></i>
                               </li>
                             </ul>
                           </td>
@@ -566,6 +567,70 @@
                   </div>
                 </div>
                 <legend style="color: dodgerblue;"><b>{{'editRegis.personInfo.title5' | translate}}</b></legend>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <table class="table table-bordered table-hover table-custome">
+                      <thead>
+                        <tr>
+                          <td class="text-center" style="width: 1%;">STT</td>
+                          <td class="text-center" style="width: 50%;">Loại tệp đính kèm</td>
+                          <td class="text-center" style="width: 41%;">Tệp đính kèm</td>
+                          <td class="text-center" style="width: 8%;">Chức năng</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of lstDinhkem; index as i; first as first">
+                          <td class="text-center" style="vertical-align: middle;width: 1%">{{i+1}}</td>
+                          <td style="vertical-align: middle;">
+                            <span>{{item.fileTypeName}}</span>
+                            <span *ngIf="item.isRequired == 1 ? true : false" style="color: red">(*)</span>
+                          </td>
+                          <td>
+                            <div class="input-group">
+                              <span class="input-view-data">
+                                <a target="_blank" (click)="downloadFile(item)">{{item.fileName}}</a>&nbsp;
+                                <b>
+                                  <span>{{item.fileSize}}</span>
+                                  <span *ngIf="item.fileSize">(MB)</span>
+                                </b>
+                              </span>
+                              <div class="input-group-append">
+                                <input hidden type="file" #file (change)="uploadFile($event, item)"
+                                  accept=".jpeg,.jpg,.png,.pdf" style="display: none;">
+                                <button class="waves-effect waves-light input-group-text uploadbutton"
+                                  (click)="file.click()" tooltip="Tải tệp đính kèm" *ngIf="item.fileName == null">
+                                  <i class="fa fa-upload" style="color: dodgerblue;" aria-hidden="true"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <ul class="nav list-inline text-center action-search">
+                              <li *ngIf="item.fileName != null" target="_blank" (click)="downloadFile(item)" tooltip="Tải xuống"><i
+                                  class="fa fa-download" style="color:dodgerblue" aria-hidden="true"></i></li>
+                              <li *ngIf="item.fileName != null" (click)="deleteFile(item)" tooltip="Xóa"><i
+                                  class="fa fa-trash-o" style="color:red" aria-hidden="true"></i></li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="form-group text-center">
+                  <button type="submit" class="btn btn-primary" (click)="clickSaveRegis()">
+                    <i class="fa fa-floppy-o"></i>
+                    {{'common.btn.save' | translate}}
+                  </button>&nbsp;
+                  <button type="submit" class="btn btn-primary" (click)="clickSendRegis()">
+                    <i class="fa fa-paper-plane"></i>
+                    {{'common.btn.send' | translate}}
+                  </button>&nbsp;
+                  <button type="button" class="btn btn-primary" (click)="clickBack()">
+                    <i class="fa fa-backward"></i>
+                    {{'common.btn.back' | translate}}
+                  </button>
+                </div>
 
               </div>
             </div>

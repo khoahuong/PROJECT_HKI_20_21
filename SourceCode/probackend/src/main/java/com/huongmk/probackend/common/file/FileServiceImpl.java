@@ -58,7 +58,7 @@ public class FileServiceImpl implements FileService {
         String fileName = file.getOriginalFilename();
         String fileExtension = FilenameUtils.getExtension(fileName);
         String fileCode = uuid + "." + fileExtension;
-
+        Long fileSize = file.getSize();
         try {
             // Check if the file's name contains invalid characters
             if (fileCode.contains("..")) {
@@ -68,7 +68,7 @@ public class FileServiceImpl implements FileService {
             String[] arr = {"jpg", "JPG", "jpeg", "JPEG", "png", "PNG", "pdf", "PDF"};
             List<String> lstExtension = Arrays.asList(arr);
             if (!lstExtension.contains(fileExtension)) {
-                return new FileResponse("Tệp tải lên phải là tệp có định dạng .jpg, .JPG, .jpeg, .JPEG, .png, .PNG, .pdf, .PDF", false);
+                return new FileResponse("Tệp tải lên phải là tệp thuộc các định dạng sau: .jpg, .JPG, .jpeg, .JPEG, .png, .PNG, .pdf, .PDF", false);
             }
             if (fileName.length() > 250) {
                 return new FileResponse("Tên tệp đính kèm không được quá 250 kí tự", false);
@@ -90,17 +90,25 @@ public class FileServiceImpl implements FileService {
                     "/", "~", "`", "!", "#", "$", "%", "^", "&",
                     "*", "+", "=", "[", "]", "'", ";", "{", "}", "|", "\"", ":", "<", ">", "?"
             };
-            List<String> lstCharSpecial = Arrays.asList(charSpecial);
-            if (lstCharSpecial.contains(fileName)) {
-                return new FileResponse("Tên tệp tải lên không được chứa kí tự tiếng việt có " +
-                        "dấu hoặc /~`!#$%^&*+=[]';{}|:<>?", false);
+            // check ki tự đặc biệt của tên file
+            if (fileName != null && !"".equals(fileName)) {
+                for (int i = 0; i < charSpecial.length; i++) {
+                    if (fileName.contains(charSpecial[i])) {
+                        return new FileResponse("Tên tệp tải lên không được chứa kí tự tiếng việt có " +
+                                "dấu hoặc có chứa các kí tự sau /~`!#$%^&*+=[]';{}|:<>?", false);
+                    }
+                }
+            }
+            // check dung luong file tai len
+            if (fileSize > (1024 * 1024 * 5)) {
+                return new FileResponse("Dung lượng tệp tải lên không vượt quá 5(MB)", false);
             }
 
             // Copy file to the target location (Replacing existing file with the same name)
             String filePath = strDate + "/" + fileCode;
             Path targetLocation = this.fileFolderLocation.resolve(filePath);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            return new FileResponse(fileName, fileCode, filePath, file.getContentType(), file.getSize(),
+            return new FileResponse(fileName, fileCode, filePath, file.getContentType(), fileSize,
                     Constants.INFO.SUCCESS_FILE, true);
         } catch (IOException e) {
             logger.error(e.toString());
@@ -109,10 +117,10 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public Resource downloadFile(String fileName) {
+    public Resource downloadFile(String filePath) {
         try {
-            Path filePath = this.fileFolderLocation.resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
+            Path fileurl = this.fileFolderLocation.resolve(filePath).normalize();
+            Resource resource = new UrlResource(fileurl.toUri());
             if (resource.exists()) {
                 return resource;
             }

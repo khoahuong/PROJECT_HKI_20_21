@@ -69,7 +69,7 @@ public class TableRegisDomain {
     @Column(name = "DAN_TOC")
     private String danToc;
     @Column(name = "IS_NATIONAL")
-    private Long isNational; // check quoc tich nuoc ngoai
+    private Long isNational; // check quoc tich nuoc ngoai 1: true, 0: false
     @Size(max = 15)
     @Column(name = "SO_CMND")
     private String soCmnd; // so cmnd, cccd
@@ -153,8 +153,6 @@ public class TableRegisDomain {
     private Long monDialy;
     @Column(name = "MON_GDCD")
     private Long monGdcd;
-    //    @Transient
-//    private List<TableRegisSubjectDomain> lstSubjects; // list dang ky bai thi, mon thi
     @Size(max = 255)
     @Column(name = "CHUNGCHI_NGOAINGU")
     private String chungchiNgoaingu;
@@ -189,7 +187,7 @@ public class TableRegisDomain {
     @Column(name = "TEN_LIENTHONG")
     private String tenLienthong;
     @Transient
-    private List<TableRegisExamDomain> lstExam;
+    private List<TableRegisExamDomain> lstExam; // nguyen vong cet tuyen
 
     @Transient
     private List<TableRegisAttachmentsDomain> lstDinhkem;

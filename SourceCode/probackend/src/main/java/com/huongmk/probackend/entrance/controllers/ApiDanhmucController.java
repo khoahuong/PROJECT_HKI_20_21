@@ -163,4 +163,18 @@ public class ApiDanhmucController {
         }
         return new ResponseEntity<Object>(value, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/dmDinhkem", method = RequestMethod.GET)
+    public ResponseEntity<?> getDmDinhkem() {
+        ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
+        List<TableCateAttachmentsDomain> lstDmDinhkem;
+        try {
+            lstDmDinhkem = dmService.getDmDinhkem();
+            value.put("list", lstDmDinhkem);
+        } catch (Exception e) {
+            value.put("errors", ExceptionLog.createMessage(e));
+            return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<Object>(value, HttpStatus.OK);
+    }
 }

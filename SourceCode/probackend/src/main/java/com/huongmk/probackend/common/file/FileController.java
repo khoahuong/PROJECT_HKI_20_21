@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,14 +55,14 @@ public class FileController {
     /**
      * download file
      *
-     * @param fileName
+     * @param filePath
      * @param request
      * @return
      */
-    @RequestMapping(value = "downloadFile", method = RequestMethod.GET)
-    public ResponseEntity<Resource> downloadFile(@RequestParam String fileName,
+    @RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
+    public ResponseEntity<Resource> downloadFile(@RequestParam String filePath,
                                                  HttpServletRequest request) {
-        Resource resource = fileService.downloadFile(fileName);
+        Resource resource = fileService.downloadFile(filePath);
         String contentType = null;
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());

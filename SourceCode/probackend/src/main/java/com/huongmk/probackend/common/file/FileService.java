@@ -9,5 +9,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FileService {
     FileResponse saveFile(MultipartFile file);
 
-    Resource downloadFile(String fileName);
+    Resource downloadFile(String filePath);
 }

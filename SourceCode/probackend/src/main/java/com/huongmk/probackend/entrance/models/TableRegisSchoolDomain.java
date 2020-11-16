@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author HuongMK
@@ -38,6 +39,10 @@ public class TableRegisSchoolDomain {
     @Column(name = "NGAY_TAO")
     @Temporal(TemporalType.DATE)
     private Date ngayTao;
+    @Transient
+    private List<TableCateDistrictDomain> lstHuyen;
+    @Transient
+    private List<TableCateSchoolDomain> lstThpt;
 
     public Long getIdSchool() {
         return idSchool;
@@ -117,5 +122,21 @@ public class TableRegisSchoolDomain {
 
     public void setNgayTao(Date ngayTao) {
         this.ngayTao = ngayTao;
+    }
+
+    public List<TableCateDistrictDomain> getLstHuyen() {
+        return lstHuyen;
+    }
+
+    public void setLstHuyen(List<TableCateDistrictDomain> lstHuyen) {
+        this.lstHuyen = lstHuyen;
+    }
+
+    public List<TableCateSchoolDomain> getLstThpt() {
+        return lstThpt;
+    }
+
+    public void setLstThpt(List<TableCateSchoolDomain> lstThpt) {
+        this.lstThpt = lstThpt;
     }
 }

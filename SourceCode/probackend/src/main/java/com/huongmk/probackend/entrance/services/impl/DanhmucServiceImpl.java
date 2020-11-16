@@ -44,6 +44,9 @@ public class DanhmucServiceImpl implements DanhmucService {
     @Autowired
     private TableCateUniversityRepository dmDaihocRepo;
 
+    @Autowired
+    private TableCateAttachmentRepository dmDinhkemRepo;
+
     @Override
     public List<TableCateStatusDomain> getAllStatus() {
         return statusRepo.findByOrderById();
@@ -92,5 +95,10 @@ public class DanhmucServiceImpl implements DanhmucService {
     @Override
     public List<TableCateUniversityDomain> getDmTruongDaihoc() {
         return dmDaihocRepo.findByOrderByTenTruongDhcd();
+    }
+
+    @Override
+    public List<TableCateAttachmentsDomain> getDmDinhkem() {
+        return dmDinhkemRepo.findByOrderById();
     }
 }

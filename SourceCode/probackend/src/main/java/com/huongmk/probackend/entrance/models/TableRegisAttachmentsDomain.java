@@ -29,14 +29,18 @@ public class TableRegisAttachmentsDomain {
     @Size(max = 512)
     @Column(name = "FILE_TYPE_NAME")
     private String fileTypeName;
+    @Column(name = "FILE_TYPE_CODE")
+    private Long fileTypeCode;
     @Size(max = 255)
     @Column(name = "FILE_GUIID")
     private String fileGuiid;
     @Size(max = 512)
     @Column(name = "FILE_URL")
     private String fileUrl;
-    @Column(name = "FILE_SIZE")
+    @Column(name = "FILE_SIZE", precision = 15, scale = 3)
     private BigDecimal fileSize;
+    @Column(name = "IS_REQUIRED")
+    private Long isRequired;
     @Column(name = "NGAY_TAO")
     @Temporal(TemporalType.DATE)
     private Date ngayTao;
@@ -83,6 +87,14 @@ public class TableRegisAttachmentsDomain {
         this.fileTypeName = fileTypeName;
     }
 
+    public Long getFileTypeCode() {
+        return fileTypeCode;
+    }
+
+    public void setFileTypeCode(Long fileTypeCode) {
+        this.fileTypeCode = fileTypeCode;
+    }
+
     public String getFileGuiid() {
         return fileGuiid;
     }
@@ -105,6 +117,14 @@ public class TableRegisAttachmentsDomain {
 
     public void setFileSize(BigDecimal fileSize) {
         this.fileSize = fileSize;
+    }
+
+    public Long getIsRequired() {
+        return isRequired;
+    }
+
+    public void setIsRequired(Long isRequired) {
+        this.isRequired = isRequired;
     }
 
     public Date getNgayTao() {

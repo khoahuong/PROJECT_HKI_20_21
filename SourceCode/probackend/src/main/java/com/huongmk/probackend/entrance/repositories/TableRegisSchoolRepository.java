@@ -11,5 +11,5 @@ import java.util.List;
  */
 @Repository
 public interface TableRegisSchoolRepository extends JpaRepository<TableRegisSchoolDomain, Long> {
-    List<TableRegisSchoolDomain> findByIdHosoAndHoatDong(Long idHoso, Long active);
+    List<TableRegisSchoolDomain> findByIdHosoAndHoatDongOrderByIdSchool(Long idHoso, Long active);
 }

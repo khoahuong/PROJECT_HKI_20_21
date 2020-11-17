@@ -1,0 +1,52 @@
+<!-- loading -->
+<div class="loading" *ngIf="loading">Loading&#8230;</div>
+
+<div class="modal-header modal-primary">
+  <h4 class="modal-title pull-left" [innerHTML]=title></h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeHistory()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group row">
+    <div class="pagination-custome col-md-12">
+      <span class="search-title">
+        <span>Mã hồ sơ <b>{{item.maHoso}}</b></span><br>
+        {{'common.total' | translate}} <span class="fw-bold">{{totalRecord}}</span>
+        {{'common.record' | translate}}
+      </span>
+      <pagination class="pagi" [totalItems]="totalRecord" [itemsPerPage]="size" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true" [maxSize]="maxPageView"
+        [(ngModel)]="page" (pageChanged)="searchHistory($event)">
+      </pagination>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-12">
+      <table class="table table-bordered table-hover table-custome">
+        <thead>
+          <tr>
+            <td class="text-center w1">STT</td>
+            <td class="text-center w20">Đơn vị xử lý</td>
+            <td class="text-center w30">Nội dung</td>
+            <td class="text-center w15">Thời gian</td>
+            <td class="text-center w20">Trạng thái hồ sơ</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of lstHistory; index as i; first as first">
+            <td class="text-center" style="vertical-align: middle;width: 1%">{{((page-1)*size)+(i+1)}}</td>
+            <td style="vertical-align: middle;">{{item.nguoiGui}}
+            </td>
+            <td style="vertical-align: middle;">{{item.noiDung}}
+            </td>
+            <td class="text-center">
+              {{item.ngayTao | date : 'dd/MM/yyyy HH:mm'}}
+            </td>
+            <td style="vertical-align: middle;">{{item.tenTrangthai}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

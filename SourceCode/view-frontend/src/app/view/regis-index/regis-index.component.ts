@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/common/api/api.service';
 import { ConfirmPopupComponent } from 'src/app/common/confirm-popup/confirm-popup.component';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
 import { CONSTANT } from 'src/app/common/constant/constant';
+import { RegisHistoryComponent } from '../regis-history/regis-history.component';
 import { UserInfoComponent } from '../user-info/user-info.component';
 declare var $: any;
 @Component({
@@ -125,7 +126,8 @@ export class RegisIndexComponent implements OnInit {
    * @param item
    */
   clickAddRegis(item: any) {
-    this.router.navigate(['/regis/edit', { 'data': item }]);
+    let id = item && item.idHoso ? item.idHoso : null;
+    this.router.navigate(['/regis/edit'], { queryParams: { idHoso: id } });
   }
 
   /**
@@ -201,6 +203,18 @@ export class RegisIndexComponent implements OnInit {
         });
       }
     });
+  }
+
+  /**
+   * Xem lịch sử xử lý hồ sơ
+   * @param item
+   */
+  clickHistory(item: any): void {
+    const initialState = {
+      item: item,
+      title: "Lịch sử hồ sơ"
+    };
+    this.bsModalRef = this.modalService.show(RegisHistoryComponent, { initialState, class: 'modal-lg' });
   }
 
 }

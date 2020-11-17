@@ -13,4 +13,6 @@ public interface RegistrationService {
     ListJson<TableRegisDomain> searchRegistration(SearchRegisDto searchDto);
 
     void deleteRegis(Long idRegis, Long userId);
+
+    TableRegisDomain getDataRegistration(Long idHoso);
 }

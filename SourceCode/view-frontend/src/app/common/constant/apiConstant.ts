@@ -36,7 +36,12 @@ export class API_CONSTANT {
   public static REGISTRATION = {
     CREATE: "api/regis/createRegis",
     SEARCH: "api/regis/searchRegis",
-    UPDATE: "api/regis",
-    DELETE: "api/regis/deleteRegis"
-  }
+    UPDATE: "api/regis/updateRegis",
+    DELETE: "api/regis/deleteRegis",
+    GET_DATA: "api/regis/getDataRegis"
+  };
+
+  public static HISTORY = {
+    SEARCH: "api/history/search"
+  };
 }

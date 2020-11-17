@@ -22,9 +22,8 @@ public class TableRegisSubXtnDomain {
     @Size(max = 100)
     @Column(name = "MA_HOSO")
     private String maHoso;
-    @Size(max = 20)
     @Column(name = "MA_MONTHI")
-    private String maMonthi;
+    private Long maMonthi;
     @Size(max = 255)
     @Column(name = "TEN_MONTHI")
     private String tenMonthi;
@@ -64,11 +63,11 @@ public class TableRegisSubXtnDomain {
         this.maHoso = maHoso;
     }
 
-    public String getMaMonthi() {
+    public Long getMaMonthi() {
         return maMonthi;
     }
 
-    public void setMaMonthi(String maMonthi) {
+    public void setMaMonthi(Long maMonthi) {
         this.maMonthi = maMonthi;
     }
 

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -15,17 +16,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { ConfirmPopupComponent } from './common/confirm-popup/confirm-popup.component';
+import { NotiPopupComponent } from './common/noti-popup/noti-popup.component';
 import { UppercaseDirective } from './common/ulti/stringUppercase/upper.directive';
 import { LoginComponent } from './login/login.component';
 import { CreateUserComponent } from './view/create-user/create-user.component';
 import { FooterComponent } from './view/footer/footer.component';
 import { HeaderComponent } from './view/header/header.component';
+import { RegisEditPopupComponent } from './view/regis-edit-popup/regis-edit-popup.component';
 import { RegisEditComponent } from './view/regis-edit/regis-edit.component';
+import { RegisHistoryComponent } from './view/regis-history/regis-history.component';
 import { RegisIndexComponent } from './view/regis-index/regis-index.component';
 import { UserInfoComponent } from './view/user-info/user-info.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NotiPopupComponent } from './common/noti-popup/noti-popup.component';
-import { RegisEditPopupComponent } from './view/regis-edit-popup/regis-edit-popup.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { RegisEditPopupComponent } from './view/regis-edit-popup/regis-edit-popu
     UserInfoComponent,
     ConfirmPopupComponent,
     NotiPopupComponent,
-    RegisEditPopupComponent
+    RegisEditPopupComponent,
+    RegisHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,8 @@ import { RegisEditPopupComponent } from './view/regis-edit-popup/regis-edit-popu
     ConfirmPopupComponent,
     UserInfoComponent,
     NotiPopupComponent,
-    RegisEditPopupComponent
+    RegisEditPopupComponent,
+    RegisHistoryComponent
   ]
 })
 export class AppModule { }

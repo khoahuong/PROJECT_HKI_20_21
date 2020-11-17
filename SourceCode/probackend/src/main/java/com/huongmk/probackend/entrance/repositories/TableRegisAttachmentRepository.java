@@ -12,4 +12,6 @@ import java.util.List;
 @Repository
 public interface TableRegisAttachmentRepository extends JpaRepository<TableRegisAttachmentsDomain, Long> {
     List<TableRegisAttachmentsDomain> findByIdHosoAndHoatdong(Long idHoso, Long active);
+
+    List<TableRegisAttachmentsDomain> findByIdHosoAndHoatdongOrderByIdAttachment(Long idHoso, Long active);
 }

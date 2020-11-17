@@ -79,11 +79,13 @@
                     </div>
                   </div>
                   <div class="form-group text-center">
-                    <button tooltip="Tìm kiếm hồ sơ" type="submit" class="btn btn-primary" (click)="searchDataRegis(null)">
+                    <button tooltip="Tìm kiếm hồ sơ" type="submit" class="btn btn-primary"
+                      (click)="searchDataRegis(null)">
                       <i class="fa fa-search"></i>
                       {{'common.btn.search' | translate}}
                     </button>&nbsp;
-                    <button tooltip="Thêm mới hồ sơ" type="button" class="btn btn-success" (click)="clickAddRegis(null)">
+                    <button tooltip="Thêm mới hồ sơ" type="button" class="btn btn-success"
+                      (click)="clickAddRegis(null)">
                       <i class="fa fa-plus-circle"></i>
                       {{'common.btn.add' | translate}}
                     </button>
@@ -128,8 +130,8 @@
                     <tbody>
                       <tr *ngFor="let item of lstRecord;index as i">
                         <td style="vertical-align: middle;" class="text-center">{{((page-1)*size)+(i+1)}}</td>
-                        <td class="text-center"><a href="javascript: void(0);" tooltip="Lịch sử hồ sơ"><i class="fa fa-history"
-                              aria-hidden="true"></i></a></td>
+                        <td class="text-center"><a href="javascript: void(0);" tooltip="Lịch sử hồ sơ"
+                            (click)="clickHistory(item)"><i class="fa fa-history" aria-hidden="true"></i></a></td>
                         <td style="vertical-align: middle;">{{item.maHoso}}</td>
                         <td style="vertical-align: middle;" class="text-center">{{item.ngayTao | date: 'dd/MM/yyyy'}}
                         </td>

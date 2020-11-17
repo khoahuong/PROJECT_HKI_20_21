@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RegistrationRepository extends JpaRepository<TableRegisDomain, Long>, RegistrationRepoCustom {
     TableRegisDomain findByIdHosoAndUserIdAndHoatdong(Long idRegis, Long userId, Long active);
+
+    TableRegisDomain findByIdHosoAndHoatdong(Long idHoso, Long active);
 }

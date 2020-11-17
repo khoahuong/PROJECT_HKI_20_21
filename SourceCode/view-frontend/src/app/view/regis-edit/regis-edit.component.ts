@@ -24,7 +24,7 @@ export class RegisEditComponent implements OnInit {
   loading: boolean = false;
   userLogin: any;
   titleEdit: String = "";
-  data: any;
+  idRegis: any;
 
   editForm: FormGroup;
 
@@ -68,27 +68,29 @@ export class RegisEditComponent implements OnInit {
     this.lstMonNgoaingu = CONSTANT.MON_NGOAINGU;
     this.lstShool = CONSTANT.CLASS_NAME;
     this.lstXettuyenLienthong = CONSTANT.DA_TOTNGHIEP;
-    this.activeRoute.params.subscribe(params => {
-      this.data = params['data'];
+    this.activeRoute.queryParams.subscribe(params => {
+      this.idRegis = params.idHoso;
     });
-    this.titleEdit = this.data != "null" ? "Cập nhật thông tin hồ sơ" : "Thêm mới thông tin hồ sơ";
+    this.titleEdit = this.idRegis != null ? "Cập nhật thông tin hồ sơ" : "Thêm mới thông tin hồ sơ";
     this.buildForm();
-    if (this.data == "null") {
-      this.getDmDinhkem();
-    }
     this.getProvince();
     this.getDmSoGDDT();
     this.getDmMonhocBaoluu();
     this.getDmDoituongUutien();
     this.getDmKhuvucTs();
     this.getListYear();
+    if (this.idRegis == null) {
+      this.getDmDinhkem();
+    } else {
+      this.getDataBindingForEdit();
+    }
     this.refreshSelect();
   }
 
   refreshSelect(): void {
     setTimeout(function () {
       $('.selectpicker').selectpicker('refresh');
-    }, 100);
+    }, 500);
   }
   /**
    * khoi tao form
@@ -141,6 +143,108 @@ export class RegisEditComponent implements OnInit {
       namTotnghiep: [''],
       maLienthong: ['']
     })
+  }
+
+  /**
+   * hàm lấy dữ liệu cho sửa hồ sơ
+   */
+  getDataBindingForEdit(): void {
+    this.loading = true;
+    this.api.getDataToken(API_CONSTANT.REGISTRATION.GET_DATA, { idHoso: this.idRegis }).subscribe(data => {
+      let hoso = data.data;
+      console.log(hoso);
+      if (hoso) {
+        this.editForm.controls.maHoso.setValue(hoso.maHoso);
+        this.editForm.controls.tenTrangthai.setValue(hoso.tenTrangthai);
+        this.editForm.controls.ngayTao.setValue(new Date(hoso.ngayTao));
+        this.editForm.controls.ngayGui.setValue(hoso.ngayGui ? new Date(hoso.ngayGui) : null);
+        this.editForm.controls.hotenThisinh.setValue(hoso.hotenThisinh);
+        this.editForm.controls.maGioitinh.setValue(hoso.maGioitinh);
+        this.editForm.controls.ngaySinh.setValue(hoso.ngaySinh ? new Date(hoso.ngaySinh) : null);
+        this.editForm.controls.maNoisinh.setValue(hoso.maNoisinh);
+        this.editForm.controls.danToc.setValue(hoso.danToc);
+        this.editForm.controls.isNational.setValue(hoso.isNational);
+        this.editForm.controls.soCmnd.setValue(hoso.soCmnd);
+        this.editForm.controls.sdtThisinh.setValue(hoso.sdtThisinh);
+        this.editForm.controls.emailThisinh.setValue(hoso.emailThisinh);
+        this.editForm.controls.thongtinLienhe.setValue(hoso.thongtinLienhe);
+        this.editForm.controls.maTinhthanhTt.setValue(parseInt(hoso.maTinhthanhTt));
+        this.getDistrictHKTT();
+        this.editForm.controls.maQuanhuyenTt.setValue(parseInt(hoso.maQuanhuyenTt));
+        this.getWardHKTT();
+        this.editForm.controls.maXaphuongTt.setValue(parseInt(hoso.maXaphuongTt));
+        this.getWardHKTTKhac();
+        this.editForm.controls.tenXaphuongTtKhac.setValue(hoso.tenXaphuongTtKhac);
+        this.editForm.controls.hkttKvi.setValue(hoso.hkttKvi);
+        this.editForm.controls.hkttDbkk.setValue(hoso.hkttDbkk);
+        this.lstShool = hoso.lstShool;
+        for (let i = 0; i < this.lstShool.length; i++) {
+          let param = {
+            idProvince: this.lstShool[i].idTinh
+          };
+          if (param.idProvince !== null) {
+            this.api.getDataToken(API_CONSTANT.STATUS.GET_DATA_DISTRICT, param).subscribe(d => {
+              this.lstShool[i].lstHuyen = d.list;
+            }, error => {
+              this.toastr.error('Lỗi', 'Không lấy được danh mục quận huyện của THPT.');
+            });
+          }
+          let param1 = {
+            idDistrict: this.lstShool[i].idHuyen
+          };
+          if (param1.idDistrict !== null) {
+            this.api.getDataToken(API_CONSTANT.STATUS.GET_DATA_SCHOOL, param1).subscribe(d => {
+              this.lstShool[i].lstThpt = d.list;
+            }, error => {
+              this.toastr.error('Lỗi', 'Không lấy được danh mục trường THPT.');
+            });
+          }
+          setTimeout(function () {
+            $('.selectpicker').selectpicker('refresh');
+          }, 1000);
+        }
+        this.editForm.controls.tenLop12.setValue(hoso.tenLop12);
+        this.editForm.controls.xettuyenDhcd.setValue(hoso.xettuyenDhcd);
+        this.editForm.controls.chuongtrinhHocthisinh.setValue(hoso.chuongtrinhHocthisinh ? (hoso.chuongtrinhHocthisinh).toString() : '');
+        this.editForm.controls.thisinhTudoTn.setValue(hoso.thisinhTudoTn ? (hoso.thisinhTudoTn).toString() : '');
+        this.editForm.controls.maSoGddt.setValue(hoso.maSoGddt);
+        this.editForm.controls.tenNoiDkdt.setValue(hoso.tenNoiDkdt);
+        this.editForm.controls.maNoiDkdt.setValue(hoso.maNoiDkdt);
+        this.editForm.controls.monToan.setValue(hoso.monToan);
+        this.editForm.controls.monNguvan.setValue(hoso.monNguvan);
+        this.editForm.controls.monNgoaingu.setValue(hoso.monNgoaingu);
+        if (this.editForm.controls.monNgoaingu.value) {
+          this.isShowMonNgoaingu = false;
+        } else {
+          this.isShowMonNgoaingu = true;
+        }
+        this.editForm.controls.monNgoainguChitiet.setValue(hoso.monNgoainguChitiet);
+        this.editForm.controls.monKhtn.setValue(hoso.monKhtn);
+        this.editForm.controls.monKhxh.setValue(hoso.monKhxh);
+        this.editForm.controls.monVatly.setValue(hoso.monVatly);
+        this.editForm.controls.monHoahoc.setValue(hoso.monHoahoc);
+        this.editForm.controls.monSinhhoc.setValue(hoso.monSinhhoc);
+        this.editForm.controls.monLichsu.setValue(hoso.monLichsu);
+        this.editForm.controls.monDialy.setValue(hoso.monDialy);
+        this.editForm.controls.monGdcd.setValue(hoso.monGdcd);
+        this.editForm.controls.chungchiNgoaingu.setValue(hoso.chungchiNgoaingu);
+        this.editForm.controls.diemthiChungchiNn.setValue(hoso.diemthiChungchiNn);
+        this.lstMonhocXtn = hoso.lstMonhocXtn;
+        this.editForm.controls.maDtUutien.setValue(hoso.maDtUutien ? parseInt(hoso.maDtUutien) : '');
+        this.editForm.controls.maKhuvucTs.setValue(hoso.maKhuvucTs ? parseInt(hoso.maKhuvucTs) : '');
+        this.editForm.controls.namTotnghiep.setValue(hoso.namTotnghiep ? parseInt(hoso.namTotnghiep) : '');
+        this.editForm.controls.maLienthong.setValue(hoso.maLienthong ? parseInt(hoso.maLienthong) : '');
+        this.lstExam = hoso.lstExam;
+        this.lstDinhkem = hoso.lstDinhkem;
+        setTimeout(function () {
+          $('.selectpicker').selectpicker('refresh');
+        }, 1000);
+      }
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+      this.toastr.error('Lỗi', 'Không lấy được dữ liệu hồ sơ');
+    });
   }
 
   /**
@@ -206,7 +310,7 @@ export class RegisEditComponent implements OnInit {
       this.lstKhuvucTs = d.list;
       setTimeout(function () {
         $('.selectpicker').selectpicker('refresh');   // refresh the selectpicker with fetched courses after 0.1s
-      }, 100);
+      }, 500);
     }, error => {
       this.toastr.error('Lỗi', 'Không lấy được danh mục khu vực tuyển sinh.');
     });
@@ -239,7 +343,7 @@ export class RegisEditComponent implements OnInit {
     }
     setTimeout(function () {
       $('.selectpicker').selectpicker('refresh');   // refresh the selectpicker with fetched courses after 0.1s
-    }, 100);
+    }, 500);
   }
 
   /**
@@ -261,7 +365,7 @@ export class RegisEditComponent implements OnInit {
     }
     setTimeout(function () {
       $('.selectpicker').selectpicker('refresh');
-    }, 100);
+    }, 500);
   }
 
   /**
@@ -274,6 +378,7 @@ export class RegisEditComponent implements OnInit {
     if (idWard == 6578) {
       this.isShowXaphuong = false;
     } else {
+      this.editForm.controls.tenXaphuongTtKhac.setValue('');
       this.isShowXaphuong = true;
     }
   }
@@ -291,7 +396,7 @@ export class RegisEditComponent implements OnInit {
     }
     setTimeout(function () {
       $('.selectpicker').selectpicker('refresh');
-    }, 100);
+    }, 500);
   }
 
   /**
@@ -315,7 +420,7 @@ export class RegisEditComponent implements OnInit {
     }
     setTimeout(function () {
       $('.selectpicker').selectpicker('refresh');
-    }, 100);
+    }, 500);
   }
 
   /**
@@ -337,7 +442,7 @@ export class RegisEditComponent implements OnInit {
     }
     setTimeout(function () {
       $('.selectpicker').selectpicker('refresh');
-    }, 100);
+    }, 500);
   }
 
   clickSelectLang(event: any): void {
@@ -349,7 +454,7 @@ export class RegisEditComponent implements OnInit {
     }
     setTimeout(function () {
       $('.selectpicker').selectpicker('refresh');
-    }, 100);
+    }, 500);
   }
 
   /**
@@ -367,7 +472,7 @@ export class RegisEditComponent implements OnInit {
     this.lstMonhocXtn.push(obj);
     setTimeout(function () {
       $('.selectpicker').selectpicker('refresh');
-    }, 100);
+    }, 500);
   }
 
   /**
@@ -517,6 +622,9 @@ export class RegisEditComponent implements OnInit {
     this.location.back();
   }
 
+  /**
+   * Hàm thực hiện lưu hồ sơ
+   */
   clickSaveRegis(): void {
     this.loading = true;
     let maSoGddt = this.editForm.controls.maSoGddt.value;
@@ -524,7 +632,7 @@ export class RegisEditComponent implements OnInit {
       return d.maSoGddt === maSoGddt;
     })[0];
     let regisData = {
-      idHoso: null,
+      idHoso: this.idRegis ? this.idRegis : null,
       maHoso: this.editForm.controls.maHoso.value,
       userId: this.userLogin.id,
       maTrangthai: null,
@@ -619,6 +727,9 @@ export class RegisEditComponent implements OnInit {
 
   }
 
+  /**
+   * Hàm thực hiện gửi hồ sơ
+   */
   clickSendRegis(): void {
 
   }

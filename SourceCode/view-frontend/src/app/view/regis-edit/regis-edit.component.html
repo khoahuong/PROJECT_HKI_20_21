@@ -250,7 +250,8 @@
                             </div>
                           </td>
                           <td>
-                            <div [attr.id]="'huyenlb_' + (i+1)" style="display: none;">
+                            <!-- <div [attr.id]="'huyenlb_' + (i+1)" style="display: none;"> -->
+                            <div *ngIf="item.loaiThisinh == 2">
                               <select class="form-control selectpicker" [(ngModel)]="item.idHuyen"
                                 data-none-results-text="Không tìm thấy kết quả" data-live-search="true"
                                 (ngModelChange)="getTHPT(item)">
@@ -261,7 +262,8 @@
                             </div>
                           </td>
                           <td>
-                            <div [attr.id]="'thptlb_' + (i+1)" style="display: none;">
+                            <!-- <div [attr.id]="'thptlb_' + (i+1)" style="display: none;"> -->
+                            <div *ngIf="item.loaiThisinh == 2">
                               <select class="form-control selectpicker" [(ngModel)]="item.idThpt"
                                 data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
                                 <option value="">{{'home.search.placeholder.selectAll' | translate}}</option>
@@ -556,8 +558,8 @@
                             <ul class="nav list-inline nav-center">
                               <li tooltip="Sửa" (click)="addNguyenvongXt(item)"><i class="fa fa-pencil-square-o"
                                   style="color: dodgerblue;" aria-hidden="true"></i></li>
-                              <li (click)="deleteNguyenvong(item)" tooltip="Xóa"><i class="fa fa-trash-o" style="color:red"
-                                  aria-hidden="true"></i>
+                              <li (click)="deleteNguyenvong(item)" tooltip="Xóa"><i class="fa fa-trash-o"
+                                  style="color:red" aria-hidden="true"></i>
                               </li>
                             </ul>
                           </td>
@@ -606,8 +608,9 @@
                           </td>
                           <td>
                             <ul class="nav list-inline text-center action-search">
-                              <li *ngIf="item.fileName != null" target="_blank" (click)="downloadFile(item)" tooltip="Tải xuống"><i
-                                  class="fa fa-download" style="color:dodgerblue" aria-hidden="true"></i></li>
+                              <li *ngIf="item.fileName != null" target="_blank" (click)="downloadFile(item)"
+                                tooltip="Tải xuống"><i class="fa fa-download" style="color:dodgerblue"
+                                  aria-hidden="true"></i></li>
                               <li *ngIf="item.fileName != null" (click)="deleteFile(item)" tooltip="Xóa"><i
                                   class="fa fa-trash-o" style="color:red" aria-hidden="true"></i></li>
                             </ul>

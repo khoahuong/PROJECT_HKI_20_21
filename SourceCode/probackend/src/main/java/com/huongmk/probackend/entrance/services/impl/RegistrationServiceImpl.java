@@ -83,7 +83,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (hoso != null) {
             hoso.setHoatdong(Constants.STATUS.INACTIVE);
             regisRepo.save(hoso); // xoa ho so
-            List<TableRegisSchoolDomain> lstClass = regisSchoolRepo.findByIdHosoAndHoatDong(hoso.getIdHoso(), Constants.STATUS.ACTIVE);
+            List<TableRegisSchoolDomain> lstClass = regisSchoolRepo.findByIdHosoAndHoatDongOrderByIdSchool(hoso.getIdHoso(), Constants.STATUS.ACTIVE);
             if (lstClass != null && lstClass.size() > 0) {
                 for (TableRegisSchoolDomain lop : lstClass) {
                     lop.setHoatDong(Constants.STATUS.INACTIVE);
@@ -112,6 +112,22 @@ public class RegistrationServiceImpl implements RegistrationService {
                 }
             }
         }
+    }
+
+    @Override
+    public TableRegisDomain getDataRegistration(Long idHoso) {
+        TableRegisDomain hoso = regisRepo.findByIdHosoAndHoatdong(idHoso, Constants.STATUS.ACTIVE);
+        if (hoso != null) {
+            List<TableRegisSchoolDomain> lstLopThpt = regisSchoolRepo.findByIdHosoAndHoatDongOrderByIdSchool(idHoso, Constants.STATUS.ACTIVE);
+            hoso.setLstShool(lstLopThpt);
+            List<TableRegisSubXtnDomain> lstMonThiXtn = regisSubXtnRepo.findByIdHosoAndHoatdongOrderByIdSubXtn(idHoso, Constants.STATUS.ACTIVE);
+            hoso.setLstMonhocXtn(lstMonThiXtn);
+            List<TableRegisExamDomain> lstngVong = regisExamRepo.findByIdHosoAndHoatdongOrderByIdExam(idHoso, Constants.STATUS.ACTIVE);
+            hoso.setLstExam(lstngVong);
+            List<TableRegisAttachmentsDomain> lstDinhkem = regisAttachRepo.findByIdHosoAndHoatdongOrderByIdAttachment(idHoso, Constants.STATUS.ACTIVE);
+            hoso.setLstDinhkem(lstDinhkem);
+        }
+        return hoso;
     }
 
     /**

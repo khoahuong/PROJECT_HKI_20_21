@@ -12,4 +12,6 @@ import java.util.List;
 @Repository
 public interface TableRegisSubXtnRepository extends JpaRepository<TableRegisSubXtnDomain, Long> {
     List<TableRegisSubXtnDomain> findByIdHosoAndHoatdong(Long idHoso, Long active);
+
+    List<TableRegisSubXtnDomain> findByIdHosoAndHoatdongOrderByIdSubXtn(Long idHoso, Long active);
 }

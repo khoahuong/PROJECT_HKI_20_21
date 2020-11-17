@@ -81,4 +81,18 @@ public class ApiRegisController {
         }
         return new ResponseEntity<Object>(value, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/getDataRegis", method = RequestMethod.GET)
+    public ResponseEntity<?> getDataRegistration(@RequestParam Long idHoso) {
+        ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
+        TableRegisDomain regis;
+        try {
+            regis = registrationService.getDataRegistration(idHoso);
+            value.put("data", regis);
+        } catch (Exception e) {
+            value.put("errors", ExceptionLog.createMessage(e));
+            return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<Object>(value, HttpStatus.OK);
+    }
 }

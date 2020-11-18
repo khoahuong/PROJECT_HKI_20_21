@@ -64,7 +64,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (regisDomain.getLstDinhkem() != null && regisDomain.getLstDinhkem().size() > 0) {
             createDinhkem(regisDomain);
         }
-        createLichsu(regisDomain);
+        createLichsu(regisDomain, Constants.REGIS_STATUS.TAO_MOI_STR);
     }
 
     @Override
@@ -130,16 +130,55 @@ public class RegistrationServiceImpl implements RegistrationService {
         return hoso;
     }
 
+    @Override
+    public boolean updateRegis(TableRegisDomain regisDomain) {
+        TableRegisDomain hosoDb = regisRepo.findByIdHosoAndHoatdong(regisDomain.getIdHoso(), Constants.STATUS.ACTIVE);
+        if (hosoDb != null) {
+            regisDomain.setMaHoso(hosoDb.getMaHoso());
+            regisDomain.setUserId(hosoDb.getUserId());
+            regisDomain.setMaTrangthai(hosoDb.getMaTrangthai());
+            regisDomain.setTenTrangthai(hosoDb.getTenTrangthai());
+            regisDomain.setNgayTao(hosoDb.getNgayTao());
+            regisDomain.setNgayGui(hosoDb.getNgayGui());
+            regisDomain.setNgayPheduyet(hosoDb.getNgayPheduyet());
+            regisDomain.setHoatdong(hosoDb.getHoatdong());
+            regisRepo.save(regisDomain);
+            if (regisDomain.getLstShool() != null && regisDomain.getLstShool().size() > 0) {
+                updateDanhsachLopThpt(regisDomain);
+            }
+        }
+        return false;
+    }
+
+    private void updateDanhsachLopThpt(TableRegisDomain regisDomain) {
+        List<TableRegisSchoolDomain> lstLopThptOld = regisSchoolRepo.findByIdHosoAndHoatDongOrderByIdSchool(regisDomain.getIdHoso(), Constants.STATUS.ACTIVE);
+        if (lstLopThptOld != null && lstLopThptOld.size() > 0) {
+            for (TableRegisSchoolDomain lopOld : lstLopThptOld) {
+                lopOld.setHoatDong(Constants.STATUS.INACTIVE);
+                regisSchoolRepo.save(lopOld);
+            }
+        }
+        for (TableRegisSchoolDomain lopNew : regisDomain.getLstShool()) {
+            lopNew.setIdSchool(null);
+            lopNew.setIdHoso(regisDomain.getIdHoso());
+            lopNew.setMaHoso(regisDomain.getMaHoso());
+            lopNew.setHoatDong(Constants.STATUS.ACTIVE);
+            lopNew.setNgayTao(new Date());
+            regisSchoolRepo.save(lopNew);
+        }
+    }
+
+
     /**
-     * Lưu lại lịch sử tạo mới hồ sơ
+     * Lưu lại lịch sử hồ sơ
      *
      * @param regisDomain
      */
-    private void createLichsu(TableRegisDomain regisDomain) {
+    private void createLichsu(TableRegisDomain regisDomain, String noidung) {
         TableHistoryDomain lichsu = new TableHistoryDomain();
         lichsu.setIdHoso(regisDomain.getIdHoso());
         lichsu.setMaHoso(regisDomain.getMaHoso());
-        lichsu.setNoiDung("Tạo mới hồ sơ");
+        lichsu.setNoiDung(noidung);
         lichsu.setMaTrangthai(regisDomain.getMaTrangthai());
         lichsu.setTenTrangthai(regisDomain.getTenTrangthai());
         lichsu.setNgayTao(new Date());

@@ -15,4 +15,6 @@ public interface RegistrationService {
     void deleteRegis(Long idRegis, Long userId);
 
     TableRegisDomain getDataRegistration(Long idHoso);
+
+    boolean updateRegis(TableRegisDomain regisDomain);
 }

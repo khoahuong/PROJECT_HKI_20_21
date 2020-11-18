@@ -95,4 +95,20 @@ public class ApiRegisController {
         }
         return new ResponseEntity<Object>(value, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/updateRegis", method = RequestMethod.POST)
+    public ResponseEntity<?> updateRegis(@RequestBody TableRegisDomain regisDomain) {
+        ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
+        boolean isSuccess = false;
+        try {
+            if (regisDomain.getIdHoso() != null) {
+                isSuccess = registrationService.updateRegis(regisDomain);
+            }
+            value.put("success", isSuccess);
+        } catch (Exception e) {
+            value.put("errors", ExceptionLog.createMessage(e));
+            return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<Object>(value, HttpStatus.OK);
+    }
 }

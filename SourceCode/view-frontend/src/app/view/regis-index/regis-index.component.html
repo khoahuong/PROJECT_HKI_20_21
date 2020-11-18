@@ -120,10 +120,10 @@
                       <tr>
                         <td class="text-center w1">STT</td>
                         <td class="text-center w5">Lịch sử</td>
-                        <td class="text-center">Mã hồ sơ</td>
+                        <td class="text-center w25">Mã hồ sơ</td>
                         <td class="text-center w15">Ngày tạo</td>
                         <td class="text-center w15">Ngày xác nhận</td>
-                        <td class="text-center">Trạng thái hồ sơ</td>
+                        <td class="text-center w29">Trạng thái hồ sơ</td>
                         <td class="text-center w10">Chức năng</td>
                       </tr>
                     </thead>
@@ -142,7 +142,7 @@
                           <ul class="nav list-inline text-center action-search">
                             <li (click)="clickAddRegis(item)" tooltip="Sửa hồ sơ" style="color:dodgerblue"><i
                                 class="fa fa-pencil-square-o" aria-hidden="true"></i></li>
-                            <li (click)="clickXinrut(item)" tooltip="Xin rút hồ sơ" style="color:dodgerblue"><i
+                            <li *ngIf="item.maTrangthai != 0" (click)="clickXinrut(item)" tooltip="Xin rút hồ sơ" style="color:dodgerblue"><i
                                 class="fa fa-arrow-circle-o-down" aria-hidden="true"></i></li>
                             <li *ngIf="item.maTrangthai == 0" (click)="deleted(item)" tooltip="Xóa hồ sơ"
                               style="color:red"><i class="fa fa-trash-o" aria-hidden="true"></i></li>

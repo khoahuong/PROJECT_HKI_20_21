@@ -75,7 +75,7 @@ export class RegisEditComponent implements OnInit {
     this.activeRoute.queryParams.subscribe(params => {
       this.idRegis = params.idHoso;
     });
-    this.titleEdit = this.idRegis !== null ? "Cập nhật thông tin hồ sơ" : "Thêm mới thông tin hồ sơ";
+    this.titleEdit = this.idRegis !== undefined ? "Cập nhật thông tin hồ sơ" : "Thêm mới thông tin hồ sơ";
     this.buildForm();
     this.getProvince();
     this.getDmSoGDDT();
@@ -83,7 +83,7 @@ export class RegisEditComponent implements OnInit {
     this.getDmDoituongUutien();
     this.getDmKhuvucTs();
     this.getListYear();
-    if (this.idRegis === null) {
+    if (this.idRegis === undefined) {
       this.getDmDinhkem();
       this.fillDataUserForRegis();
     } else {
@@ -779,28 +779,27 @@ export class RegisEditComponent implements OnInit {
     if (this.validXaphuongKhac()) {
       errorRegis = true;
     }
-    debugger;
     for (let i = 0; i < this.lstShool.length; i++) {
       let item = this.lstShool[i];
-      if (item.loaiThisinh === "") {
+      if (item.loaiThisinh === "" || item.loaiThisinh === null) {
         errorRegis = true;
         $('#kieuthisinhlb_' + i).show();
       } else {
         $('#kieuthisinhlb_' + i).hide();
       }
-      if (item.idTinh === "") {
+      if (item.idTinh === "" || item.idTinh === null) {
         errorRegis = true;
         $('#tinhthanhlb_' + i).show();
       } else {
         $('#tinhthanhlb_' + i).hide();
       }
-      if (item.idHuyen === "" && item.loaiThisinh === 2) {
+      if ((item.idHuyen === "" || item.idHuyen === null) && item.loaiThisinh === 2) {
         errorRegis = true;
         $('#quanhuyenlb_' + i).show();
       } else {
         $('#quanhuyenlb_' + i).hide();
       }
-      if (item.idThpt === "" && item.loaiThisinh === 2) {
+      if ((item.idThpt === "" || item.idThpt === null) && item.loaiThisinh === 2) {
         errorRegis = true;
         $('#truongthptlb_' + i).show();
       } else {
@@ -815,7 +814,7 @@ export class RegisEditComponent implements OnInit {
       $('#dinhkem_valid').show();
     } else {
       for (let i = 0; i < this.lstDinhkem.length; i++) {
-        if (this.lstDinhkem[i].isRequired === 1 && (this.lstDinhkem[i].fileName === "" || this.lstDinhkem[i].fileName === undefined)) {
+        if (this.lstDinhkem[i].isRequired === 1 && (this.lstDinhkem[i].fileName === "" || this.lstDinhkem[i].fileName === undefined || this.lstDinhkem[i].fileName === null)) {
           errorRegis = true;
           $('#dinhkem_valid').show();
           break;
@@ -927,7 +926,7 @@ export class RegisEditComponent implements OnInit {
     let msg: string = regisData.idHoso > 0 ? 'Cập nhật hồ sơ thành công.' : 'Tạo mới hồ sơ thành công.';
     this.api.postDataToken(url, regisData, {}).subscribe(d => {
       this.loading = false;
-      if (d.success === true) {
+      if (d.data !== null) {
         this.toastr.success('Thành công', msg);
         this.clickBack();
       } else {
@@ -951,5 +950,106 @@ export class RegisEditComponent implements OnInit {
       this.app.popupAlert('Thông báo', 'Bạn cần nhập đủ dữ liệu các trường BẮT BUỘC <span class="msg-invalid">(*)</span>')
       return;
     }
+
+    this.loading = true;
+    let maSoGddt = this.editForm.controls.maSoGddt.value;
+    let soGddt = lodash.filter(this.lstSoGddt, (d) => {
+      return d.maSoGddt === maSoGddt;
+    })[0];
+    let regisData = {
+      idHoso: this.idRegis ? this.idRegis : null,
+      maHoso: this.editForm.controls.maHoso.value,
+      userId: this.userLogin.id,
+      maTrangthai: null,
+      tenTrangthai: this.editForm.controls.tenTrangthai.value,
+      ngayTao: this.editForm.controls.ngayTao.value ? this.editForm.controls.ngayTao.value : new Date(),
+      ngayGui: null,
+      ngayPheduyet: null,
+      hoatdong: null,
+      tenSoGddt: soGddt ? soGddt.tenSoGddt : "",
+      maSoGddt: maSoGddt,
+      hotenThisinh: this.editForm.controls.hotenThisinh.value,
+      maGioitinh: this.editForm.controls.maGioitinh.value,
+      tenGioitinh: this.editForm.controls.maGioitinh.value === 0 ? "Nam" : "Nữ",
+      ngaySinh: this.editForm.controls.ngaySinh.value,
+      maNoisinh: this.editForm.controls.maNoisinh.value,
+      noiSinh: this.editForm.controls.maNoisinh.value ? lodash.filter(this.lstProvince, (d) => {
+        return d.provinceCode === this.editForm.controls.maNoisinh.value;
+      })[0].provinceName : "",
+      danToc: this.editForm.controls.danToc.value,
+      isNational: this.editForm.controls.isNational.value ? 1 : 0,
+      soCmnd: this.editForm.controls.soCmnd.value,
+      maTinhthanhTt: this.editForm.controls.maTinhthanhTt.value,
+      tenTinhthanhTt: this.editForm.controls.maTinhthanhTt.value ? lodash.filter(this.lstProvince, (d) => {
+        return d.id === this.editForm.controls.maTinhthanhTt.value;
+      })[0].provinceName : "",
+      maQuanhuyenTt: this.editForm.controls.maQuanhuyenTt.value,
+      tenQuanhuyenTt: this.editForm.controls.maQuanhuyenTt.value ? lodash.filter(this.lstDistrict, (d) => {
+        return d.id === this.editForm.controls.maQuanhuyenTt.value;
+      })[0].districtName : "",
+      maXaphuongTt: this.editForm.controls.maXaphuongTt.value,
+      tenXaphuongTt: this.editForm.controls.maXaphuongTt.value ? lodash.filter(this.lstWard, (d) => {
+        return d.id === this.editForm.controls.maXaphuongTt.value;
+      })[0].wardsName : "",
+      tenXaphuongTtKhac: this.editForm.controls.tenXaphuongTtKhac.value,
+      hkttKvi: this.editForm.controls.hkttKvi.value ? 1 : 0,
+      hkttDbkk: this.editForm.controls.hkttDbkk.value ? 1 : 0,
+      lstShool: this.lstShool,
+      tenLop12: this.editForm.controls.tenLop12.value,
+      sdtThisinh: this.editForm.controls.sdtThisinh.value,
+      emailThisinh: this.editForm.controls.emailThisinh.value,
+      thongtinLienhe: this.editForm.controls.thongtinLienhe.value,
+      xettuyenDhcd: this.editForm.controls.xettuyenDhcd ? 1 : 0,
+      chuongtrinhHocthisinh: this.editForm.controls.chuongtrinhHocthisinh.value,
+      thisinhTudoTn: this.editForm.controls.thisinhTudoTn.value,
+      maNoiDkdt: this.editForm.controls.maNoiDkdt.value,
+      tenNoiDkdt: this.editForm.controls.tenNoiDkdt.value,
+      monToan: this.editForm.controls.monToan.value ? 1 : 0,
+      monNguvan: this.editForm.controls.monNguvan.value ? 1 : 0,
+      monNgoaingu: this.editForm.controls.monNgoaingu.value ? 1 : 0,
+      monNgoainguChitiet: this.editForm.controls.monNgoainguChitiet.value,
+      monKhtn: this.editForm.controls.monKhtn.value ? 1 : 0,
+      monKhxh: this.editForm.controls.monKhxh.value ? 1 : 0,
+      monVatly: this.editForm.controls.monVatly.value ? 1 : 0,
+      monHoahoc: this.editForm.controls.monHoahoc.value ? 1 : 0,
+      monSinhhoc: this.editForm.controls.monSinhhoc.value ? 1 : 0,
+      monLichsu: this.editForm.controls.monLichsu.value ? 1 : 0,
+      monDialy: this.editForm.controls.monDialy.value ? 1 : 0,
+      monGdcd: this.editForm.controls.monGdcd.value ? 1 : 0,
+      chungchiNgoaingu: this.editForm.controls.chungchiNgoaingu.value,
+      diemthiChungchiNn: this.editForm.controls.diemthiChungchiNn.value,
+      lstMonhocXtn: this.lstMonhocXtn,
+      maDtUutien: this.editForm.controls.maDtUutien.value,
+      tenDtUutien: this.editForm.controls.maDtUutien.value ? lodash.filter(this.lstDoituongUutien, (d) => {
+        return d.id === this.editForm.controls.maDtUutien.value;
+      })[0].tenDoituong : "",
+      maKhuvucTs: this.editForm.controls.maKhuvucTs.value,
+      tenKhuvucTs: this.editForm.controls.maKhuvucTs.value ? lodash.filter(this.lstKhuvucTs, (d) => {
+        return d.id === this.editForm.controls.maKhuvucTs.value;
+      })[0].tenKhuvuc : "",
+      namTotnghiep: this.editForm.controls.namTotnghiep.value,
+      maLienthong: this.editForm.controls.maLienthong.value,
+      tenLienthong: this.editForm.controls.maLienthong.value ? lodash.filter(this.lstXettuyenLienthong, (d) => {
+        return d.id === this.editForm.controls.maLienthong.value;
+      })[0].name : "",
+      lstExam: this.lstExam,
+      lstDinhkem: this.lstDinhkem
+    }
+
+    this.api.postDataToken(API_CONSTANT.REGISTRATION.SEND_REGIS, regisData, {}).subscribe(d => {
+      this.loading = false;
+      if (d.data.success) {
+        this.toastr.success('Thành công', d.data.message);
+        this.clickBack();
+      } else {
+        this.toastr.error('Lỗi', d.data.message);
+        this.app.popupAlert('Thông báo', d.data.message);
+      }
+    }, error => {
+      this.toastr.error('Lỗi', 'Hệ thống đang có lỗi, vui lòng thử lại sau.');
+      this.app.popupAlert('Thông báo', 'Hệ thống đang có lỗi, vui lòng thử lại sau.');
+      this.loading = false;
+    });
   }
+
 }

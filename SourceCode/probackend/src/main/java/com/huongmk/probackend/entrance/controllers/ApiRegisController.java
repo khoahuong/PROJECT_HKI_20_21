@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.huongmk.probackend.entrance.models.TableRegisDomain;
 import com.huongmk.probackend.entrance.models.dtos.SearchRegisDto;
 import com.huongmk.probackend.entrance.services.RegistrationService;
+import com.huongmk.probackend.helper.DataResponse;
 import com.huongmk.probackend.helper.ExceptionLog;
 import com.huongmk.probackend.helper.ListJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,12 @@ public class ApiRegisController {
     @RequestMapping(value = "/createRegis", method = RequestMethod.POST)
     public ResponseEntity<?> createRegis(@RequestBody TableRegisDomain regisDomain) {
         ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
-        boolean isSuccess = false;
+        TableRegisDomain hoso = new TableRegisDomain();
         try {
             if (regisDomain != null) {
-                registrationService.createRegis(regisDomain);
-                isSuccess = true;
+                hoso = registrationService.createRegis(regisDomain);
             }
-            value.put("success", isSuccess);
+            value.put("data", hoso);
         } catch (Exception e) {
             value.put("errors", ExceptionLog.createMessage(e));
             return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);
@@ -99,12 +99,28 @@ public class ApiRegisController {
     @RequestMapping(value = "/updateRegis", method = RequestMethod.POST)
     public ResponseEntity<?> updateRegis(@RequestBody TableRegisDomain regisDomain) {
         ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
-        boolean isSuccess = false;
+        TableRegisDomain hoso = new TableRegisDomain();
         try {
             if (regisDomain.getIdHoso() != null) {
-                isSuccess = registrationService.updateRegis(regisDomain);
+                hoso = registrationService.updateRegis(regisDomain);
             }
-            value.put("success", isSuccess);
+            value.put("data", hoso);
+        } catch (Exception e) {
+            value.put("errors", ExceptionLog.createMessage(e));
+            return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<Object>(value, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/sendRegis", method = RequestMethod.POST)
+    public ResponseEntity<?> sendRegis(@RequestBody TableRegisDomain regisDomain) {
+        ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
+        DataResponse data = new DataResponse();
+        try {
+            if (regisDomain != null) {
+                data = registrationService.sendDataRegis(regisDomain);
+            }
+            value.put("data", data);
         } catch (Exception e) {
             value.put("errors", ExceptionLog.createMessage(e));
             return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);

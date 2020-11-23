@@ -6,8 +6,18 @@ package com.huongmk.probackend.helper;
 public class DataResponse {
     private Object data;
     private Long total;
-    private boolean isSuccess;
+    private boolean success;
     private String message;
+
+    public DataResponse() {
+    }
+
+    public DataResponse(Object data, Long total, boolean success, String message) {
+        this.data = data;
+        this.total = total;
+        this.success = success;
+        this.message = message;
+    }
 
     public Object getData() {
         return data;
@@ -26,11 +36,11 @@ public class DataResponse {
     }
 
     public boolean isSuccess() {
-        return isSuccess;
+        return success;
     }
 
     public void setSuccess(boolean success) {
-        isSuccess = success;
+        this.success = success;
     }
 
     public String getMessage() {

@@ -4,6 +4,7 @@ import com.huongmk.probackend.entrance.models.*;
 import com.huongmk.probackend.entrance.models.dtos.SearchRegisDto;
 import com.huongmk.probackend.entrance.repositories.*;
 import com.huongmk.probackend.entrance.services.RegistrationService;
+import com.huongmk.probackend.helper.DataResponse;
 import com.huongmk.probackend.helper.ListJson;
 import com.huongmk.probackend.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,30 +42,35 @@ public class RegistrationServiceImpl implements RegistrationService {
     private TableHistoryRepository historyRepository;
 
     @Override
-    public void createRegis(TableRegisDomain regisDomain) {
-        regisDomain.setMaTrangthai(Constants.REGIS_STATUS.TAO_MOI);
-        regisDomain.setTenTrangthai(Constants.REGIS_STATUS.TAO_MOI_STR);
-        regisDomain.setNgayTao(new Date());
-        regisDomain.setHoatdong(Constants.STATUS.ACTIVE);
-        regisRepo.save(regisDomain); //lưu lại để set id cho hồ sơ
-        if (regisDomain.getMaHoso() == null || "".equals(regisDomain.getMaHoso())) {
-            String maHs = getAutoMaHoso(regisDomain.getIdHoso());
-            regisDomain.setMaHoso(maHs);
-            regisRepo.save(regisDomain);
+    public TableRegisDomain createRegis(TableRegisDomain regisDomain) {
+        if (regisDomain.getUserId() != null) {
+            regisDomain.setMaTrangthai(Constants.REGIS_STATUS.TAO_MOI);
+            regisDomain.setTenTrangthai(Constants.REGIS_STATUS.TAO_MOI_STR);
+            regisDomain.setNgayTao(new Date());
+            regisDomain.setHoatdong(Constants.STATUS.ACTIVE);
+            regisRepo.save(regisDomain); //lưu lại để set id cho hồ sơ
+            if (regisDomain.getMaHoso() == null || "".equals(regisDomain.getMaHoso())) {
+                String maHs = getAutoMaHoso(regisDomain.getIdHoso());
+                regisDomain.setMaHoso(maHs);
+                regisRepo.save(regisDomain);
+            }
+            if (regisDomain.getLstShool() != null && regisDomain.getLstShool().size() > 0) {
+                createDanhsachLopThpt(regisDomain);
+            }
+            if (regisDomain.getLstMonhocXtn() != null && regisDomain.getLstMonhocXtn().size() > 0) {
+                createDsMonBaoluu(regisDomain);
+            }
+            if (regisDomain.getLstExam() != null && regisDomain.getLstExam().size() > 0) {
+                createNguyenvongXettuyen(regisDomain);
+            }
+            if (regisDomain.getLstDinhkem() != null && regisDomain.getLstDinhkem().size() > 0) {
+                createDinhkem(regisDomain);
+            }
+            createLichsu(regisDomain, Constants.REGIS_STATUS.TAO_MOI_STR);
+
+            return regisDomain;
         }
-        if (regisDomain.getLstShool() != null && regisDomain.getLstShool().size() > 0) {
-            createDanhsachLopThpt(regisDomain);
-        }
-        if (regisDomain.getLstMonhocXtn() != null && regisDomain.getLstMonhocXtn().size() > 0) {
-            createDsMonBaoluu(regisDomain);
-        }
-        if (regisDomain.getLstExam() != null && regisDomain.getLstExam().size() > 0) {
-            createNguyenvongXettuyen(regisDomain);
-        }
-        if (regisDomain.getLstDinhkem() != null && regisDomain.getLstDinhkem().size() > 0) {
-            createDinhkem(regisDomain);
-        }
-        createLichsu(regisDomain, Constants.REGIS_STATUS.TAO_MOI_STR);
+        return null;
     }
 
     @Override
@@ -131,9 +137,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public boolean updateRegis(TableRegisDomain regisDomain) {
+    public TableRegisDomain updateRegis(TableRegisDomain regisDomain) {
         TableRegisDomain hosoDb = regisRepo.findByIdHosoAndHoatdong(regisDomain.getIdHoso(), Constants.STATUS.ACTIVE);
-        if (hosoDb != null) {
+        if (hosoDb != null && hosoDb.getUserId() == regisDomain.getUserId()) {
             regisDomain.setMaHoso(hosoDb.getMaHoso());
             regisDomain.setUserId(hosoDb.getUserId());
             regisDomain.setMaTrangthai(hosoDb.getMaTrangthai());
@@ -146,8 +152,116 @@ public class RegistrationServiceImpl implements RegistrationService {
             if (regisDomain.getLstShool() != null && regisDomain.getLstShool().size() > 0) {
                 updateDanhsachLopThpt(regisDomain);
             }
+            if (regisDomain.getLstMonhocXtn() != null && regisDomain.getLstMonhocXtn().size() > 0) {
+                updateDsMonBaoluu(regisDomain);
+            }
+            if (regisDomain.getLstExam() != null && regisDomain.getLstExam().size() > 0) {
+                updateNgVongXt(regisDomain);
+            }
+            if (regisDomain.getLstDinhkem() != null && regisDomain.getLstDinhkem().size() > 0) {
+                updateDinhkem(regisDomain);
+            }
+            createLichsu(regisDomain, Constants.REGIS_STATUS.CAP_NHAT_STR);
+            return regisDomain;
         }
-        return false;
+        return null;
+    }
+
+    @Override
+    public DataResponse sendDataRegis(TableRegisDomain regisDomain) {
+        TableRegisDomain hosoDuthi = new TableRegisDomain();
+        if (regisDomain.getUserId() == null) {
+            return new DataResponse(null, 0L, false, "Tài khoản người dùng để khai báo hồ sơ không hợp lệ.");
+        }
+        if (regisDomain.getIdHoso() == null) {
+            hosoDuthi = createRegis(regisDomain);
+        } else {
+            hosoDuthi = updateRegis(regisDomain);
+            if (hosoDuthi == null) {
+                return new DataResponse(null, 0L, false, "Có lỗi trong quá trình cập nhật hồ sơ.");
+            }
+        }
+        List<TableRegisDomain> lstHoso = regisRepo.findByUserIdAndHoatdong(regisDomain.getUserId(), Constants.STATUS.ACTIVE);
+        if (lstHoso != null && lstHoso.size() > 0) {
+            TableRegisDomain checkHoso = lstHoso.stream().filter(d -> (d.getMaTrangthai() != Constants.REGIS_STATUS.TAO_MOI
+                    && d.getMaTrangthai() != Constants.REGIS_STATUS.TC_HOSO && d.getMaTrangthai() != Constants.REGIS_STATUS.RUT_HS
+                    && d.getMaTrangthai() != Constants.REGIS_STATUS.DONGY_XINRUT)).findAny().orElse(null);
+            if (checkHoso != null && hosoDuthi.getIdHoso() != checkHoso.getIdHoso()) {
+                return new DataResponse(null, 0L, false, "Hiện tại đang tồn tại hồ sơ đã được gửi đi và xử lý trong tài khoản này. Vui lòng kiểm tra lại.");
+            }
+        }
+        // cap nhat trang thai cho ho so
+        if (hosoDuthi.getMaTrangthai() == Constants.REGIS_STATUS.TAO_MOI || hosoDuthi.getMaTrangthai() == Constants.REGIS_STATUS.CHO_PHE_DUYET
+                || hosoDuthi.getMaTrangthai() == Constants.REGIS_STATUS.DONGY_XINSUA) {
+            hosoDuthi.setMaTrangthai(Constants.REGIS_STATUS.CHO_PHE_DUYET);
+            hosoDuthi.setTenTrangthai(Constants.REGIS_STATUS.CHO_PHE_DUYET_STR);
+            hosoDuthi.setNgayGui(new Date());
+            regisRepo.save(hosoDuthi);
+            createLichsu(hosoDuthi, Constants.REGIS_STATUS.CHO_PHE_DUYET_STR);
+            return new DataResponse(hosoDuthi, 1L, true, "Gửi hồ sơ thành công");
+        } else if (hosoDuthi.getMaTrangthai() == Constants.REGIS_STATUS.YC_BOSUNG || hosoDuthi.getMaTrangthai() == Constants.REGIS_STATUS.DA_BOSUNG) {
+            hosoDuthi.setMaTrangthai(Constants.REGIS_STATUS.DA_BOSUNG);
+            hosoDuthi.setTenTrangthai(Constants.REGIS_STATUS.DA_BOSUNG_STR);
+            hosoDuthi.setNgayGui(new Date());
+            regisRepo.save(hosoDuthi);
+            createLichsu(hosoDuthi, Constants.REGIS_STATUS.DA_BOSUNG_STR);
+            return new DataResponse(hosoDuthi, 1L, true, "Gửi hồ sơ thành công");
+        }
+        return new DataResponse(null, 0L, false, "Gửi hồ sơ không thành công. Hồ sơ đang không đúng trạng thái để gửi hồ sơ");
+    }
+
+    private void updateDinhkem(TableRegisDomain regisDomain) {
+        List<TableRegisAttachmentsDomain> lstDinhkemOld = regisAttachRepo.findByIdHosoAndHoatdong(regisDomain.getIdHoso(), Constants.STATUS.ACTIVE);
+        if (lstDinhkemOld != null && lstDinhkemOld.size() > 0) {
+            for (TableRegisAttachmentsDomain dk : lstDinhkemOld) {
+                dk.setHoatdong(Constants.STATUS.INACTIVE);
+                regisAttachRepo.save(dk);
+            }
+        }
+        for (TableRegisAttachmentsDomain dkNew : regisDomain.getLstDinhkem()) {
+            dkNew.setIdAttachment(null);
+            dkNew.setIdHoso(regisDomain.getIdHoso());
+            dkNew.setMaHoso(regisDomain.getMaHoso());
+            dkNew.setNgayTao(new Date());
+            dkNew.setHoatdong(Constants.STATUS.ACTIVE);
+            regisAttachRepo.save(dkNew);
+        }
+    }
+
+    private void updateNgVongXt(TableRegisDomain regisDomain) {
+        List<TableRegisExamDomain> lstNgvongOld = regisExamRepo.findByIdHosoAndHoatdong(regisDomain.getIdHoso(), Constants.STATUS.ACTIVE);
+        if (lstNgvongOld != null && lstNgvongOld.size() > 0) {
+            for (TableRegisExamDomain ngVong : lstNgvongOld) {
+                ngVong.setHoatdong(Constants.STATUS.INACTIVE);
+                regisExamRepo.save(ngVong);
+            }
+        }
+        for (TableRegisExamDomain ngVongNew : regisDomain.getLstExam()) {
+            ngVongNew.setIdExam(null);
+            ngVongNew.setIdHoso(regisDomain.getIdHoso());
+            ngVongNew.setMaHoso(regisDomain.getMaHoso());
+            ngVongNew.setNgayTao(new Date());
+            ngVongNew.setHoatdong(Constants.STATUS.ACTIVE);
+            regisExamRepo.save(ngVongNew);
+        }
+    }
+
+    private void updateDsMonBaoluu(TableRegisDomain regisDomain) {
+        List<TableRegisSubXtnDomain> lstMonBaoluuOld = regisSubXtnRepo.findByIdHosoAndHoatdong(regisDomain.getIdHoso(), Constants.STATUS.ACTIVE);
+        if (lstMonBaoluuOld != null && lstMonBaoluuOld.size() > 0) {
+            for (TableRegisSubXtnDomain monBlOld : lstMonBaoluuOld) {
+                monBlOld.setHoatdong(Constants.STATUS.INACTIVE);
+                regisSubXtnRepo.save(monBlOld);
+            }
+        }
+        for (TableRegisSubXtnDomain monBlNew : regisDomain.getLstMonhocXtn()) {
+            monBlNew.setIdSubXtn(null);
+            monBlNew.setIdHoso(regisDomain.getIdHoso());
+            monBlNew.setMaHoso(regisDomain.getMaHoso());
+            monBlNew.setNgayTao(new Date());
+            monBlNew.setHoatdong(Constants.STATUS.ACTIVE);
+            regisSubXtnRepo.save(monBlNew);
+        }
     }
 
     private void updateDanhsachLopThpt(TableRegisDomain regisDomain) {
@@ -178,6 +292,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         TableHistoryDomain lichsu = new TableHistoryDomain();
         lichsu.setIdHoso(regisDomain.getIdHoso());
         lichsu.setMaHoso(regisDomain.getMaHoso());
+        lichsu.setNguoiGui(regisDomain.getHotenThisinh());
+        lichsu.setNguoiNhan(Constants.DONVI.BGDDT);
         lichsu.setNoiDung(noidung);
         lichsu.setMaTrangthai(regisDomain.getMaTrangthai());
         lichsu.setTenTrangthai(regisDomain.getTenTrangthai());

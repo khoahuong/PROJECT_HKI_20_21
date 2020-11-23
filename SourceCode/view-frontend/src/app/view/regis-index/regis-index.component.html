@@ -140,9 +140,16 @@
                         <td style="vertical-align: middle;">{{item.tenTrangthai}}</td>
                         <td style="vertical-align: middle;">
                           <ul class="nav list-inline text-center action-search">
-                            <li (click)="clickAddRegis(item)" tooltip="Sửa hồ sơ" style="color:dodgerblue"><i
+                            <li
+                              *ngIf="item.maTrangthai == 0 || item.maTrangthai == 1 || item.maTrangthai == 3 || item.maTrangthai == 4 || item.maTrangthai == 11 "
+                              (click)="clickAddRegis(item)" tooltip="Sửa hồ sơ" style="color:dodgerblue"><i
                                 class="fa fa-pencil-square-o" aria-hidden="true"></i></li>
-                            <li *ngIf="item.maTrangthai != 0" (click)="clickXinrut(item)" tooltip="Xin rút hồ sơ" style="color:dodgerblue"><i
+                            <li *ngIf="item.maTrangthai == 2 || item.maTrangthai == 9 || item.maTrangthai == 12"
+                              (click)="clickXinsua(item)" tooltip="Xin sửa hồ sơ" style="color:dodgerblue"><i
+                                class="fa fa-pencil" aria-hidden="true"></i></li>
+                            <li *ngIf="item.maTrangthai != 0 && item.maTrangthai != 5 && item.maTrangthai != 6
+                              && item.maTrangthai != 7 && item.maTrangthai != 8 && item.maTrangthai != 10"
+                              (click)="clickXinrut(item)" tooltip="Xin rút hồ sơ" style="color:dodgerblue"><i
                                 class="fa fa-arrow-circle-o-down" aria-hidden="true"></i></li>
                             <li *ngIf="item.maTrangthai == 0" (click)="deleted(item)" tooltip="Xóa hồ sơ"
                               style="color:red"><i class="fa fa-trash-o" aria-hidden="true"></i></li>

@@ -2,13 +2,14 @@ package com.huongmk.probackend.entrance.services;
 
 import com.huongmk.probackend.entrance.models.TableRegisDomain;
 import com.huongmk.probackend.entrance.models.dtos.SearchRegisDto;
+import com.huongmk.probackend.helper.DataResponse;
 import com.huongmk.probackend.helper.ListJson;
 
 /**
  * @author HuongMK
  */
 public interface RegistrationService {
-    void createRegis(TableRegisDomain regisDomain);
+    TableRegisDomain createRegis(TableRegisDomain regisDomain);
 
     ListJson<TableRegisDomain> searchRegistration(SearchRegisDto searchDto);
 
@@ -16,5 +17,7 @@ public interface RegistrationService {
 
     TableRegisDomain getDataRegistration(Long idHoso);
 
-    boolean updateRegis(TableRegisDomain regisDomain);
+    TableRegisDomain updateRegis(TableRegisDomain regisDomain);
+
+    DataResponse sendDataRegis(TableRegisDomain regisDomain);
 }

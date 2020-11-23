@@ -14,9 +14,8 @@ public class Constants {
         public static final String SUBJECT = "[-----UET_SUPPORT_TEAM-----]";
     }
 
-    public interface DELETED {
-        public static final String YES = "Y";
-        public static final String NO = "N";
+    public interface DONVI {
+        public static final String BGDDT = "Bộ giáo dục và đào tạo";
     }
 
     public interface ROLE {

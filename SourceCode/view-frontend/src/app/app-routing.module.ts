@@ -9,8 +9,8 @@ import { RegisIndexComponent } from './view/regis-index/regis-index.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, pathMatch: 'full'},
-  { path: 'createUser', component: CreateUserComponent, pathMatch: 'full'},
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  { path: 'createUser', component: CreateUserComponent, pathMatch: 'full' },
   {
     path: 'regis', component: AuthComponent,
     children: [

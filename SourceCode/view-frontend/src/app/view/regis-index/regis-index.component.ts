@@ -217,4 +217,11 @@ export class RegisIndexComponent implements OnInit {
     this.bsModalRef = this.modalService.show(RegisHistoryComponent, { initialState, class: 'modal-lg' });
   }
 
+  clickXinrut(item: any): void {
+
+  }
+
+  clickXinsua(item: any): void {
+
+  }
 }

@@ -1,6 +1,7 @@
 export class API_CONSTANT {
-  public static API_ROOT = "http://localhost:9999/";
+  // public static API_ROOT = "http://localhost:9999/";
   // public static API_ROOT = "http://localhost:9999/probackend/";
+  public static API_ROOT = "http://27.72.89.79:9768/probackend/";
 
   public static API_FILE = {
     UPLOAD_FILE: "file/uploadFile",
@@ -38,7 +39,8 @@ export class API_CONSTANT {
     SEARCH: "api/regis/searchRegis",
     UPDATE: "api/regis/updateRegis",
     DELETE: "api/regis/deleteRegis",
-    GET_DATA: "api/regis/getDataRegis"
+    GET_DATA: "api/regis/getDataRegis",
+    SEND_REGIS: "api/regis/sendRegis"
   };
 
   public static HISTORY = {

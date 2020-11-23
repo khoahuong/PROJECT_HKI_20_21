@@ -1,7 +1,6 @@
 export class API_CONSTANT {
-  // public static API_ROOT = "http://localhost:9999/";
-  // public static API_ROOT = "http://localhost:9999/probackend/";
-  public static API_ROOT = "http://27.72.89.79:9768/probackend/";
+  public static API_ROOT = "http://localhost:9999/";
+  // public static API_ROOT = "http://27.72.89.79:9768/probackend/";
 
   public static API_FILE = {
     UPLOAD_FILE: "file/uploadFile",

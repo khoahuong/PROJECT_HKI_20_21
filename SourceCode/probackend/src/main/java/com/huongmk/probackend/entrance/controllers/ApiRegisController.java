@@ -127,4 +127,26 @@ public class ApiRegisController {
         }
         return new ResponseEntity<Object>(value, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/searchRegisForAdmin", method = RequestMethod.GET)
+    public ResponseEntity<?> searchRegisForAdmin(@RequestParam String searchDTO) {
+        ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
+        SearchRegisDto searchRegisDto = gson.fromJson(searchDTO, SearchRegisDto.class);
+        ListJson<TableRegisDomain> lstHoso = new ListJson<>();
+        boolean success = false;
+        try {
+            if (searchRegisDto.getUserId() != null) {
+                lstHoso = registrationService.searchRegisForAdmin(searchRegisDto);
+                if (lstHoso != null) {
+                    success = true;
+                }
+            }
+            value.put("data", lstHoso);
+            value.put("success", success);
+        } catch (Exception e) {
+            value.put("errors", ExceptionLog.createMessage(e));
+            return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<Object>(value, HttpStatus.OK);
+    }
 }

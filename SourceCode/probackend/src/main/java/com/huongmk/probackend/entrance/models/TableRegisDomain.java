@@ -31,6 +31,9 @@ public class TableRegisDomain {
     @Column(name = "NGAY_TAO")
     @Temporal(TemporalType.DATE)
     private Date ngayTao;
+    @Column(name = "NGAY_CAPNHAT")
+    @Temporal(TemporalType.DATE)
+    private Date ngayCapnhat;
     @Column(name = "NGAY_GUI")
     @Temporal(TemporalType.DATE)
     private Date ngayGui;
@@ -238,6 +241,14 @@ public class TableRegisDomain {
 
     public void setNgayTao(Date ngayTao) {
         this.ngayTao = ngayTao;
+    }
+
+    public Date getNgayCapnhat() {
+        return ngayCapnhat;
+    }
+
+    public void setNgayCapnhat(Date ngayCapnhat) {
+        this.ngayCapnhat = ngayCapnhat;
     }
 
     public Date getNgayGui() {
@@ -695,4 +706,5 @@ public class TableRegisDomain {
     public void setLstShool(List<TableRegisSchoolDomain> lstShool) {
         this.lstShool = lstShool;
     }
+
 }

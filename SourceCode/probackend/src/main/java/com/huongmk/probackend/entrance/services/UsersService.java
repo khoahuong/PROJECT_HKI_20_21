@@ -1,6 +1,7 @@
 package com.huongmk.probackend.entrance.services;
 
 import com.huongmk.probackend.entrance.models.TableUsersDomain;
+import com.huongmk.probackend.helper.DataResponse;
 
 /**
  * @author HuongMK
@@ -19,4 +20,8 @@ public interface UsersService {
     TableUsersDomain getUserById(Long idUser);
 
     Long replacePasswordApi(Long id, String password, String newPassword);
+
+    DataResponse createUserAdmin(TableUsersDomain users);
+
+    TableUsersDomain getInfoUserAdmin(String username, String password);
 }

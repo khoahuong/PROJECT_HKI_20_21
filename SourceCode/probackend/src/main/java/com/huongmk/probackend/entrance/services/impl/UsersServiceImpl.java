@@ -3,6 +3,7 @@ package com.huongmk.probackend.entrance.services.impl;
 import com.huongmk.probackend.entrance.models.TableUsersDomain;
 import com.huongmk.probackend.entrance.repositories.TableUsersRepository;
 import com.huongmk.probackend.entrance.services.UsersService;
+import com.huongmk.probackend.helper.DataResponse;
 import com.huongmk.probackend.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -244,5 +245,36 @@ public class UsersServiceImpl implements UsersService {
             num = 1L; // khong ton tai tai khoan cua user binh thuong nay
         }
         return num;
+    }
+
+    @Override
+    public DataResponse createUserAdmin(TableUsersDomain users) {
+        if (users.getIsRole() != Constants.ROLE.ADMIN && users.getIsRole() != Constants.ROLE.USER_MANAGER) {
+            return new DataResponse(null, 0L, false, "Bạn đang cố tạo một tài khoản không hợp lệ.");
+        }
+        List<TableUsersDomain> lstUser = userRepo.findByIsActive(Constants.STATUS.ACTIVE);
+        if (lstUser != null && lstUser.size() > 0) {
+            TableUsersDomain userNameCheck = lstUser.stream().filter(d -> (d.getUserName()).equals(users.getUserName())).findAny().orElse(null);
+            if (userNameCheck != null) {
+                return new DataResponse(null, 0L, false, "Tên đăng nhập đã tồn tại. Nhập tên khác.");
+            }
+        }
+        users.setPassWord(cryptPassword.encode(users.getPassWord()));
+        users.setIsActive(Constants.STATUS.ACTIVE);
+        users.setDateCreated(new Date());
+        userRepo.save(users);
+        return new DataResponse(users, 1L, true, "Tạo tài khoản quản trị hệ thống thành công.");
+    }
+
+    @Override
+    public TableUsersDomain getInfoUserAdmin(String username, String password) {
+        TableUsersDomain usersDomain = userRepo.findByUserNameAndIsActive(username, Constants.STATUS.ACTIVE);
+        if (usersDomain != null && cryptPassword.matches(password, usersDomain.getPassWord())
+                && (usersDomain.getIsRole() == Constants.ROLE.ADMIN || usersDomain.getIsRole() == Constants.ROLE.USER_MANAGER)) {
+            usersDomain.setLastLogin(new Date());
+            userRepo.save(usersDomain);
+            return usersDomain;
+        }
+        return new TableUsersDomain();
     }
 }

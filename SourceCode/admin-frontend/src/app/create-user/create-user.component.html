@@ -1,3 +1,6 @@
+<!-- loading -->
+<div class="loading" *ngIf="loading">Loading&#8230;</div>
+
 <div class="main-content">
   <div class="header bg-gradient-danger py-7 py-lg-8">
     <div class="separator separator-bottom separator-skew zindex-100">
@@ -16,13 +19,17 @@
             <div class="text-center text-muted mb-4">
               <h2>Tạo tài khoản quản trị hệ thống</h2>
             </div>
-            <form role="form">
+            <form role="form" novalidate [formGroup]="createUserAdmin">
               <div class="form-group">
                 <div class="input-group input-group-alternative mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Tên đăng nhập" type="text">
+                  <input class="form-control" placeholder="Tên đăng nhập" type="text" trim="blur" maxlength="50"
+                    formControlName="userName" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }">
+                </div>
+                <div *ngIf="submitted && f.userName.errors">
+                  <span class="msg-invalid" *ngIf="f.userName.errors.required">{{'common.invalid' | translate}}</span>
                 </div>
               </div>
               <div class="form-group">
@@ -30,11 +37,51 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Mật khẩu" type="password">
+                  <input class="form-control" placeholder="Mật khẩu" type="password" trim="blur" maxlength="512"
+                    formControlName="passWord" [ngClass]="{ 'is-invalid': submitted && f.passWord.errors }"
+                    [type]="textTypePass ? 'text' : 'password'">
+                  <div class="input-group-append">
+                    <span class="input-group-text input-group-custome">
+                      <i class="fa" [ngClass]="{ 'fa-eye-slash': !textTypePass, 'fa-eye': textTypePass }"
+                        (click)="toggleTextTypePass()"></i>
+                    </span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.passWord.errors">
+                  <span class="msg-invalid" *ngIf="f.passWord.errors.required">{{'common.invalid' | translate}}</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <input type="radio" formControlName="isRole" value="0"
+                    [ngClass]="{ 'is-invalid': submitted && f.isRole.errors }" />&nbsp;&nbsp;Quản trị hệ thống
+                  <div *ngIf="submitted && f.isRole.errors">
+                    <span class="msg-invalid" *ngIf="f.isRole.errors.required">{{'common.invalid' | translate}}</span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <input type="radio" formControlName="isRole" value="2"
+                    [ngClass]="{ 'is-invalid': submitted && f.isRole.errors }" />&nbsp;&nbsp;Chuyên viên xử lý
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-4">Khu vực <sup class="msg-invalid">(*)</sup></label>
+                <div class="col-md-8" tooltip="Lựa chọn khu vực cho tài khoản">
+                  <select class="form-control selectpicker" formControlName="khuvucQuanly"
+                    data-none-results-text="Không tìm thấy kết quả" data-live-search="true"
+                    [ngClass]="{ 'is-invalid': submitted && f.khuvucQuanly.errors }">
+                    <option value="">---Chọn---</option>
+                    <option *ngFor="let d of lstKhuvucQly" [ngValue]="d.id">{{d.name}}</option>
+                  </select>
+                  <div *ngIf="submitted && f.khuvucQuanly.errors">
+                    <span class="msg-invalid"
+                      *ngIf="f.khuvucQuanly.errors.required">{{'common.invalid' | translate}}</span>
+                  </div>
                 </div>
               </div>
               <div class="text-center">
-                <button type="button" class="btn btn-primary mt-4">Tạo tài khoản</button>
+                <button type="button" class="btn btn-primary mt-4" (click)="createUser()"
+                  tooltip="Tạo mới tài khoản">Tạo tài khoản</button>
               </div>
             </form>
           </div>

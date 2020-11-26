@@ -62,17 +62,6 @@ export class AuthenticationService {
     return !(date.valueOf() > new Date().valueOf());
   }
 
-  hasRoleRequired(token: string, roleMenus: []): boolean {
-
-    let decoded = jwt_decode(token);
-    let roleGranted: [] = decoded.authorities;
-
-    let rs = roleGranted.filter(function (obj) {
-      return roleMenus.indexOf(obj) > -1;
-    });
-    return rs.length > 0;
-  }
-
   getTokenExpirationDate(token: string): Date {
     let decoded = jwt_decode(token);
 

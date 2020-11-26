@@ -1,5 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ROUTES } from '../sidebar/sidebar.component';
 
 @Component({
@@ -9,17 +11,21 @@ import { ROUTES } from '../sidebar/sidebar.component';
 })
 export class NavbarComponent implements OnInit {
 
-  public focus;
   public listTitles: any = [];
   public location: Location;
+  userLogin: any;
+  loading: boolean = false;
 
   constructor(
-    location: Location
+    location: Location,
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.location = location;
   }
 
   ngOnInit(): void {
+    this.userLogin = JSON.parse(sessionStorage.getItem("userLogin"));
     this.listTitles = ROUTES.filter(listTitle => listTitle);
   }
 
@@ -31,6 +37,19 @@ export class NavbarComponent implements OnInit {
       }
     }
     return 'Trang chủ';
+  }
+
+  clickLogout(): void {
+    this.loading = true;
+    if (typeof (Storage) !== "undefined") {
+      this.loading = false;
+      sessionStorage.clear();
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    } else {
+      this.loading = false;
+      this.toastr.warning('Đăng xuất thất bại.', 'Cảnh báo');
+    }
   }
 
 }

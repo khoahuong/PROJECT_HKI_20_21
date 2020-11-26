@@ -82,6 +82,8 @@ public class TableUsersDomain {
     @Column(name = "TIME_SET_CODE")
     @Temporal(TemporalType.DATE)
     private Date timeSetCode;
+    @Column(name = "KHUVUC_QUANLY")
+    private Long khuvucQuanly; // danh cho tai khoan chuyen vien phu trách
 
     public Long getId() {
         return id;
@@ -257,5 +259,13 @@ public class TableUsersDomain {
 
     public void setTimeSetCode(Date timeSetCode) {
         this.timeSetCode = timeSetCode;
+    }
+
+    public Long getKhuvucQuanly() {
+        return khuvucQuanly;
+    }
+
+    public void setKhuvucQuanly(Long khuvucQuanly) {
+        this.khuvucQuanly = khuvucQuanly;
     }
 }

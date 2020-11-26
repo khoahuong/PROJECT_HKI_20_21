@@ -12,4 +12,9 @@ public interface RegistrationRepoCustom {
     Long countSearch(SearchRegisDto searchDto);
 
     List<TableRegisDomain> searchRegis(SearchRegisDto searchDto);
+
+    Long countSearchRegisForAdmin(SearchRegisDto searchRegisDto, Long idKhuvuc);
+
+    List<TableRegisDomain> searchRegisForAdmin(SearchRegisDto searchRegisDto, Long idKhuvuc);
+
 }

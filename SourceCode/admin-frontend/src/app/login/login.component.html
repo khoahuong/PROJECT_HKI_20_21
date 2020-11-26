@@ -1,3 +1,5 @@
+<div class="loading" *ngIf="loading">Loading&#8230;</div>
+
 <div class="main-content">
   <div class="header bg-gradient-danger py-7 py-lg-8">
     <div class="separator separator-bottom separator-skew zindex-100">
@@ -16,13 +18,17 @@
             <div class="text-center text-muted mb-4">
               <h2>Đăng nhập</h2>
             </div>
-            <form role="form">
+            <form role="form" novalidate [formGroup]="loginAdminForm">
               <div class="form-group mb-3">
                 <div class="input-group input-group-alternative">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Tên đăng nhập" type="text">
+                  <input class="form-control" placeholder="Tên đăng nhập" type="text" formControlName="username"
+                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }" trim="blur" maxlength="50">
+                </div>
+                <div *ngIf="submitted && f.username.errors">
+                  <span class="msg-invalid" *ngIf="f.username.errors.required">{{'common.invalid' | translate}}</span>
                 </div>
               </div>
               <div class="form-group">
@@ -30,11 +36,21 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Mật khẩu" type="password">
+                  <input class="form-control" placeholder="Mật khẩu" type="password"
+                    [type]="textTypePass ? 'text' : 'password'" formControlName="password" trim="blur" maxlength="512">
+                  <div class="input-group-append">
+                    <span class="input-group-text input-group-custome">
+                      <i class="fa" [ngClass]="{ 'fa-eye-slash': !textTypePass, 'fa-eye': textTypePass }"
+                        (click)="toggleTextTypePass()"></i>
+                    </span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.password.errors">
+                  <span class="msg-invalid" *ngIf="f.password.errors.required">{{'common.invalid' | translate}}</span>
                 </div>
               </div>
               <div class="text-center">
-                <button type="button" class="btn btn-primary my-4">Đăng nhập</button>
+                <button type="submit" class="btn btn-primary my-4" (click)="clickLogin()">Đăng nhập</button>
               </div>
             </form>
           </div>

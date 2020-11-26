@@ -20,4 +20,6 @@ public interface RegistrationService {
     TableRegisDomain updateRegis(TableRegisDomain regisDomain);
 
     DataResponse sendDataRegis(TableRegisDomain regisDomain);
+
+    ListJson<TableRegisDomain> searchRegisForAdmin(SearchRegisDto searchRegisDto);
 }

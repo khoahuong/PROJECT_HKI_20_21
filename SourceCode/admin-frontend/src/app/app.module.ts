@@ -22,6 +22,11 @@ import { SidebarComponent } from './ulti/sidebar/sidebar.component';
 import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { UserInfoComponent } from './admin/user-info/user-info.component';
+import { ConfirmComponent } from './common/popup/confirm/confirm.component';
+import { NotifyComponent } from './common/popup/notify/notify.component';
+import { RegistrationComponent } from './admin/registration/registration.component';
+import { HistoryUsersComponent } from './admin/history-users/history-users.component';
+import { DocumentComponent } from './admin/document/document.component';
 
 
 
@@ -35,7 +40,12 @@ import { UserInfoComponent } from './admin/user-info/user-info.component';
     SidebarComponent,
     AuthComponent,
     DashboardComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    ConfirmComponent,
+    NotifyComponent,
+    RegistrationComponent,
+    HistoryUsersComponent,
+    DocumentComponent
   ],
   imports: [
     AppRoutingModule,
@@ -61,7 +71,10 @@ import { UserInfoComponent } from './admin/user-info/user-info.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: []
+  entryComponents: [
+    ConfirmComponent,
+    NotifyComponent
+  ]
 })
 export class AppModule { }
 

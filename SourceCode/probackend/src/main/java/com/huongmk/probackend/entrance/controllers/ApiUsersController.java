@@ -36,6 +36,24 @@ public class ApiUsersController {
         return new ResponseEntity<Object>(value, HttpStatus.OK);
     }
 
+    // get thong tin tai khoan admin
+    @RequestMapping(value = "/getInfoUserAdmin", method = RequestMethod.GET)
+    public ResponseEntity<?> getInfoUserAdmin(@RequestParam String username,
+                                              @RequestParam String password) {
+        ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
+        TableUsersDomain user = new TableUsersDomain();
+        try {
+            if (!"".equals(username) && !"".equals(password)) {
+                user = usersService.getInfoUserAdmin(username, password);
+            }
+            value.put("data", user);
+        } catch (Exception e) {
+            value.put("errors", ExceptionLog.createMessage(e));
+            return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<Object>(value, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     public ResponseEntity<?> updateUserInfo(@RequestBody TableUsersDomain usersDomain) {
         ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();

@@ -1,0 +1,132 @@
+<!-- loading -->
+<div class="loading" *ngIf="loading">Loading&#8230;</div>
+
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row">
+        <div class="col-md-12 grid-margin stretch-card frm-primary">
+          <div class="card">
+            <div class="card-header card-custome">
+              <h2 class="m-b-0 card-title card-title-custome">Thông tin tìm kiếm</h2>
+            </div>
+            <div class="card-body">
+              <form class="form-horizontal m-t-30" novalidate [formGroup]="searchForm">
+                <div class="form-group row">
+                  <label class="col-md-2 lbl-custome">Mã hồ sơ</label>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Nhập vào mã hồ sơ" formControlName="fileCode">
+                  </div>
+                  <label class="col-md-2 lbl-custome">Trạng thái hồ sơ</label>
+                  <div class="col-md-4" tooltip="Lựa chọn trạng thái hồ sơ">
+                    <select class="form-control selectpicker" formControlName="status"
+                      data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
+                      <option value="">---Chọn---</option>
+                      <option *ngFor="let stt of lstStatus" [ngValue]="stt.code">{{stt.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 lbl-custome">Ngày gửi từ ngày</label>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <input type="text" class="form-control datepicker" placeholder="dd/MM/yyyy" bsDatepicker
+                        #dpFrom="bsDatepicker" formControlName="dateFrom">
+                      <div class="input-group-append">
+                        <button class="input-group-text" (click)="dpFrom.show()">
+                          <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <label class="col-md-2 lbl-custome">Ngày gửi đến ngày</label>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <input type="text" class="form-control datepicker" placeholder="dd/MM/yyyy" bsDatepicker
+                        #dpTo="bsDatepicker" formControlName="dateTo">
+                      <div class="input-group-append">
+                        <button class="input-group-text" (click)="dpTo.show()">
+                          <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group text-center">
+                  <button type="submit" class="btn btn-primary" (click)="searchDataRegis(null)">
+                    <i class="fa fa-search"></i>
+                    Tìm kiếm
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Content Tables -->
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h2 class="m-b-0 card-title card-title-custome">Kết quả tìm kiếm</h2>
+        </div>
+        <div class="card-body">
+          <!-- pagination -->
+          <div class="form-group row">
+            <div class="pagination-custome col-md-12">
+              <span class="search-title">Tổng số <span class="fw-bold">{{totalRecord}}</span>
+                hồ sơ</span>
+              <pagination class="pagi" [totalItems]="totalRecord" [itemsPerPage]="size" previousText="&lsaquo;"
+                nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true"
+                [maxSize]="maxPageView" [(ngModel)]="page" (pageChanged)="searchDataRegis($event)">
+              </pagination>
+            </div>
+          </div>
+          <!-- end pagination -->
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-custome">
+              <thead>
+                <tr>
+                  <td class="text-center w1">STT</td>
+                  <td class="text-center w5">Lịch sử</td>
+                  <td class="text-center w25">Mã hồ sơ</td>
+                  <td class="text-center w15">Ngày gửi</td>
+                  <td class="text-center w15">Ngày xác nhận</td>
+                  <td class="text-center w29">Trạng thái hồ sơ</td>
+                  <td class="text-center w10">Chức năng</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of lstRegistration; index as i;">
+                  <td style="vertical-align: middle;" class="text-center">{{((page-1)*size)+(i+1)}}</td>
+                  <td class="text-center"><a href="javascript: void(0);" tooltip="Lịch sử hồ sơ"
+                      (click)="clickHistory(item)"><i class="fa fa-history"></i></a></td>
+                  <td style="vertical-align: middle;">{{item.maHoso}}</td>
+                  <td style="vertical-align: middle;" class="text-center">{{item.ngayGui | date: 'dd/MM/yyyy'}}
+                  </td>
+                  <td style="vertical-align: middle;" class="text-center">
+                    {{item.ngayPheduyet | date: 'dd/MM/yyyy'}}</td>
+                  <td style="vertical-align: middle;">{{item.tenTrangthai}}</td>
+                  <td style="vertical-align: middle;">
+                    <ul class="nav list-inline text-center action-search">
+
+                    </ul>
+                  </td>
+                </tr>
+                <tr *ngIf="lstRegistration.length === 0">
+                  <td class="text-center" colspan="7">Không có hồ sơ</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

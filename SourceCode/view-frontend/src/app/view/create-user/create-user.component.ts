@@ -156,7 +156,7 @@ export class CreateUserComponent implements OnInit {
     }, error => {
       this.toastr.error('Lỗi', 'Hệ thống đang có lỗi, vui lòng thử lại sau.');
       this.loading = false;
-    })
+    });
   }
 
   toggleTextTypePass() {

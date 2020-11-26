@@ -41,6 +41,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     private TableHistoryRepository historyRepository;
 
+    @Autowired
+    private TableUsersRepository usersRepository;
+
     @Override
     public TableRegisDomain createRegis(TableRegisDomain regisDomain) {
         if (regisDomain.getUserId() != null) {
@@ -208,6 +211,20 @@ public class RegistrationServiceImpl implements RegistrationService {
             return new DataResponse(hosoDuthi, 1L, true, "Gửi hồ sơ thành công");
         }
         return new DataResponse(null, 0L, false, "Gửi hồ sơ không thành công. Hồ sơ đang không đúng trạng thái để gửi hồ sơ");
+    }
+
+    @Override
+    public ListJson<TableRegisDomain> searchRegisForAdmin(SearchRegisDto searchRegisDto) {
+        List<TableRegisDomain> lstHoso = new ArrayList<>();
+        Long countTotal = 0L;
+        TableUsersDomain userInfo = usersRepository.findByIdAndIsRoleAndIsActive(searchRegisDto.getUserId(), Constants.ROLE.USER_MANAGER, Constants.STATUS.ACTIVE);
+        if (userInfo != null) {
+            countTotal = regisRepo.countSearchRegisForAdmin(searchRegisDto, userInfo.getKhuvucQuanly());
+            if (countTotal > 0L) {
+                lstHoso = regisRepo.searchRegisForAdmin(searchRegisDto, userInfo.getKhuvucQuanly());
+            }
+        }
+        return new ListJson<TableRegisDomain>(lstHoso, countTotal);
     }
 
     private void updateDinhkem(TableRegisDomain regisDomain) {

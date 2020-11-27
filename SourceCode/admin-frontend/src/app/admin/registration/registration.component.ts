@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/common/api/api.service';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
@@ -22,14 +23,15 @@ export class RegistrationComponent implements OnInit {
   maxPageView: number = 3; // hien thi so page tren thanh phan trang
   totalRecord: number = 0;
   page: number = 1;
-  size: number = CONSTANT.PAGE.SIZE10;// so ban ghi tren 1 trang
+  size: number = CONSTANT.PAGE.SIZE5;// so ban ghi tren 1 trang
 
   lstRegistration: any = [];
 
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -88,7 +90,6 @@ export class RegistrationComponent implements OnInit {
     this.api.getDataToken(API_CONSTANT.REGIS.SEARCH, params).subscribe(d => {
       this.loading = false;
       if (d.success) {
-        console.log(d.data.list);
         this.lstRegistration = d.data.list;
         this.totalRecord = d.data.count;
       } else {
@@ -98,6 +99,11 @@ export class RegistrationComponent implements OnInit {
       this.loading = false;
       this.toastr.error('Hệ thống đang có lỗi, vui lòng thử lại sau.', 'Lỗi');
     })
+  }
+
+  // view hồ sơ đăng ký tuyển sinh
+  clickViewRegis(item: any): void {
+    this.router.navigate(['/edu/registration/view'], { queryParams: { idHoso: item.idHoso } });
   }
 
 }

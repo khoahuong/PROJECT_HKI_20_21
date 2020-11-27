@@ -113,7 +113,7 @@
                   </div>
                 </div>
                 <!-- end pagination -->
-
+                <!-- table -->
                 <div class="table-responsive">
                   <table class="table table-bordered table-hover table-custome">
                     <thead>
@@ -162,7 +162,19 @@
                     </tbody>
                   </table>
                 </div>
+                <!-- end table -->
+                <!-- pagination -->
+                <div class="form-group row">
+                  <div class="pagination-custome pagingEndTable col-md-12">
+                    <pagination class="pagi" [totalItems]="totalRecord" [itemsPerPage]="size" previousText="Trang trước"
+                      nextText="Trang sau" firstText="Trang đầu" lastText="Trang cuối" [boundaryLinks]="true"
+                      [maxSize]="maxPageView" [(ngModel)]="page" (pageChanged)="searchDataRegis($event)">
+                    </pagination>
+                  </div>
+                </div>
+                <!-- end pagination -->
               </div>
+
             </div>
           </div>
         </div>

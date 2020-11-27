@@ -51,5 +51,5 @@ export const ROUTES: RouteInfo[] = [
   { path: '/edu/registration', title: 'Hồ sơ tuyển sinh', icon: 'fa fa-book text-blue', class: '' },
   { path: '/edu/history', title: 'Lịch sử hoạt động', icon: 'ni ni-bullet-list-67 text-info', class: '' },
   { path: '/edu/userinfo', title: 'Thông tin tài khoản', icon: 'ni ni-single-02 text-yellow', class: '' },
-  { path: '/edu/document', title: 'Hướng dẫn sử dụng', icon: 'ni ni ni-books text-green', class: '' },
+  { path: '/edu/document', title: 'Hướng dẫn sử dụng', icon: 'ni ni ni-books text-green', class: '' }
 ];

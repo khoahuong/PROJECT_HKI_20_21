@@ -27,6 +27,8 @@ import { NotifyComponent } from './common/popup/notify/notify.component';
 import { RegistrationComponent } from './admin/registration/registration.component';
 import { HistoryUsersComponent } from './admin/history-users/history-users.component';
 import { DocumentComponent } from './admin/document/document.component';
+import { ViewRegisComponent } from './admin/view-regis/view-regis.component';
+import { RegisFormComponent } from './ulti/regis-form/regis-form.component';
 
 
 
@@ -45,7 +47,9 @@ import { DocumentComponent } from './admin/document/document.component';
     NotifyComponent,
     RegistrationComponent,
     HistoryUsersComponent,
-    DocumentComponent
+    DocumentComponent,
+    ViewRegisComponent,
+    RegisFormComponent
   ],
   imports: [
     AppRoutingModule,

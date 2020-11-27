@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
   getTitle() {
     var title = this.location.prepareExternalUrl(this.location.path());
     for (var i = 0; i < this.listTitles.length; i++) {
-      if (title.endsWith(this.listTitles[i].path)) {
+      if (title.includes(this.listTitles[i].path)) {
         return this.listTitles[i].title;
       }
     }

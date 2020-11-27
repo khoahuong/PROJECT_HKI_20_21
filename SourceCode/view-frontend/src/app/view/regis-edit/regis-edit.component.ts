@@ -222,7 +222,6 @@ export class RegisEditComponent implements OnInit {
     this.loading = true;
     this.api.getDataToken(API_CONSTANT.REGISTRATION.GET_DATA, { idHoso: this.idRegis }).subscribe(data => {
       let hoso = data.data;
-      console.log(hoso);
       if (hoso) {
         this.editForm.controls.maHoso.setValue(hoso.maHoso);
         this.editForm.controls.tenTrangthai.setValue(hoso.tenTrangthai);

@@ -1,0 +1,120 @@
+<!-- loading -->
+<div class="loading" *ngIf="loading">Loading&#8230;</div>
+
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header card-custome">
+          <h2 class="m-b-0 card-title card-title-custome">Hồ sơ đăng ký</h2>
+        </div>
+        <div class="card-body">
+          <div class="form-group row">
+            <div class="col-md-3 text-right">
+              <u><span class="fw-bold">{{hosoItem.tenSoGddt | uppercase}}</span>&emsp;MÃ SỞ:</u>
+            </div>
+            <div class="col-md-3">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{maSo1}}</td>
+                  <td class="td-custom text-center fw-bold">{{maSo2}}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-md-6 text-center fw-bold">
+              CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM <br>
+              <u>Độc lập - Tự do - Hạnh phúc</u>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6"></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+              <table class="table-sophieu">
+                <tr>
+                  <td class="td-sophieu"><i>Số phiếu:</i></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <p class="title-custom">
+            PHIẾU ĐĂNG KÝ DỰ THI KỲ THI TỐT NGHIỆP THPT<br>
+            VÀ XÉT TUYỂN VÀO ĐẠI HỌC; CAO ĐẲNG
+          </p>
+          <p class="title-note">
+            <i>(Trước khi kê khai Phiếu đăng ký dự thi (ĐKDT), thí sinh phải đọc kỹ các mục và HƯỚNG DẪN GHI PHIẾU,<br>
+              những điểm chưa rõ thí sinh có thể hỏi cán bộ tiếp nhận ĐKDT để được hướng dẫn)</i>
+          </p>
+          <div class="form-group">
+            <span class="label-custom margin-custom">a. thông tin cá nhân</span><br>
+            <span class="size-cus margin-custom">
+              <span class="fw-bold">1. Họ, chữ đệm và tên của thí sinh</span>&nbsp;<i>(Viết đúng như giấy khai sinh bằng
+                chữ in hoa có dấu)</i>
+            </span>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-7">
+              <span class="fw-bold margin-custom">{{hosoItem.hotenThisinh | uppercase}}</span>
+            </div>
+            <div class="col-md-3">
+              <span class="size-cus">Giới <i>(Nữ ghi 1, Nam ghi 0)</i> </span>
+            </div>
+            <div class="col-md-2">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{hosoItem.maGioitinh}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-7">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">2. Ngày, tháng và 2 số cuối của năm sinh</span><br>
+                <i class="margin-custom">(Nếu ngày và tháng sinh nhỏ hơn 10 thì ghi số 0 ở ô đầu)</i>
+              </span>
+            </div>
+            <div class="col-md-1">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{ngay1}}</td>
+                  <td class="td-custom text-center fw-bold">{{ngay2}}</td>
+                </tr>
+              </table>
+              <i class="size-cus">&ensp;Ngày</i>
+            </div>
+            <div class="col-md-1">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{thang1}}</td>
+                  <td class="td-custom text-center fw-bold">{{thang2}}</td>
+                </tr>
+              </table>
+              <i class="size-cus">&ensp;Tháng</i>
+            </div>
+            <div class="col-md-1">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{nam1}}</td>
+                  <td class="td-custom text-center fw-bold">{{nam2}}</td>
+                </tr>
+              </table>
+              <i class="size-cus">&ensp;Năm</i>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-6">
+              <span class="margin-custom">
+                <span class="size-cus fw-bold">3. a) Nơi sinh</span>&nbsp;<i class="size-cus">(tỉnh hoặc thành phố):</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

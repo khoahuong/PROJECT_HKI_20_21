@@ -112,9 +112,9 @@
                   <td style="vertical-align: middle;" class="text-center">
                     {{item.ngayPheduyet | date: 'dd/MM/yyyy'}}</td>
                   <td style="vertical-align: middle;">{{item.tenTrangthai}}</td>
-                  <td style="vertical-align: middle;">
-                    <ul class="nav list-inline text-center action-search">
-
+                  <td>
+                    <ul class="nav list-inline nav-center">
+                      <li (click)="clickViewRegis(item)" tooltip="Xem hồ sơ đăng ký"><i class="fa fa-eye"></i></li>
                     </ul>
                   </td>
                 </tr>
@@ -124,6 +124,17 @@
               </tbody>
             </table>
           </div>
+
+          <!-- pagination -->
+          <div class="form-group row">
+            <div class="pagination-custome col-md-12 tablefooter">
+              <pagination class="pagi" [totalItems]="totalRecord" [itemsPerPage]="size" previousText="&lsaquo;"
+                nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true"
+                [maxSize]="maxPageView" [(ngModel)]="page" (pageChanged)="searchDataRegis($event)">
+              </pagination>
+            </div>
+          </div>
+          <!-- end pagination -->
 
         </div>
       </div>

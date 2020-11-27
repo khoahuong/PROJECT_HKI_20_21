@@ -184,3 +184,13 @@
 // 	display: inline-block;
 // 	margin: 0 5px
 // }
+
+.nav-center {
+  display: inline-block !important;
+
+  li {
+    :hover {
+      cursor: pointer !important;
+    }
+  }
+}

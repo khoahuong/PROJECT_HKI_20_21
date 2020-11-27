@@ -1,0 +1,51 @@
+.bg-gradient-danger {
+  background: linear-gradient(87deg, #4b67e6 0, #4b67e6 100%) !important;
+}
+.border-custom {
+  border-style: groove !important;
+  border-width: 2px;
+}
+table {
+  border-collapse: collapse;
+}
+table,
+td,
+th {
+  border: 1px solid #525f7f;
+}
+.td-custom {
+  width: 25px;
+}
+.table-sophieu {
+  margin-right: 0px;
+}
+.td-sophieu {
+  width: 150px;
+  height: 35px;
+  font-size: 14px;
+}
+p.title-custom {
+  width: 100%;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 0.2cm;
+}
+.title-note {
+  width: 100%;
+  font-size: 14px;
+  text-align: center;
+}
+.label-custom {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.size-cus {
+  font-size: 14px;
+}
+.margin-custom {
+  margin-left: 50px;
+}
+.margin-control {
+  margin-top: -15px;
+}

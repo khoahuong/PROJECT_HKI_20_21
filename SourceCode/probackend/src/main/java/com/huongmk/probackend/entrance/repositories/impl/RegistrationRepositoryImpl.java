@@ -42,9 +42,9 @@ public class RegistrationRepositoryImpl implements RegistrationRepoCustom {
 
     @Override
     public Long countSearchRegisForAdmin(SearchRegisDto searchRegisDto, Long idKhuvuc) {
-        StringBuilder sql = new StringBuilder("SELECT COUNT(1)");
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*)");
         createQueryStrForAdmin(sql, searchRegisDto);
-        Query query = manager.createNativeQuery(sql.toString());
+        Query query = manager.createQuery(sql.toString());
         createQueryForAdmin(query, searchRegisDto, idKhuvuc);
         return (long) query.getSingleResult();
     }
@@ -52,9 +52,9 @@ public class RegistrationRepositoryImpl implements RegistrationRepoCustom {
     @Override
     public List<TableRegisDomain> searchRegisForAdmin(SearchRegisDto searchRegisDto, Long idKhuvuc) {
         int firstRecord = searchRegisDto.getPage() * searchRegisDto.getSize();
-        StringBuilder sql = new StringBuilder("SELECT reg.*");
+        StringBuilder sql = new StringBuilder("SELECT reg");
         createQueryStrForAdmin(sql, searchRegisDto);
-        Query query = manager.createNativeQuery(sql.toString());
+        Query query = manager.createQuery(sql.toString());
         createQueryForAdmin(query, searchRegisDto, idKhuvuc);
         query.setFirstResult(firstRecord);
         query.setMaxResults(searchRegisDto.getSize());
@@ -84,29 +84,26 @@ public class RegistrationRepositoryImpl implements RegistrationRepoCustom {
     }
 
     private void createQueryStrForAdmin(StringBuilder sql, SearchRegisDto searchRegisDto) {
-        sql.append(" FROM TABLE_REGISTRATION reg");
-        sql.append(" INNER JOIN TABLE_REGIS_AREA ra");
-        sql.append(" ON reg.MA_SO_GDDT = ra.MA_SO_GDDT");
+        sql.append(" FROM TableRegisDomain reg");
+        sql.append(" INNER JOIN TableRegisKhuvucDomain ra");
+        sql.append(" ON reg.maSoGddt = ra.maSoGddt");
         sql.append(" WHERE 1 = 1");
-        if (searchRegisDto.getUserId() != null) {
-            sql.append(" AND reg.USER_ID = :userId");
-        }
         if (!StringUtils.isNullOrEmpty(searchRegisDto.getFileCode())) {
-            sql.append(" AND upper(reg.MA_HOSO) like :fileCode");
+            sql.append(" AND upper(reg.maHoso) like :fileCode");
         }
         if (searchRegisDto.getStatus() != null) {
-            sql.append(" AND reg.MA_TRANGTHAI = :status");
+            sql.append(" AND reg.maTrangthai = :status");
         }
         if (searchRegisDto.getDateFrom() != null) {
-            sql.append(" AND TRUNC(reg.NGAY_GUI) >= TRUNC(:dateFrom)");
+            sql.append(" AND TRUNC(reg.ngayGui) >= TRUNC(:dateFrom)");
         }
         if (searchRegisDto.getDateTo() != null) {
-            sql.append(" AND TRUNC(reg.NGAY_GUI) <= TRUNC(:dateTo)");
+            sql.append(" AND TRUNC(reg.ngayGui) <= TRUNC(:dateTo)");
         }
-        sql.append(" AND reg.MA_TRANGTHAI != :maTrangthai");
-        sql.append(" AND ra.ID_KHUVUC = :idKhuvucQly");
-        sql.append(" AND reg.HOATDONG = :hoatdong");
-        sql.append(" ORDER BY reg.ID_HOSO DESC");
+        sql.append(" AND reg.maTrangthai != :maTrangthai");
+        sql.append(" AND ra.idKhuvuc = :idKhuvucQly");
+        sql.append(" AND reg.hoatdong = :hoatdong");
+        sql.append(" ORDER BY reg.ngayGui DESC");
     }
 
     private void createQuery(Query query, SearchRegisDto searchDto) {
@@ -129,9 +126,6 @@ public class RegistrationRepositoryImpl implements RegistrationRepoCustom {
     }
 
     private void createQueryForAdmin(Query query, SearchRegisDto searchRegisDto, Long idKhuvuc) {
-        if (searchRegisDto.getUserId() != null) {
-            query.setParameter("userId", searchRegisDto.getUserId());
-        }
         if (!StringUtils.isNullOrEmpty(searchRegisDto.getFileCode())) {
             query.setParameter("fileCode", "%" + searchRegisDto.getFileCode().trim().toUpperCase() + "%");
         }

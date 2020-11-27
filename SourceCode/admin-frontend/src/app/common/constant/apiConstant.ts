@@ -14,7 +14,8 @@ export class API_CONSTANT {
   }
 
   public static REGIS = {
-    SEARCH: "api/regis/searchRegisForAdmin"
+    SEARCH: "api/regis/searchRegisForAdmin",
+    GET_DATA: "api/regis/getDataRegis"
   }
 
 }

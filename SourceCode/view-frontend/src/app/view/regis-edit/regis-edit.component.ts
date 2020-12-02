@@ -46,6 +46,7 @@ export class RegisEditComponent implements OnInit {
 
   isShowXaphuong: boolean = true;
   isShowMonNgoaingu: boolean = true;
+  showBtnSave: boolean = false;
 
   bsModalRef: BsModalRef;
 
@@ -86,6 +87,7 @@ export class RegisEditComponent implements OnInit {
     if (this.idRegis === undefined) {
       this.getDmDinhkem();
       this.fillDataUserForRegis();
+      this.showBtnSave = true;
     } else {
       this.getDataBindingForEdit();
       this.showThongtinHs = true;
@@ -129,7 +131,8 @@ export class RegisEditComponent implements OnInit {
       isNational: [''],
       soCmnd: ['', [
         Validators.required,
-        Validators.maxLength(15)
+        Validators.maxLength(12),
+        Validators.minLength(9)
       ]],
       maTinhthanhTt: ['', [
         Validators.required
@@ -174,7 +177,7 @@ export class RegisEditComponent implements OnInit {
       ]],
       maNoiDkdt: ['', [
         Validators.required,
-        Validators.maxLength(50)
+        Validators.maxLength(3)
       ]],
       monToan: [''],
       monNguvan: [''],
@@ -223,6 +226,9 @@ export class RegisEditComponent implements OnInit {
     this.api.getDataToken(API_CONSTANT.REGISTRATION.GET_DATA, { idHoso: this.idRegis }).subscribe(data => {
       let hoso = data.data;
       if (hoso) {
+        if (hoso.maTrangthai === 0) {
+          this.showBtnSave = true;
+        }
         this.editForm.controls.maHoso.setValue(hoso.maHoso);
         this.editForm.controls.tenTrangthai.setValue(hoso.tenTrangthai);
         this.editForm.controls.ngayTao.setValue(new Date(hoso.ngayTao));

@@ -46,6 +46,21 @@ p.title-custom {
 .margin-custom {
   margin-left: 50px;
 }
+.margin-custom-1 {
+  margin-left: 80px;
+}
 .margin-control {
   margin-top: -15px;
+}
+.size-cus-1 {
+  font-size: 11px;
+}
+
+.empty-line {
+  float: left;
+  width: 90%;
+  height: calc(1.5em + 0.75rem + 2px);
+  border-bottom: 1px dashed #c2cad8;
+  // padding: 0.375rem 0rem;
+  font-weight: bold;
 }

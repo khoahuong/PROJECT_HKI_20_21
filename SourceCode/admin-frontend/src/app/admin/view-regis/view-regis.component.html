@@ -13,10 +13,10 @@
         </div>
         <div class="card-body">
           <div class="form-group row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-4 text-right">
               <u><span class="fw-bold">{{hosoItem.tenSoGddt | uppercase}}</span>&emsp;MÃ SỞ:</u>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <table>
                 <tr>
                   <td class="td-custom text-center fw-bold">{{maSo1}}</td>
@@ -57,7 +57,7 @@
           </div>
           <div class="form-group row margin-control">
             <div class="col-md-7">
-              <span class="fw-bold margin-custom">{{hosoItem.hotenThisinh | uppercase}}</span>
+              <span class="fw-bold margin-custom empty-line">{{hosoItem.hotenThisinh | uppercase}}</span>
             </div>
             <div class="col-md-3">
               <span class="size-cus">Giới <i>(Nữ ghi 1, Nam ghi 0)</i> </span>
@@ -110,9 +110,440 @@
             <div class="col-md-6">
               <span class="margin-custom">
                 <span class="size-cus fw-bold">3. a) Nơi sinh</span>&nbsp;<i class="size-cus">(tỉnh hoặc thành phố):</i>
+                <span class="fw-bold margin-custom">{{hosoItem.noiSinh}}</span><br>
+                <span class="margin-custom size-cus fw-bold">&emsp;c) Quốc tịch nước ngoài</span>
+                &nbsp;<svg *ngIf="hosoItem.isNational === 0" width="1em" height="1em" viewBox="0 0 16 16"
+                  class="bi bi-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                </svg>
+                <svg *ngIf="hosoItem.isNational === 1" width="1em" height="1em" viewBox="0 0 16 16"
+                  class="bi bi-x-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                  <path fill-rule="evenodd"
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+              </span>
+            </div>
+            <div class="col-md-6">
+              <span class="margin-custom">
+                <span class="size-cus fw-bold">b) Dân tộc</span>&nbsp;<i class="size-cus">(Ghi bằng chữ):</i>
+                <span class="fw-bold margin-custom">{{hosoItem.danToc}}</span>
               </span>
             </div>
           </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-7">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">4. Số Chứng minh nhân dân/ Thẻ căn cước công dân</span><i> (Ghi mỗi chữ số vào một
+                  ô)</i>
+              </span>
+            </div>
+            <div class="col-md-5">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{cmnd1}}</td>
+                  <td class="td-custom text-center fw-bold">{{cmnd2}}</td>
+                  <td class="td-custom text-center fw-bold">{{cmnd3}}</td>
+                  <td class="td-custom text-center fw-bold">{{cmnd4}}</td>
+                  <td class="td-custom text-center fw-bold">{{cmnd5}}</td>
+                  <td class="td-custom text-center fw-bold">{{cmnd6}}</td>
+                  <td class="td-custom text-center fw-bold">{{cmnd7}}</td>
+                  <td class="td-custom text-center fw-bold">{{cmnd8}}</td>
+                  <td class="td-custom text-center fw-bold">{{cmnd9}}</td>
+                  <td class="td-custom text-center fw-bold">{{cmnd10}}</td>
+                  <td class="td-custom text-center fw-bold">{{cmnd11}}</td>
+                  <td class="td-custom text-center fw-bold">{{cmnd12}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-4">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">5. Hộ khẩu thường trú</span>
+              </span>
+            </div>
+            <div class="col-md-1">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{tinh1}}</td>
+                  <td class="td-custom text-center fw-bold">{{tinh2}}</td>
+                </tr>
+              </table>
+              <i class="size-cus-1">Mã tỉnh (Tp)</i>
+            </div>
+            <div class="col-md-1">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{huyen1}}</td>
+                  <td class="td-custom text-center fw-bold">{{huyen2}}</td>
+                </tr>
+              </table>
+              <i class="size-cus-1">Mã huyện (quận)</i>
+            </div>
+            <div class="col-md-1">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{xa1}}</td>
+                  <td class="td-custom text-center fw-bold">{{xa2}}</td>
+                </tr>
+              </table>
+              <i class="size-cus-1">Mã xã (phường)</i>
+            </div>
+            <div class="col-md-5">
+              <i class="size-cus-1">Ghi rõ tên tỉnh (thành phố), huyện (quận), xã (phường) vào dòng trống sau:</i>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="fw-bold margin-custom empty-line">
+                tỉnh {{hosoItem.tenTinhthanhTt}}, {{hosoItem.tenQuanhuyenTt}}, {{xaphuongThuongtru}}
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-6">
+              <span class="margin-custom">
+                <span class="size-cus fw-bold"><i>Hộ khẩu thường trú trên 18 tháng tại khu vực I:</i></span>
+                &nbsp;<i *ngIf="hosoItem.hkttKvi === 0" class="fa fa-square-o" aria-hidden="true"></i>
+                <i *ngIf="hosoItem.hkttKvi === 1" class="fa fa-window-close-o" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="col-md-6">
+              <span class="margin-custom">
+                <span class="size-cus fw-bold"><i>Hộ khẩu thường trú trên 18 tháng tại xã đặc biệt khó khăn:</i></span>
+                &nbsp;<i *ngIf="hosoItem.hkttDbkk === 0" class="fa fa-square-o" aria-hidden="true"></i>
+                <i *ngIf="hosoItem.hkttDbkk === 1" class="fa fa-window-close-o" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">6. Nơi học THPT hoặc tương đương</span>&nbsp;<i>(Ghi tên trường và nơi trường
+                  đóng: huyện
+                  (quận), tỉnh (thành phố) và ghi mã tỉnh, mã trường):</i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control" *ngFor="let i of hosoItem.lstShool">
+            <div class="col-md-3">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">&emsp;{{i.tenKhoilop}}:</span>
+              </span>
+            </div>
+            <div class="col-md-6">
+              <span class="size-cus empty-line">
+                {{i.idThpt ? i.idThpt + ', ' : ''}} {{i.idHuyen ? i.idHuyen + ', ' : ''}} {{i.idTinh}}
+              </span>
+            </div>
+            <div class="col-md-3 row">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{ngay1}}</td>
+                  <td class="td-custom text-center fw-bold">{{ngay2}}</td>
+                </tr>
+              </table>
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{ngay1}}</td>
+                  <td class="td-custom text-center fw-bold">{{ngay2}}</td>
+                  <td class="td-custom text-center fw-bold">{{ngay2}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-3">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">&emsp;Tên lớp 12:</span>
+              </span>
+            </div>
+            <div class="col-md-6">
+              <span class="size-cus empty-line">
+                {{hosoItem.tenLop12}}
+              </span>
+            </div>
+            <div class="col-md-3 row">
+              <i class="size-cus">Mã tỉnh</i>
+              <i class="size-cus">&ensp;Mã trường</i>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-3">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">7. Điện thoại:</span>
+              </span>
+            </div>
+            <div class="col-md-3">
+              <span class="size-cus empty-line">
+                {{hosoItem.sdtThisinh}}
+              </span>
+            </div>
+            <div class="col-md-1">
+              <span class="size-cus">
+                <span class="fw-bold">Email:</span>
+              </span>
+            </div>
+            <div class="col-md-5">
+              <span class="size-cus empty-line">
+                {{hosoItem.emailThisinh}}
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-6">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">8. Họ tên, điện thoại và địa chỉ người liên hệ:</span>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="fw-bold margin-custom empty-line">
+                {{hosoItem.thongtinLienhe}}
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <span class="label-custom margin-custom">b. thông tin đăng ký thi</span><br>
+            <span class="size-cus margin-custom">
+              <span class="fw-bold">9. Thí sinh có dùng kết quả thi để xét tuyển sinh ĐH, CĐ&emsp;</span>
+              <i *ngIf="hosoItem.xettuyenDhcd === 0" class="fa fa-square-o" aria-hidden="true"></i>
+              <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.xettuyenDhcd === 1" class="fa fa-window-close-o"
+                aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-6">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">10. Thí sinh học chương trình THPT&emsp;</span>
+                <i *ngIf="hosoItem.chuongtrinhHocthisinh === 1" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.chuongtrinhHocthisinh === 0"
+                  class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+            <div class="col-md-6">
+              <span class="size-cus margin-custom text-right">
+                <span class="fw-bold">Thí sinh học chương trình GDTX&emsp;</span>
+                <i *ngIf="hosoItem.chuongtrinhHocthisinh === 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.chuongtrinhHocthisinh === 1"
+                  class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-6">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">11. Thí sinh tự do chưa tốt nghiệp THPT&emsp;</span>
+                <i *ngIf="hosoItem.thisinhTudoTn !== 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.thisinhTudoTn === 0"
+                  class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+            <div class="col-md-6">
+              <span class="size-cus margin-custom text-right">
+                <span class="fw-bold">Thí sinh tự do đã tốt nghiệp THPT&emsp;</span>
+                <i *ngIf="hosoItem.thisinhTudoTn !== 1" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.thisinhTudoTn === 1"
+                  class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-4">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">12. Dự thi tại Hội đồng thi:&emsp;</span>
+              </span>
+            </div>
+            <div class="col-md-3">
+              <span class="size-cus empty-line">
+                {{hosoItem.tenSoGddt | uppercase}}
+              </span>
+            </div>
+            <div class="col-md-3">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">Mã hội đồng&emsp;</span>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{maSo1}}</td>
+                  <td class="td-custom text-center fw-bold">{{maSo2}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-3">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">13. Nơi ĐKDT:&emsp;</span>
+              </span>
+            </div>
+            <div class="col-md-3">
+              <span class="size-cus empty-line">
+                {{hosoItem.tenNoiDkdt}}
+              </span>
+            </div>
+            <div class="col-md-3">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">Mã đơn vị ĐKDT&emsp;</span>
+              </span>
+            </div>
+            <div class="col-md-3">
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{madt1}}</td>
+                  <td class="td-custom text-center fw-bold">{{madt2}}</td>
+                  <td class="td-custom text-center fw-bold">{{madt3}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">14. Đăng ký bài thi/môn thi&nbsp;</span><i>(Thí sinh đăng ký dự thi bài thi nào
+                  thì đánh dấu "<b>X</b>" vào ô bài thi tương ứng, riêng đối với </i><br>
+                <i class="margin-custom">bài thi Ngoại ngữ, thí sinh điền vào ô trống mã tương ứng với ngôn ngữ lựa
+                  chọn, cụ thể như sau: <b>N1</b> - Tiếng Anh;</i><br>
+                <i class="margin-custom"><b>N2</b> - Tiếng Nga; <b>N3</b> - Tiếng Pháp; <b>N4</b> - Tiếng Trung Quốc;
+                  <b>N5</b> - Tiếng Đức; <b>N6</b> - Tiếng Nhật).</i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="size-cus margin-custom-1">
+                <span class="fw-bold">a) Đăng ký bài thi&nbsp;</span><i>(Thí sinh chỉ được đăng ký một bài thi tổ hợp
+                  KHTN hoặc KHXH):</i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom">
+                <span>Toán&emsp;</span>
+                <i *ngIf="hosoItem.monToan === 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.monToan === 1" class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom">
+                <span>Ngữ văn&emsp;</span>
+                <i *ngIf="hosoItem.monNguvan === 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.monNguvan === 1" class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom row">
+                <span>Ngoại ngữ&emsp;</span>
+                <i *ngIf="hosoItem.monNgoaingu === 0" class="fa fa-square-o"></i>
+                <table *ngIf="hosoItem.monNgoaingu === 1">
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{hosoItem.monNgoainguChitiet}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom">
+                <span>KHTN&emsp;</span>
+                <i *ngIf="hosoItem.monKhtn === 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.monKhtn === 1" class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom">
+                <span>KHXH&emsp;</span>
+                <i *ngIf="hosoItem.monKhxh === 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.monKhxh === 1" class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="size-cus margin-custom-1">
+                <span class="fw-bold">b) Đăng ký môn thi thành phần trong bài thi tổ hợp&nbsp;</span><i>(Chỉ dành cho
+                  thí sinh tự do không chọn dự thi toàn bài thi tổ hợp)</i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-2">
+              <span class="size-cus margin-custom">
+                <span>Vật lý&emsp;</span>
+                <i *ngIf="hosoItem.monVatly === 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.monVatly === 1" class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom">
+                <span>Hóa học&emsp;</span>
+                <i *ngIf="hosoItem.monHoahoc === 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.monHoahoc === 1" class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom">
+                <span>Sinh học&emsp;</span>
+                <i *ngIf="hosoItem.monSinhhoc === 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.monSinhhoc === 1" class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom">
+                <span>Lịch sử&emsp;</span>
+                <i *ngIf="hosoItem.monLichsu === 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.monLichsu === 1" class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom">
+                <span>Địa lý&emsp;</span>
+                <i *ngIf="hosoItem.monDialy === 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.monDialy === 1" class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom">
+                <span>GDCD&emsp;</span>
+                <i *ngIf="hosoItem.monGdcd === 0" class="fa fa-square-o"></i>
+                <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.monGdcd === 1" class="fa fa-window-close-o"></i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">15. Đăng ký miễn thi ngoại ngữ trong xét công nhận tốt nghiệp THPT hoặc đăng ký để
+                  xét tuyển sinh:&nbsp;</span><i>(Thí sinh ghi loại chứng chỉ</i><br>
+                <i class="margin-custom">ngoại ngữ đủ điều kiện theo quy định hoặc ghi rõ là thành viên đội tuyển quốc
+                  gia dự thi Olympic quốc tế môn Ngoại ngữ để được miễn thi</i><br>
+                <i class="margin-custom">hoặc thí sinh ghi loại chứng chỉ ngoại ngữ để đăng ký xét tuyển theo yêu cầu
+                  của trường ĐH, CĐ):&emsp;<span *ngIf="hosoItem.chungchiNgoaingu === ''">...........</span>
+                  <b *ngIf="hosoItem.chungchiNgoaingu !== ''">{{hosoItem.chungchiNgoaingu}}</b></i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="size-cus margin-custom-1 row">
+                <span class="fw-bold">Điểm thi&nbsp;</span><i>(Nếu Chứng chỉ có điểm thi, thí sinh ghi điểm vào ô này):&emsp;</i>
+                <span *ngIf="hosoItem.diemthiChungchiNn === ''">......</span>
+                <table *ngIf="hosoItem.diemthiChungchiNn !== ''">
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{hosoItem.diemthiChungchiNn}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

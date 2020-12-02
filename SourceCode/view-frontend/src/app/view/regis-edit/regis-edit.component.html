@@ -147,7 +147,9 @@
                       <div *ngIf="submitted && f.soCmnd.errors">
                         <span class="msg-invalid"
                           *ngIf="f.soCmnd.errors.required">{{'common.invalid' | translate}}</span>
-                        <span class="msg-invalid" *ngIf="f.soCmnd.errors.maxlength">Không được nhập quá 15 ký
+                        <span class="msg-invalid" *ngIf="f.soCmnd.errors.maxlength">Không được nhập quá 12 ký
+                          tự</span>
+                        <span class="msg-invalid" *ngIf="f.soCmnd.errors.minlength">Không được nhập ít hơn 9 ký
                           tự</span>
                       </div>
                     </div>
@@ -455,11 +457,11 @@
                       <input type="text" class="form-control"
                         [ngClass]="{ 'is-invalid': submitted && f.maNoiDkdt.errors }"
                         placeholder="{{'editRegis.personInfo.placeholder.maNoiDkdt' | translate}}"
-                        formControlName="maNoiDkdt" trim="blur" maxlength="50">
+                        formControlName="maNoiDkdt" trim="blur" maxlength="3">
                       <div *ngIf="submitted && f.maNoiDkdt.errors">
                         <span class="msg-invalid"
                           *ngIf="f.maNoiDkdt.errors.required">{{'common.invalid' | translate}}</span>
-                        <span class="msg-invalid" *ngIf="f.maNoiDkdt.errors.maxlength">Không được nhập quá 50 ký
+                        <span class="msg-invalid" *ngIf="f.maNoiDkdt.errors.maxlength">Không được nhập quá 3 ký
                           tự</span>
                       </div>
                     </div>
@@ -761,7 +763,8 @@
                   </div>
                 </div>
                 <div class="form-group text-center">
-                  <button type="submit" class="btn btn-primary" (click)="clickSaveRegis()" tooltip="Lưu thông tin hồ sơ">
+                  <button *ngIf="showBtnSave" type="submit" class="btn btn-primary" (click)="clickSaveRegis()"
+                    tooltip="Lưu thông tin hồ sơ">
                     <i class="fa fa-floppy-o"></i>
                     {{'common.btn.save' | translate}}
                   </button>&nbsp;

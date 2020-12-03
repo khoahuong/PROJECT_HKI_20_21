@@ -612,7 +612,7 @@
                       <select class="form-control selectpicker" formControlName="maDtUutien"
                         data-none-results-text="Không tìm thấy kết quả" data-live-search="true">
                         <option value="">{{'home.search.placeholder.selected' | translate}}</option>
-                        <option *ngFor="let w of lstDoituongUutien" [ngValue]="w.id">{{w.tenDoituong}}
+                        <option *ngFor="let w of lstDoituongUutien" [ngValue]="w.maDoituong">{{w.tenDoituong}}
                         </option>
                       </select>
                     </div>
@@ -623,7 +623,7 @@
                         data-none-results-text="Không tìm thấy kết quả" data-live-search="true"
                         [ngClass]="{ 'is-invalid': submitted && f.maKhuvucTs.errors }">
                         <option value="">{{'home.search.placeholder.selected' | translate}}</option>
-                        <option *ngFor="let w of lstKhuvucTs" [ngValue]="w.id">{{w.tenKhuvuc}}
+                        <option *ngFor="let w of lstKhuvucTs" [ngValue]="w.maKhuvuc">{{w.tenKhuvuc}}
                         </option>
                       </select>
                       <div *ngIf="submitted && f.maKhuvucTs.errors">

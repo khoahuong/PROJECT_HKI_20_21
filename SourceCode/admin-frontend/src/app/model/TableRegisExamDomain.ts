@@ -2,13 +2,13 @@ export class TableRegisExamDomain {
   idExam: Number;
   hoatdong: Number;
   idHoso: Number;
-  maHoso: String;
-  maNhomnganh: String;
-  maTohopMonxt: String;
-  maTruong: String;
+  maHoso: string;
+  maNhomnganh: string;
+  maTohopMonxt: string;
+  maTruong: string;
   ngayTao: Date;
-  tenNhomnganh: String;
-  tenTohopMonxt: String;
-  tenTruong: String;
+  tenNhomnganh: string;
+  tenTohopMonxt: string;
+  tenTruong: string;
   thutuNv: Number;
 }

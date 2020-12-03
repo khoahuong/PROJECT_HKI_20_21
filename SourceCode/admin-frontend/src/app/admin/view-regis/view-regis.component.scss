@@ -64,3 +64,25 @@ p.title-custom {
   // padding: 0.375rem 0rem;
   font-weight: bold;
 }
+.table-custom-margin {
+  max-width: 90%;
+  width: 90%;
+  margin-left: 50px;
+}
+.table-formsignDate {
+  max-width: 90%;
+  width: 90%;
+  margin-left: 50px;
+  border: none !important;
+}
+.table-formsignDate td,
+tr {
+  border: none;
+}
+.pb-long {
+  padding-bottom: 80px;
+}
+.circle-custom {
+  border-style: solid;
+  border-radius: 30px;
+}

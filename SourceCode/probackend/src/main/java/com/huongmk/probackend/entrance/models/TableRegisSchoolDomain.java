@@ -44,6 +44,18 @@ public class TableRegisSchoolDomain {
     @Transient
     private List<TableCateSchoolDomain> lstThpt;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_TINH", referencedColumnName = "ID", insertable = false, updatable = false)
+    private TableCateProvinceDomain province;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_HUYEN", referencedColumnName = "ID", insertable = false, updatable = false)
+    private TableCateDistrictDomain district;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_THPT", referencedColumnName = "ID", insertable = false, updatable = false)
+    private TableCateSchoolDomain school;
+
     public Long getIdSchool() {
         return idSchool;
     }
@@ -138,5 +150,29 @@ public class TableRegisSchoolDomain {
 
     public void setLstThpt(List<TableCateSchoolDomain> lstThpt) {
         this.lstThpt = lstThpt;
+    }
+
+    public TableCateProvinceDomain getProvince() {
+        return province;
+    }
+
+    public void setProvince(TableCateProvinceDomain province) {
+        this.province = province;
+    }
+
+    public TableCateDistrictDomain getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(TableCateDistrictDomain district) {
+        this.district = district;
+    }
+
+    public TableCateSchoolDomain getSchool() {
+        return school;
+    }
+
+    public void setSchool(TableCateSchoolDomain school) {
+        this.school = school;
     }
 }

@@ -1,12 +1,12 @@
 export class TableRegisAttachmentsDomain {
   idAttachment: Number;
-  fileGuiid: String;
-  fileName: String;
-  fileTypeName: String;
-  fileUrl: String;
+  fileGuiid: string;
+  fileName: string;
+  fileTypeName: string;
+  fileUrl: string;
   hoatdong: Number;
   idHoso: Number;
-  maHoso: String;
+  maHoso: string;
   ngayTao: Date;
   fileSize: Number;
   fileTypeCode: Number;

@@ -3,7 +3,7 @@
 
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
 </div>
-
+<!-- view ho so -->
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
@@ -134,13 +134,13 @@
             </div>
           </div>
           <div class="form-group row margin-control">
-            <div class="col-md-7">
+            <div class="col-md-8">
               <span class="size-cus margin-custom">
                 <span class="fw-bold">4. Số Chứng minh nhân dân/ Thẻ căn cước công dân</span><i> (Ghi mỗi chữ số vào một
                   ô)</i>
               </span>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
               <table>
                 <tr>
                   <td class="td-custom text-center fw-bold">{{cmnd1}}</td>
@@ -228,29 +228,40 @@
               </span>
             </div>
           </div>
-          <div class="form-group row margin-control" *ngFor="let i of hosoItem.lstShool">
+          <div class="form-group row margin-control" *ngFor="let school of hosoItem.lstShool; index as i;">
             <div class="col-md-3">
               <span class="size-cus margin-custom">
-                <span class="fw-bold">&emsp;{{i.tenKhoilop}}:</span>
+                <span class="fw-bold">&emsp;{{school.tenKhoilop}}:</span>
               </span>
             </div>
             <div class="col-md-6">
               <span class="size-cus empty-line">
-                {{i.idThpt ? i.idThpt + ', ' : ''}} {{i.idHuyen ? i.idHuyen + ', ' : ''}} {{i.idTinh}}
+                <span *ngIf="school.loaiThisinh === 2">{{school.idThpt ? school.school.schoolName + ', ' : ''}} {{school.idHuyen ? school.district.districtName + ', ' : ''}} {{school.idTinh ? school.province.provinceName : ''}}</span>
+                <span *ngIf="school.loaiThisinh !== 2">{{school.idTinh ? school.province.provinceName : ''}}</span>
               </span>
             </div>
             <div class="col-md-3 row">
               <table>
                 <tr>
-                  <td class="td-custom text-center fw-bold">{{ngay1}}</td>
-                  <td class="td-custom text-center fw-bold">{{ngay2}}</td>
+                  <td class="td-custom text-center fw-bold">{{school.idTinh ? school.province.provinceCode.charAt(0) : '0'}}</td>
+                  <td class="td-custom text-center fw-bold">{{school.idTinh ? school.province.provinceCode.charAt(1) : '0'}}</td>
                 </tr>
               </table>
               <table>
-                <tr>
-                  <td class="td-custom text-center fw-bold">{{ngay1}}</td>
-                  <td class="td-custom text-center fw-bold">{{ngay2}}</td>
-                  <td class="td-custom text-center fw-bold">{{ngay2}}</td>
+                <tr *ngIf="school.loaiThisinh === 0">
+                  <td class="td-custom text-center fw-bold">9</td>
+                  <td class="td-custom text-center fw-bold">0</td>
+                  <td class="td-custom text-center fw-bold">0</td>
+                </tr>
+                <tr *ngIf="school.loaiThisinh === 1">
+                  <td class="td-custom text-center fw-bold">8</td>
+                  <td class="td-custom text-center fw-bold">0</td>
+                  <td class="td-custom text-center fw-bold">0</td>
+                </tr>
+                <tr *ngIf="school.loaiThisinh === 2">
+                  <td class="td-custom text-center fw-bold">{{school.idThpt ? school.school.schoolCode.charAt(0) : '0'}}</td>
+                  <td class="td-custom text-center fw-bold">{{school.idThpt ? school.school.schoolCode.charAt(1) : '0'}}</td>
+                  <td class="td-custom text-center fw-bold">{{school.idThpt ? school.school.schoolCode.charAt(2) : '0'}}</td>
                 </tr>
               </table>
             </div>
@@ -533,7 +544,8 @@
           <div class="form-group row margin-control">
             <div class="col-md-12">
               <span class="size-cus margin-custom-1 row">
-                <span class="fw-bold">Điểm thi&nbsp;</span><i>(Nếu Chứng chỉ có điểm thi, thí sinh ghi điểm vào ô này):&emsp;</i>
+                <span class="fw-bold">Điểm thi&nbsp;</span><i>(Nếu Chứng chỉ có điểm thi, thí sinh ghi điểm vào ô
+                  này):&emsp;</i>
                 <span *ngIf="hosoItem.diemthiChungchiNn === ''">......</span>
                 <table *ngIf="hosoItem.diemthiChungchiNn !== ''">
                   <tr>
@@ -542,6 +554,332 @@
                 </table>
               </span>
             </div>
+          </div>
+          <div class="form-group">
+            <span class="label-custom margin-custom">c. thông tin để xét công nhận tốt nghiệp THPT&nbsp;</span><i>(Thí
+              sinh dự thi chỉ để lấy kết quả xét tuyển vào ĐH, CĐ thì bỏ qua phần này)</i><br>
+            <span class="size-cus margin-custom">
+              <span class="fw-bold">16. Đăng ký bài/môn thi xin bảo lưu&emsp;</span><i>(Thí sinh ghi rõ điểm bài/môn thi
+                xin được bảo lưu vào ô tương ứng):</i>
+            </span>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom row">
+                <span>Toán&emsp;</span>
+                <svg *ngIf="!baoluuToan" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-square"
+                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                </svg>
+                <table *ngIf="baoluuToan">
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{diemToanBaoluu}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom row">
+                <span>Ngữ văn&emsp;</span>
+                <svg *ngIf="!baoluuVan" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-square"
+                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                </svg>
+                <table *ngIf="baoluuVan">
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{diemVanBaoluu}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom row">
+                <span>Lịch sử&emsp;</span>
+                <svg *ngIf="!baoluuSu" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-square"
+                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                </svg>
+                <table *ngIf="baoluuSu">
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{diemSuBaoluu}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom row">
+                <span>Địa lý&emsp;</span>
+                <svg *ngIf="!baoluuDia" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-square"
+                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                </svg>
+                <table *ngIf="baoluuDia">
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{diemDiaBaoluu}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom row">
+                <span>GDCD&emsp;</span>
+                <svg *ngIf="!baoluuGD" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-square"
+                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                </svg>
+                <table *ngIf="baoluuGD">
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{diemGdBaoluu}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom row">
+                <span>Vật lý&emsp;</span>
+                <svg *ngIf="!baoluuLy" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-square"
+                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                </svg>
+                <table *ngIf="baoluuLy">
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{diemLyBaoluu}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom row">
+                <span>Hóa học&emsp;</span>
+                <svg *ngIf="!baoluuHoa" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-square"
+                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                </svg>
+                <table *ngIf="baoluuHoa">
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{diemHoaBaoluu}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom row">
+                <span>Sinh học&emsp;</span>
+                <svg *ngIf="!baoluuSinh" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-square"
+                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                </svg>
+                <table *ngIf="baoluuSinh">
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{diemSinhBaoluu}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="size-cus margin-custom row">
+                <span>Ngoại ngữ&emsp;</span>
+                <svg *ngIf="!baoluuNN" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-square"
+                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                </svg>
+                <table *ngIf="baoluuNN">
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{diemNNBaoluu}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="form-group">
+            <span class="label-custom margin-custom">d. thông tin dùng để xét tuyển sinh vào đại học, cao
+              đẳng&nbsp;</span><br>
+            <i class="margin-custom">(Thí sinh dự thi chỉ để xét công nhận tốt nghiệp THPT không cần khai phần
+              này).</i><br>
+            <span class="size-cus margin-custom row">
+              <span class="fw-bold">17. Đối tượng ưu tiên tuyển sinh:&nbsp;</span><i>Khoanh tròn vào loại đối tượng ưu
+                tiên được hưởng ( <span *ngIf="hosoItem.maDtUutien === '01'" class="circle-custom">01</span>
+                <span *ngIf="hosoItem.maDtUutien !== '01'">01</span>
+                ,&nbsp;<span *ngIf="hosoItem.maDtUutien === '02'" class="circle-custom">02</span>
+                <span *ngIf="hosoItem.maDtUutien !== '02'">02</span>
+                ,&nbsp;<span *ngIf="hosoItem.maDtUutien === '03'" class="circle-custom">03</span>
+                <span *ngIf="hosoItem.maDtUutien !== '03'">03</span>
+                ,&nbsp;<span *ngIf="hosoItem.maDtUutien === '04'" class="circle-custom">04</span>
+                <span *ngIf="hosoItem.maDtUutien !== '04'">04</span>
+                ,&nbsp;<span *ngIf="hosoItem.maDtUutien === '05'" class="circle-custom">05</span>
+                <span *ngIf="hosoItem.maDtUutien !== '05'">05</span>
+                ,&nbsp;<span *ngIf="hosoItem.maDtUutien === '06'" class="circle-custom">06</span>
+                <span *ngIf="hosoItem.maDtUutien !== '06'">06</span>
+                ,&nbsp;<span *ngIf="hosoItem.maDtUutien === '07'" class="circle-custom">07</span>
+                <span *ngIf="hosoItem.maDtUutien !== '07'">07</span> )&emsp;</i>
+              <table>
+                <tr>
+                  <td class="td-custom text-center fw-bold">{{dtg1}}</td>
+                  <td class="td-custom text-center fw-bold">{{dtg2}}</td>
+                </tr>
+              </table>
+            </span>
+            <i class="size-cus margin-custom">Sau đó ghi ký hiệu vào 2 ô bên cạnh, nếu không thuộc diện ưu tiên thì để
+              trống.</i>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="size-cus margin-custom row">
+                <span class="fw-bold">18. Khu vực tuyển sinh&nbsp;</span><i>Thuộc khu vực nào khoanh tròn vào ký hiệu
+                  của khu vực đó: <span *ngIf="hosoItem.maKhuvucTs === '1'" class="circle-custom">KV1</span>
+                  <span *ngIf="hosoItem.maKhuvucTs !== '1'">KV1</span>
+                  ,&nbsp;<span *ngIf="hosoItem.maKhuvucTs === '2NT'" class="circle-custom">KV2-NT</span>
+                  <span *ngIf="hosoItem.maKhuvucTs !== '2NT'">KV2-NT</span>
+                  ,&nbsp;<span *ngIf="hosoItem.maKhuvucTs === '2'" class="circle-custom">KV2</span>
+                  <span *ngIf="hosoItem.maKhuvucTs !== '2'">KV2</span>
+                  ,&nbsp;<span *ngIf="hosoItem.maKhuvucTs === '3'" class="circle-custom">KV3</span>
+                  <span *ngIf="hosoItem.maKhuvucTs !== '3'">KV3</span> .&emsp;</i>
+                <table>
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{hosoItem.maKhuvucTs}}</td>
+                  </tr>
+                </table>
+              </span>
+              <i class="size-cus margin-custom">Sau đó ghi mã khu vực (<b>1</b> - KV1, <b>2NT</b> - KV2-NT, <b>2</b> -
+                KV2, <b>3</b> - KV3) vào ô trống.</i>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="size-cus margin-custom row">
+                <span class="fw-bold">19. Năm tốt nghiệp THPT hoặc tương đương:&nbsp;</span><i>(Ghi đủ 4 số của năm tốt
+                  nghiệp vào ô)&emsp;</i>
+                <table>
+                  <tr>
+                    <td class="td-custom text-center fw-bold">{{namtn1}}</td>
+                    <td class="td-custom text-center fw-bold">{{namtn2}}</td>
+                    <td class="td-custom text-center fw-bold">{{namtn3}}</td>
+                    <td class="td-custom text-center fw-bold">{{namtn4}}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">20. Thí sinh dự thi để xét tuyển học liên thông vào ĐH/CĐ, đã tốt
+                  nghiệp:&emsp;TC&emsp;
+                  <i *ngIf="hosoItem.maLienthong !== '0'" class="fa fa-square-o"></i>
+                  <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.maLienthong === '0'"
+                    class="fa fa-window-close-o"></i>
+                  &emsp;CĐ&emsp;
+                  <i *ngIf="hosoItem.maLienthong !== '1'" class="fa fa-square-o"></i>
+                  <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.maLienthong === '1'"
+                    class="fa fa-window-close-o"></i>
+                  &emsp;ĐH&emsp;
+                  <i *ngIf="hosoItem.maLienthong !== '2'" class="fa fa-square-o"></i>
+                  <i style="color: rgb(10, 10, 10);" *ngIf="hosoItem.maLienthong === '2'"
+                    class="fa fa-window-close-o"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="margin-custom">
+                <span class="size-cus fw-bold">21. Thí sinh đăng ký nguyện vọng xét tuyển sinh vào đại học, cao
+                  đẳng</span><br>
+                <span class="margin-custom size-cus">&emsp;- Các nguyện vọng xếp theo thứ tự ưu tiên từ trên xuống dưới
+                  (nguyện vọng 1 là nguyện vọng ưu tiên cao nhất);</span><br>
+                <span class="margin-custom size-cus">&emsp;- Thí sinh đăng ký nguyện vọng nào không đúng với quy định
+                  của các trường thì nguyện vọng đó sẽ không được nhập</span><br>
+                <span class="margin-custom size-cus">&emsp;vào hệ thống phần mềm để trường xét tuyển.</span><br>
+                <span class="margin-custom size-cus row">
+                  <span>&emsp;- Tổng số nguyện vọng (bắt buộc phải ghi):&emsp;</span>
+                  <table>
+                    <tr>
+                      <td class="td-custom text-center fw-bold">{{totalNv}}</td>
+                    </tr>
+                  </table>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <table class="table-custom-margin">
+                <thead>
+                  <tr>
+                    <td class="text-center fw-bold" style="width: 10%;">Thứ tự nguyện vọng ưu tiên</td>
+                    <td class="text-center fw-bold" style="width: 15%">Mã trường (chữ in hoa)</td>
+                    <td class="text-center fw-bold" style="width: 20%;">Mã ngành/ Nhóm ngành</td>
+                    <td class="text-center fw-bold" style="width: 40%;">Tên ngành/ Nhóm ngành</td>
+                    <td class="text-center fw-bold" style="width: 15%;">Mã tổ hợp xét tuyển</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of hosoItem.lstExam;">
+                    <td class="text-center">{{item.thutuNv}}</td>
+                    <td style="vertical-align: middle;">{{item.maTruong}}</td>
+                    <td style="vertical-align: middle;">{{item.maNhomnganh}}</td>
+                    <td style="vertical-align: middle;">{{item.tenNhomnganh}}</td>
+                    <td style="vertical-align: middle;">{{item.maTohopMonxt}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="form-group">
+            <span class="label-custom margin-custom">đ. Cam đoan và xác nhận&nbsp;</span><br>
+            <span class="margin-custom-1">Tôi xin cam đoan những lời khai trong Phiếu ĐKDT này là đúng sự thật. Nếu sai
+              tôi xin chịu xử lý theo các quy định hiện</span><br>
+            <span class="margin-custom">hành của Bộ Giáo dục và Đào tạo.</span>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12">
+              <table class="table-formsignDate">
+                <tr>
+                  <td class="text-center">Ngày ... tháng ... năm 20....</td>
+                  <td class="text-center">{{ngayGuiStr}}</td>
+                </tr>
+                <tr>
+                  <td class="text-center"><span class="fw-bold">NƠI NHẬN ĐĂNG KÝ DỰ THI</span><br>
+                    <i class="size-cus">(Đại diện ký, ghi rõ họ tên và đóng dấu)</i>
+                  </td>
+                  <td class="text-center fw-bold">Chữ ký của thí sinh</td>
+                </tr>
+                <tr>
+                  <td class="text-center"></td>
+                  <td class="text-center fw-bold pb-long"><br>{{hosoItem.hotenThisinh}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-group text-center">
+            <button type="button" class="btn btn-primary" (click)="clickBack()" tooltip="Quay lại">
+              <i class="fa fa-backward"></i>&nbsp;Quay lại
+            </button>
           </div>
 
         </div>

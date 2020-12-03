@@ -1,11 +1,11 @@
 export class TableRegisSubXtnDomain {
   idSubXtn: Number;
-  diemMonthi: String;
+  diemMonthi: string;
   hoatdong: Number;
   idHoso: Number;
-  maHoso: String;
+  maHoso: string;
   maMonthi: Number;
   ngayTao: Date;
-  noiDung: String;
-  tenMonthi: String;
+  noiDung: string;
+  tenMonthi: string;
 }

@@ -305,15 +305,15 @@ export class RegisEditComponent implements OnInit {
         this.editForm.controls.chungchiNgoaingu.setValue(hoso.chungchiNgoaingu);
         this.editForm.controls.diemthiChungchiNn.setValue(hoso.diemthiChungchiNn);
         this.lstMonhocXtn = hoso.lstMonhocXtn;
-        this.editForm.controls.maDtUutien.setValue((hoso.maDtUutien !== '' && hoso.maDtUutien !== null) ? parseInt(hoso.maDtUutien) : '');
-        this.editForm.controls.maKhuvucTs.setValue((hoso.maKhuvucTs !== '' && hoso.maKhuvucTs !== null) ? parseInt(hoso.maKhuvucTs) : '');
+        this.editForm.controls.maDtUutien.setValue((hoso.maDtUutien !== '' && hoso.maDtUutien !== null) ? hoso.maDtUutien : '');
+        this.editForm.controls.maKhuvucTs.setValue((hoso.maKhuvucTs !== '' && hoso.maKhuvucTs !== null) ? hoso.maKhuvucTs : '');
         this.editForm.controls.namTotnghiep.setValue((hoso.namTotnghiep !== '' && hoso.namTotnghiep !== null) ? parseInt(hoso.namTotnghiep) : '');
         this.editForm.controls.maLienthong.setValue((hoso.maLienthong !== '' && hoso.maLienthong !== null) ? parseInt(hoso.maLienthong) : '');
         this.lstExam = hoso.lstExam;
         this.lstDinhkem = hoso.lstDinhkem;
         setTimeout(function () {
           $('.selectpicker').selectpicker('refresh');
-        }, 1000);
+        }, 1200);
       }
       this.loading = false;
     }, error => {
@@ -912,11 +912,11 @@ export class RegisEditComponent implements OnInit {
       lstMonhocXtn: this.lstMonhocXtn,
       maDtUutien: this.editForm.controls.maDtUutien.value,
       tenDtUutien: this.editForm.controls.maDtUutien.value ? lodash.filter(this.lstDoituongUutien, (d) => {
-        return d.id === this.editForm.controls.maDtUutien.value;
+        return d.maDoituong === this.editForm.controls.maDtUutien.value;
       })[0].tenDoituong : "",
       maKhuvucTs: this.editForm.controls.maKhuvucTs.value,
       tenKhuvucTs: this.editForm.controls.maKhuvucTs.value ? lodash.filter(this.lstKhuvucTs, (d) => {
-        return d.id === this.editForm.controls.maKhuvucTs.value;
+        return d.maKhuvuc === this.editForm.controls.maKhuvucTs.value;
       })[0].tenKhuvuc : "",
       namTotnghiep: this.editForm.controls.namTotnghiep.value,
       maLienthong: this.editForm.controls.maLienthong.value,
@@ -1026,11 +1026,11 @@ export class RegisEditComponent implements OnInit {
       lstMonhocXtn: this.lstMonhocXtn,
       maDtUutien: this.editForm.controls.maDtUutien.value,
       tenDtUutien: this.editForm.controls.maDtUutien.value ? lodash.filter(this.lstDoituongUutien, (d) => {
-        return d.id === this.editForm.controls.maDtUutien.value;
+        return d.maDoituong === this.editForm.controls.maDtUutien.value;
       })[0].tenDoituong : "",
       maKhuvucTs: this.editForm.controls.maKhuvucTs.value,
       tenKhuvucTs: this.editForm.controls.maKhuvucTs.value ? lodash.filter(this.lstKhuvucTs, (d) => {
-        return d.id === this.editForm.controls.maKhuvucTs.value;
+        return d.maKhuvuc === this.editForm.controls.maKhuvucTs.value;
       })[0].tenKhuvuc : "",
       namTotnghiep: this.editForm.controls.namTotnghiep.value,
       maLienthong: this.editForm.controls.maLienthong.value,

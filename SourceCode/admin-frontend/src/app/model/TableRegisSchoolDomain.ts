@@ -6,7 +6,7 @@ export class TableRegisSchoolDomain {
   idThpt: Number;
   idTinh: Number;
   loaiThisinh: Number;
-  maHoso: String;
+  maHoso: string;
   ngayTao: Date;
-  tenKhoilop: String;
+  tenKhoilop: string;
 }

@@ -236,15 +236,19 @@
             </div>
             <div class="col-md-6">
               <span class="size-cus empty-line">
-                <span *ngIf="school.loaiThisinh === 2">{{school.idThpt ? school.school.schoolName + ', ' : ''}} {{school.idHuyen ? school.district.districtName + ', ' : ''}} {{school.idTinh ? school.province.provinceName : ''}}</span>
+                <span *ngIf="school.loaiThisinh === 2">{{school.idThpt ? school.school.schoolName + ', ' : ''}}
+                  {{school.idHuyen ? school.district.districtName + ', ' : ''}}
+                  {{school.idTinh ? school.province.provinceName : ''}}</span>
                 <span *ngIf="school.loaiThisinh !== 2">{{school.idTinh ? school.province.provinceName : ''}}</span>
               </span>
             </div>
             <div class="col-md-3 row">
               <table>
                 <tr>
-                  <td class="td-custom text-center fw-bold">{{school.idTinh ? school.province.provinceCode.charAt(0) : '0'}}</td>
-                  <td class="td-custom text-center fw-bold">{{school.idTinh ? school.province.provinceCode.charAt(1) : '0'}}</td>
+                  <td class="td-custom text-center fw-bold">
+                    {{school.idTinh ? school.province.provinceCode.charAt(0) : '0'}}</td>
+                  <td class="td-custom text-center fw-bold">
+                    {{school.idTinh ? school.province.provinceCode.charAt(1) : '0'}}</td>
                 </tr>
               </table>
               <table>
@@ -259,9 +263,12 @@
                   <td class="td-custom text-center fw-bold">0</td>
                 </tr>
                 <tr *ngIf="school.loaiThisinh === 2">
-                  <td class="td-custom text-center fw-bold">{{school.idThpt ? school.school.schoolCode.charAt(0) : '0'}}</td>
-                  <td class="td-custom text-center fw-bold">{{school.idThpt ? school.school.schoolCode.charAt(1) : '0'}}</td>
-                  <td class="td-custom text-center fw-bold">{{school.idThpt ? school.school.schoolCode.charAt(2) : '0'}}</td>
+                  <td class="td-custom text-center fw-bold">{{school.idThpt ? school.school.schoolCode.charAt(0) : '0'}}
+                  </td>
+                  <td class="td-custom text-center fw-bold">{{school.idThpt ? school.school.schoolCode.charAt(1) : '0'}}
+                  </td>
+                  <td class="td-custom text-center fw-bold">{{school.idThpt ? school.school.schoolCode.charAt(2) : '0'}}
+                  </td>
                 </tr>
               </table>
             </div>
@@ -873,6 +880,29 @@
                   <td class="text-center fw-bold pb-long"><br>{{hosoItem.hotenThisinh}}</td>
                 </tr>
               </table>
+            </div>
+          </div>
+          <!-- link các tệp tin đính kèm -->
+          <div class="form-group row margin-control">
+            <div class="col-md-12">
+              <span class="size-cus margin-custom row">
+                <span>Các tệp tin đính kèm:<br></span>
+              </span>
+            </div>
+          </div>
+          <div class="form-group row margin-control" *ngFor="let dkem of hosoItem.lstDinhkem; index as i;">
+            <div class="col-md-8" *ngIf="dkem.fileGuiid !== null">
+              <span class="size-cus margin-custom">
+                <span class="fw-bold">&emsp;{{dkem.fileTypeName}}:</span>
+              </span>
+            </div>
+            <div class="col-md-4" *ngIf="dkem.fileGuiid !== null">
+              <span class="size-cus margin-custom">
+                <a target="_blank" href="javascript:void(0)" (click)="viewFile(dkem)">{{dkem.fileName}}</a>
+                <a href="javascript:void(0)">
+                  <app-doc-viewer ></app-doc-viewer>
+                </a>
+              </span>
             </div>
           </div>
 

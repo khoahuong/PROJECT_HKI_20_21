@@ -29,6 +29,8 @@ import { HistoryUsersComponent } from './admin/history-users/history-users.compo
 import { DocumentComponent } from './admin/document/document.component';
 import { ViewRegisComponent } from './admin/view-regis/view-regis.component';
 import { RegisFormComponent } from './ulti/regis-form/regis-form.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { ViewFilesComponent } from './admin/view-files/view-files.component';
 
 
 
@@ -49,7 +51,8 @@ import { RegisFormComponent } from './ulti/regis-form/regis-form.component';
     HistoryUsersComponent,
     DocumentComponent,
     ViewRegisComponent,
-    RegisFormComponent
+    RegisFormComponent,
+    ViewFilesComponent
   ],
   imports: [
     AppRoutingModule,
@@ -72,6 +75,7 @@ import { RegisFormComponent } from './ulti/regis-form/regis-form.component';
       }
     }),
     NgxTrimDirectiveModule,
+    NgxDocViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

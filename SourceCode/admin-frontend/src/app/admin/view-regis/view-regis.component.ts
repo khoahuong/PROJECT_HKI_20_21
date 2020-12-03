@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as lodash from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
@@ -80,7 +80,8 @@ export class ViewRegisComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private api: ApiService,
     private toastr: ToastrService,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -99,6 +100,7 @@ export class ViewRegisComponent implements OnInit {
     this.api.getDataToken(API_CONSTANT.REGIS.GET_DATA, { idHoso: this.idRegistration }).subscribe(d => {
       this.loading = false;
       this.hosoItem = d.data;
+      console.log(this.hosoItem);
       if (this.hosoItem !== null) {
         this.maSo1 = (this.hosoItem.maSoGddt).charAt(0);
         this.maSo2 = (this.hosoItem.maSoGddt).charAt(1);
@@ -285,6 +287,9 @@ export class ViewRegisComponent implements OnInit {
   // trở lại màn trước đó
   clickBack(): void {
     this.location.back();
+  }
+
+  viewFile(item: any): void {
   }
 
 }

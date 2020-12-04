@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ViewFilesComponent implements OnInit {
 
   typeViewer: any = "google";
+  // urlFile: any = "https://file-examples.com/wp-content/uploads/2017/02/file-sample_100kB.docx";
   urlFile: any = "";
   constructor() { }
 

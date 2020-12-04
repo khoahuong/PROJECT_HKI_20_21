@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import * as lodash from 'lodash';
-import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import * as lodash from 'lodash';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/common/api/api.service';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
+import { AppService } from 'src/app/common/popup/app.service';
+import { TableRegisAttachmentsDomain } from 'src/app/model/TableRegisAttachmentsDomain';
 import { TableRegistrationDomain } from 'src/app/model/TableRegistrationDomain';
+import { PopupRegisComponent } from '../popup-regis/popup-regis.component';
 
 @Component({
   selector: 'app-view-regis',
@@ -75,13 +79,16 @@ export class ViewRegisComponent implements OnInit {
   namtn4: any = 0;
   totalNv: any = 0;
   ngayGuiStr: string = "Ngày ... tháng ... năm 20....";
+  lstTeptinDk: Array<TableRegisAttachmentsDomain> = [];
+  bsModalRef: BsModalRef;
 
   constructor(
     private activeRoute: ActivatedRoute,
     private api: ApiService,
     private toastr: ToastrService,
     private location: Location,
-    private router: Router
+    private modalService: BsModalService,
+    private app: AppService
   ) { }
 
   ngOnInit(): void {
@@ -270,6 +277,13 @@ export class ViewRegisComponent implements OnInit {
           let y = sendDate.getFullYear();
           this.ngayGuiStr = "Ngày " + d + " tháng " + m + " năm " + y;
         }
+
+        // lấy ra các file đính kèm
+        if (this.hosoItem.lstDinhkem !== null && this.hosoItem.lstDinhkem.length > 0) {
+          this.lstTeptinDk = lodash.filter(this.hosoItem.lstDinhkem, (dk) => {
+            return dk.fileGuiid !== null;
+          });
+        }
       }
     }, error => {
       this.loading = false;
@@ -289,7 +303,34 @@ export class ViewRegisComponent implements OnInit {
     this.location.back();
   }
 
+  /**
+   * hàm xem hoặc download file đính kèm
+   * @param item
+   */
   viewFile(item: any): void {
+    // window.open("/view-file?files=" + item.idAttachment, "_blank");
+    window.open(API_CONSTANT.API_ROOT + API_CONSTANT.ATTACHMENT_REGIS.VIEW_FILE + item.idAttachment, "_blank");
   }
 
+  clickDuyet(): void {
+
+  }
+
+  clickBosung(): void {
+    const initialState = {
+      title: 'Yêu cầu bổ sung hồ sơ',
+      placeholder: 'Nhập vào nội dung yêu cầu'
+    }
+    this.bsModalRef = this.modalService.show(PopupRegisComponent, { initialState });
+    this.bsModalRef.content.event.subscribe(data => {
+      this.loading = true;
+      if (data !== "") {
+
+      }
+    })
+  }
+
+  clickTuchoi(): void {
+
+  }
 }

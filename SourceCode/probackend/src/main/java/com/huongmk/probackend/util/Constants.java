@@ -61,6 +61,9 @@ public class Constants {
         String DONGY_XINSUA_STR = "Đồng ý xin sửa hồ sơ";
         Long TC_XINSUA = 12L;
         String TC_XINSUA_STR = "Từ chối xin sửa hồ sơ";
+    }
 
+    public interface FOLDER_FILE {
+        public static final String folderFile = "file.upload-dir";
     }
 }

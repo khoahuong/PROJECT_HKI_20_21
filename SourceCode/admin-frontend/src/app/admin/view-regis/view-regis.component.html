@@ -890,23 +890,32 @@
               </span>
             </div>
           </div>
-          <div class="form-group row margin-control" *ngFor="let dkem of hosoItem.lstDinhkem; index as i;">
-            <div class="col-md-8" *ngIf="dkem.fileGuiid !== null">
+          <div class="form-group row margin-control" *ngFor="let dkem of lstTeptinDk; index as i;">
+            <div class="col-md-9">
               <span class="size-cus margin-custom">
                 <span class="fw-bold">&emsp;{{dkem.fileTypeName}}:</span>
               </span>
             </div>
-            <div class="col-md-4" *ngIf="dkem.fileGuiid !== null">
+            <div class="col-md-3">
               <span class="size-cus margin-custom">
-                <a target="_blank" href="javascript:void(0)" (click)="viewFile(dkem)">{{dkem.fileName}}</a>
-                <a href="javascript:void(0)">
-                  <app-doc-viewer ></app-doc-viewer>
-                </a>
+                <a href="javascript:void(0)" (click)="viewFile(dkem)">{{dkem.fileName}}</a>
               </span>
             </div>
           </div>
 
           <div class="form-group text-center">
+            <button type="button" class="btn btn-success" (click)="clickDuyet()" tooltip="Duyệt hồ sơ">
+              <i class="fa fa-check-circle-o"></i>
+              Phê duyệt
+            </button>&nbsp;
+            <button type="button" class="btn btn-warning" (click)="clickBosung()" tooltip="Yêu cầu bổ sung hồ sơ">
+              <i class="fa fa-paper-plane"></i>
+              Bổ sung
+            </button>&nbsp;
+            <button type="button" class="btn btn-danger" (click)="clickTuchoi()" tooltip="Từ chối hồ sơ">
+              <i class="fa fa-ban"></i>
+              Từ chối
+            </button>&nbsp;
             <button type="button" class="btn btn-primary" (click)="clickBack()" tooltip="Quay lại">
               <i class="fa fa-backward"></i>&nbsp;Quay lại
             </button>

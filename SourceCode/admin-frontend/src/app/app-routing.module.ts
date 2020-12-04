@@ -5,6 +5,7 @@ import { DocumentComponent } from './admin/document/document.component';
 import { HistoryUsersComponent } from './admin/history-users/history-users.component';
 import { RegistrationComponent } from './admin/registration/registration.component';
 import { UserInfoComponent } from './admin/user-info/user-info.component';
+import { ViewFilesComponent } from './admin/view-files/view-files.component';
 import { ViewRegisComponent } from './admin/view-regis/view-regis.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGaurdService } from './common/grant/auth-gaurd.service';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   { path: 'createAdminUser', component: CreateUserComponent, pathMatch: 'full' },
+  { path: 'view-file', component: ViewFilesComponent, pathMatch: 'full' },
   {
     path: 'edu', component: AuthComponent,
     children: [

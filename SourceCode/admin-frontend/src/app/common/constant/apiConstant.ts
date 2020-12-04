@@ -8,6 +8,10 @@ export class API_CONSTANT {
     DOWNLOAD: "file/downloadFile"
   };
 
+  public static ATTACHMENT_REGIS = {
+    VIEW_FILE: "attachments/downloadFile/"
+  }
+
   public static USERS = {
     CREATE_USER: "users/createUserAdmin",
     GET_INFO_USER: "api/users/getInfoUserAdmin"

@@ -14,4 +14,6 @@ public interface TableRegisAttachmentRepository extends JpaRepository<TableRegis
     List<TableRegisAttachmentsDomain> findByIdHosoAndHoatdong(Long idHoso, Long active);
 
     List<TableRegisAttachmentsDomain> findByIdHosoAndHoatdongOrderByIdAttachment(Long idHoso, Long active);
+
+    TableRegisAttachmentsDomain findByIdAttachmentAndHoatdong(Long idDinhkem, Long active);
 }

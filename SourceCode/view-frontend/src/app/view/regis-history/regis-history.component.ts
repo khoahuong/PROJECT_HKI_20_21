@@ -17,7 +17,7 @@ export class RegisHistoryComponent implements OnInit {
   @Input() item: any;
 
   // khai báo biến cho phân trang
-  maxPageView: number = 2; // hien thi so page tren thanh phan trang
+  maxPageView: number = 3; // hien thi so page tren thanh phan trang
   totalRecord: number = 0;
   page: number = 1;
   size: number = CONSTANT.PAGE.SIZE5;// so ban ghi tren 1 trang

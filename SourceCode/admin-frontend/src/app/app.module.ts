@@ -32,6 +32,7 @@ import { RegisFormComponent } from './ulti/regis-form/regis-form.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { ViewFilesComponent } from './admin/view-files/view-files.component';
 import { PopupRegisComponent } from './admin/popup-regis/popup-regis.component';
+import { PopupReplyComponent } from './admin/popup-reply/popup-reply.component';
 
 
 
@@ -54,7 +55,8 @@ import { PopupRegisComponent } from './admin/popup-regis/popup-regis.component';
     ViewRegisComponent,
     RegisFormComponent,
     ViewFilesComponent,
-    PopupRegisComponent
+    PopupRegisComponent,
+    PopupReplyComponent
   ],
   imports: [
     AppRoutingModule,
@@ -84,7 +86,8 @@ import { PopupRegisComponent } from './admin/popup-regis/popup-regis.component';
   entryComponents: [
     ConfirmComponent,
     NotifyComponent,
-    PopupRegisComponent
+    PopupRegisComponent,
+    PopupReplyComponent
   ]
 })
 export class AppModule { }

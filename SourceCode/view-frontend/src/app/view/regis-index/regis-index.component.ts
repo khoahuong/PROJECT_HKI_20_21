@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/common/api/api.service';
 import { ConfirmPopupComponent } from 'src/app/common/confirm-popup/confirm-popup.component';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
 import { CONSTANT } from 'src/app/common/constant/constant';
+import { PopupRegisComponent } from '../popup-regis/popup-regis.component';
 import { RegisHistoryComponent } from '../regis-history/regis-history.component';
 import { UserInfoComponent } from '../user-info/user-info.component';
 declare var $: any;
@@ -217,11 +218,66 @@ export class RegisIndexComponent implements OnInit {
     this.bsModalRef = this.modalService.show(RegisHistoryComponent, { initialState, class: 'modal-lg' });
   }
 
+  // xin rút hồ sơ
   clickXinrut(item: any): void {
+    const initialState = {
+      title: 'Xin rút hồ sơ',
+      placeholder: 'Nhập vào nội dung yêu cầu xin rút hồ sơ'
+    }
+    this.bsModalRef = this.modalService.show(PopupRegisComponent, { initialState });
+    this.bsModalRef.content.event.subscribe(data => {
+      this.loading = true;
+      if (data !== "") {
+        let sendData = {
+          idHoso: item.idHoso,
+          content: data
+        }
 
+        this.api.postDataToken(API_CONSTANT.SEND_DATA.YC_XIN_RUT, sendData, {}).subscribe(data => {
+          this.loading = false;
+          if (data.success) {
+            this.toast.success('Gửi yêu cầu xin rút hồ sơ thành công.', 'Thành công');
+            this.searchDataRegis(null);
+          } else {
+            this.toast.error('Gửi yêu cầu xin rút hồ sơ thất bại.', 'Lỗi');
+          }
+        }, error => {
+          this.loading = false;
+          this.toast.error('Hệ thống đang xảy ra lỗi. Vui lòng thử lại sau.', 'Lỗi');
+        });
+      }
+    })
   }
 
+  // xin sửa hồ sơ
   clickXinsua(item: any): void {
+    const initialState = {
+      title: 'Xin sửa hồ sơ',
+      placeholder: 'Nhập vào nội dung yêu cầu xin sửa'
+    }
+    this.bsModalRef = this.modalService.show(PopupRegisComponent, { initialState });
+    this.bsModalRef.content.event.subscribe(data => {
+      this.loading = true;
+      if (data !== "") {
+        let sendData = {
+          idHoso: item.idHoso,
+          content: data
+        }
 
+        this.api.postDataToken(API_CONSTANT.SEND_DATA.YC_XIN_SUA, sendData, {}).subscribe(data => {
+          this.loading = false;
+          if (data.success) {
+            this.toast.success('Gửi yêu cầu xin sửa hồ sơ thành công.', 'Thành công');
+            this.searchDataRegis(null);
+          } else {
+            this.toast.error('Gửi yêu cầu xin sửa hồ sơ thất bại.', 'Lỗi');
+          }
+        }, error => {
+          this.loading = false;
+          this.toast.error('Hệ thống đang xảy ra lỗi. Vui lòng thử lại sau.', 'Lỗi');
+        });
+      }
+    })
   }
+
 }

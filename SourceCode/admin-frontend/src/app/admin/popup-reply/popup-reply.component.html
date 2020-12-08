@@ -1,0 +1,42 @@
+<div class="modal-header modal-primary">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="onClose()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" novalidate [formGroup]="popupConfirmForm">
+    <div class="form-group row">
+      <label class="col-md-2 lbl-custome fw-bold">Mã hồ sơ</label>
+      <div class="col-md-10 lbl-custome-1"><span class="text-center">{{maHoso}}</span></div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 lbl-custome fw-bold">Lý do</label>
+      <div class="col-md-10 lbl-custome-1"><span class="text-center">{{lydo}}</span></div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 lbl-custome fw-bold">Nội dung</label>
+      <div class="col-md-10">
+        <textarea formControlName="contentPopup" placeholder="{{placeholder}}" class="textarea-custom" maxlength="2000"
+          [ngClass]="{ 'is-invalid': submitted && f.contentPopup.errors }"></textarea>
+        <div *ngIf="submitted && f.contentPopup.errors">
+          <span class="msg-invalid" *ngIf="f.contentPopup.errors.required">{{'common.invalid' | translate}}</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button tooltip="Đồng ý yêu cầu" type="button" class="btn btn-info button-ok" (click)="onConfirm()">
+    <i class="fa fa-check" aria-hidden="true"></i>&nbsp;
+    Đồng ý
+  </button>
+  <button tooltip="Từ chối yêu cầu" type="button" class="btn btn-warning button-notok" (click)="tuchoiXinsua()">
+    <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;
+    Từ chối
+  </button>
+  <button tooltip="Đóng popup" type="button" class="btn btn-danger" (click)="onCancel()">
+    <i class="fa fa-times" aria-hidden="true"></i>&nbsp;
+    Đóng
+  </button>
+</div>

@@ -253,12 +253,12 @@ export class ViewRegisComponent implements OnInit {
         }
 
         // xét đối tượng ưu tiên
-        if (this.hosoItem.maDtUutien !== "" && this.hosoItem.maDtUutien.length === 2) {
+        if (this.hosoItem.maDtUutien !== null && this.hosoItem.maDtUutien.length === 2) {
           this.dtg1 = this.hosoItem.maDtUutien.charAt(0);
           this.dtg2 = this.hosoItem.maDtUutien.charAt(1);
         }
 
-        if (this.hosoItem.namTotnghiep !== "" && this.hosoItem.namTotnghiep.length === 4) {
+        if (this.hosoItem.namTotnghiep !== null && this.hosoItem.namTotnghiep.length === 4) {
           this.namtn1 = this.hosoItem.namTotnghiep.charAt(0);
           this.namtn2 = this.hosoItem.namTotnghiep.charAt(1);
           this.namtn3 = this.hosoItem.namTotnghiep.charAt(2);
@@ -312,25 +312,95 @@ export class ViewRegisComponent implements OnInit {
     window.open(API_CONSTANT.API_ROOT + API_CONSTANT.ATTACHMENT_REGIS.VIEW_FILE + item.idAttachment, "_blank");
   }
 
+  // hàm thức hiện phê duyệt hồ sơ
   clickDuyet(): void {
+    const initialState = {
+      title: 'Phê duyệt hồ sơ',
+      placeholder: 'Nhập vào nội dung phê duyệt (nếu có)'
+    }
+    this.bsModalRef = this.modalService.show(PopupRegisComponent, { initialState });
 
+    this.bsModalRef.content.event.subscribe(data => {
+      this.loading = true;
+      let sendData = {
+        idHoso: this.idRegistration,
+        content: data
+      }
+
+      this.api.postDataToken(API_CONSTANT.SEND_DATA.DUYET_HS, sendData, {}).subscribe(data => {
+        this.loading = false;
+        if (data.success) {
+          this.toastr.success('Duyệt hồ sơ thành công.', 'Thành công');
+          this.clickBack();
+        } else {
+          this.toastr.error('Duyệt hồ sơ thất bại.', 'Lỗi');
+        }
+      }, error => {
+        this.loading = false;
+        this.toastr.error('Hệ thống đang xảy ra lỗi. Vui lòng thử lại sau.', 'Lỗi');
+      });
+    })
   }
 
+  // hàm thực hiện yêu cầu bổ sung hồ sơ
   clickBosung(): void {
     const initialState = {
       title: 'Yêu cầu bổ sung hồ sơ',
-      placeholder: 'Nhập vào nội dung yêu cầu'
+      placeholder: 'Nhập vào nội dung yêu cầu bổ sung hồ sơ'
     }
     this.bsModalRef = this.modalService.show(PopupRegisComponent, { initialState });
     this.bsModalRef.content.event.subscribe(data => {
       this.loading = true;
       if (data !== "") {
+        let sendData = {
+          idHoso: this.idRegistration,
+          content: data
+        }
 
+        this.api.postDataToken(API_CONSTANT.SEND_DATA.YCBS_HS, sendData, {}).subscribe(data => {
+          this.loading = false;
+          if (data.success) {
+            this.toastr.success('Gửi yêu cầu bổ sung hồ sơ thành công.', 'Thành công');
+            this.clickBack();
+          } else {
+            this.toastr.error('Gửi yêu cầu bổ sung hồ sơ thất bại.', 'Lỗi');
+          }
+        }, error => {
+          this.loading = false;
+          this.toastr.error('Hệ thống đang xảy ra lỗi. Vui lòng thử lại sau.', 'Lỗi');
+        });
       }
     })
   }
 
+  // hàm thực hiện từ chối hồ sơ
   clickTuchoi(): void {
+    const initialState = {
+      title: 'Từ chối hồ sơ',
+      placeholder: 'Nhập vào nội dung từ chối'
+    }
+    this.bsModalRef = this.modalService.show(PopupRegisComponent, { initialState });
+    this.bsModalRef.content.event.subscribe(data => {
+      this.loading = true;
+      if (data !== "") {
+        let sendData = {
+          idHoso: this.idRegistration,
+          content: data
+        }
 
+        this.api.postDataToken(API_CONSTANT.SEND_DATA.TUCHOI_HS, sendData, {}).subscribe(data => {
+          this.loading = false;
+          if (data.success) {
+            this.toastr.success('Gửi thông báo từ chối hồ sơ thành công.', 'Thành công');
+            this.clickBack();
+          } else {
+            this.toastr.error('Gửi từ chối hồ sơ thất bại.', 'Lỗi');
+          }
+        }, error => {
+          this.loading = false;
+          this.toastr.error('Hệ thống đang xảy ra lỗi. Vui lòng thử lại sau.', 'Lỗi');
+        });
+      }
+    })
   }
 }

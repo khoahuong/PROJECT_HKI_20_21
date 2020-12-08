@@ -99,6 +99,10 @@
   padding: 9px;
   text-align: right;
 }
+.lbl-custome-1 {
+  padding-right: 0 !important;
+  padding: 9px;
+}
 .input-group {
   width: 100%;
 }
@@ -193,4 +197,8 @@
       cursor: pointer !important;
     }
   }
+}
+ul.list-inline li {
+	display: inline-block;
+	margin: 0 5px
 }

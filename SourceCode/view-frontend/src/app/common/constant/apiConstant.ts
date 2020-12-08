@@ -45,4 +45,9 @@ export class API_CONSTANT {
   public static HISTORY = {
     SEARCH: "api/history/search"
   };
+
+  public static SEND_DATA = {
+    YC_XIN_SUA: "sendData/ycXinsua",
+    YC_XIN_RUT: "sendData/ycXinrut"
+  };
 }

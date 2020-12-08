@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/common/api/api.service';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
 import { CONSTANT } from 'src/app/common/constant/constant';
+import { PopupReplyComponent } from '../popup-reply/popup-reply.component';
 declare var $: any;
 
 @Component({
@@ -26,12 +28,14 @@ export class RegistrationComponent implements OnInit {
   size: number = CONSTANT.PAGE.SIZE5;// so ban ghi tren 1 trang
 
   lstRegistration: any = [];
+  bsModalRef: BsModalRef;
 
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -104,6 +108,41 @@ export class RegistrationComponent implements OnInit {
   // view hồ sơ đăng ký tuyển sinh
   clickViewRegis(item: any): void {
     this.router.navigate(['/edu/registration/view'], { queryParams: { idHoso: item.idHoso } });
+  }
+
+  // phản hồi yêu cầu xin sửa hồ sơ
+  phanHoiXinsua(item: any): void {
+    const initialState = {
+      title: 'Phản hồi xin sửa hồ sơ',
+      placeholder: 'Nhập vào nội dung phản hồi (nếu có) - bắt buộc đối với nội dung từ chối',
+      idHoso: item.idHoso,
+      maTrangthai: item.maTrangthai,
+      maHoso: item.maHoso
+    }
+    this.bsModalRef = this.modalService.show(PopupReplyComponent, { initialState, class: 'modal-lg' });
+    this.bsModalRef.content.event.subscribe(d => {
+      this.loading = true;
+      if (d !== null) {
+        let sendData = {
+          idHoso: item.idHoso,
+          content: d.noidung,
+          typeConfirm: d.typeConfirm
+        }
+
+        this.api.postDataToken(API_CONSTANT.SEND_DATA.PHANHOI_XINSUA, sendData, {}).subscribe(data => {
+          this.loading = false;
+          if (data.success) {
+            this.toastr.success('Gửi phản hồi yêu cầu xin sửa hồ sơ thành công.', 'Thành công');
+            this.searchDataRegis(null);
+          } else {
+            this.toastr.error('Gửi phản hồi yêu cầu xin sửa hồ sơ thất bại.', 'Lỗi');
+          }
+        }, error => {
+          this.loading = false;
+          this.toastr.error('Hệ thống đang xảy ra lỗi. Vui lòng thử lại sau.', 'Lỗi');
+        });
+      }
+    })
   }
 
 }

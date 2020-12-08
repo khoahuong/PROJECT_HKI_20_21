@@ -1047,7 +1047,7 @@ export class RegisEditComponent implements OnInit {
         this.toastr.success('Thành công', d.data.message);
         this.clickBack();
       } else {
-        this.toastr.error('Lỗi', d.data.message);
+        this.toastr.warning('Lỗi', d.data.message);
         this.app.popupAlert('Thông báo', d.data.message);
       }
     }, error => {

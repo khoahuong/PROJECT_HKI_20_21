@@ -10,17 +10,17 @@ export class API_CONSTANT {
 
   public static ATTACHMENT_REGIS = {
     VIEW_FILE: "attachments/downloadFile/"
-  }
+  };
 
   public static USERS = {
     CREATE_USER: "users/createUserAdmin",
     GET_INFO_USER: "api/users/getInfoUserAdmin"
-  }
+  };
 
   public static REGIS = {
     SEARCH: "api/regis/searchRegisForAdmin",
     GET_DATA: "api/regis/getDataRegis"
-  }
+  };
 
   public static STATUS = {
     GET_DATA_PROVINCE: "api/danhmuc/tinhthanh",
@@ -28,4 +28,14 @@ export class API_CONSTANT {
     GET_DATA_WARD: "api/danhmuc/xaphuong"
   };
 
+  public static SEND_DATA = {
+    YCBS_HS: "sendData/yeucauBosung",
+    TUCHOI_HS: "sendData/tuchoiHoso",
+    DUYET_HS: "sendData/duyetHoso",
+    PHANHOI_XINSUA: "sendData/phanhoiXinsua"
+  };
+
+  public static REGIS_CONTENT = {
+    GET_DATA: "regisContent/getData"
+  }
 }

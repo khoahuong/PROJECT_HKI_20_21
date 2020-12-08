@@ -24,10 +24,10 @@ public class TableRegisContentDomain {
     private String maHoso;
     @Size(max = 2000)
     @Column(name = "NOIDUNG_YEUCAU")
-    private String noidungYeucau;
+    private String noidungYeucau; // noi dung tu thi sinh dang ký du tuyen gui di
     @Size(max = 2000)
     @Column(name = "NOIDUNG_PHANHOI")
-    private String noidungPhanhoi;
+    private String noidungPhanhoi; // noi dung tu bo giao duc gui ve
     @Column(name = "MA_TRANGTHAI")
     private Long maTrangthai;
     @Size(max = 255)

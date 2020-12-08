@@ -27,6 +27,7 @@ import { RegisEditComponent } from './view/regis-edit/regis-edit.component';
 import { RegisHistoryComponent } from './view/regis-history/regis-history.component';
 import { RegisIndexComponent } from './view/regis-index/regis-index.component';
 import { UserInfoComponent } from './view/user-info/user-info.component';
+import { PopupRegisComponent } from './view/popup-regis/popup-regis.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { UserInfoComponent } from './view/user-info/user-info.component';
     ConfirmPopupComponent,
     NotiPopupComponent,
     RegisEditPopupComponent,
-    RegisHistoryComponent
+    RegisHistoryComponent,
+    PopupRegisComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +77,8 @@ import { UserInfoComponent } from './view/user-info/user-info.component';
     UserInfoComponent,
     NotiPopupComponent,
     RegisEditPopupComponent,
-    RegisHistoryComponent
+    RegisHistoryComponent,
+    PopupRegisComponent
   ]
 })
 export class AppModule { }

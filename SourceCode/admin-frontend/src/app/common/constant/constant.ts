@@ -32,4 +32,9 @@ export class CONSTANT {
     { id: 11, code: 11, name: "Đồng ý xin sửa hồ sơ" },
     { id: 12, code: 12, name: "Từ chối xin sửa hồ sơ" }
   ];
+
+  public static TYPE_CONFIRM = {
+    OK: 1,
+    NOT_OK: 2
+  }
 }

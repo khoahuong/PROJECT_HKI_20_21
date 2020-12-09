@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/common/api/api.service';
 import { ConfirmPopupComponent } from 'src/app/common/confirm-popup/confirm-popup.component';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
 import { CONSTANT } from 'src/app/common/constant/constant';
+import { AppService } from 'src/app/common/services/app.service';
 import { PopupRegisComponent } from '../popup-regis/popup-regis.component';
 import { RegisHistoryComponent } from '../regis-history/regis-history.component';
 import { UserInfoComponent } from '../user-info/user-info.component';
@@ -41,7 +42,8 @@ export class RegisIndexComponent implements OnInit {
     private api: ApiService,
     private toast: ToastrService,
     private router: Router,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private app: AppService
   ) { }
 
   ngOnInit(): void {
@@ -278,6 +280,15 @@ export class RegisIndexComponent implements OnInit {
         });
       }
     })
+  }
+
+  // xem trang thai ho so
+  clickTrangthaiHs(item: any): void {
+    switch (item.maTrangthai) {
+      default:
+        this.app.popupAlert('Thông báo', 'Hồ sơ <b>' + item.maHoso + '</b> đang ở trạng thái <b>' + item.tenTrangthai + '</b>');
+        break;
+    }
   }
 
 }

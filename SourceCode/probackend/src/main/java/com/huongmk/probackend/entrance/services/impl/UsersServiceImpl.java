@@ -34,7 +34,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Long createUser(TableUsersDomain users) {
         Long num = 1L;
-        List<TableUsersDomain> lstUser = userRepo.findByIsActive(Constants.STATUS.ACTIVE);
+        List<TableUsersDomain> lstUser = userRepo.findByIsActiveAndIsRole(Constants.STATUS.ACTIVE, Constants.ROLE.USER_NORMAL);
         if (lstUser != null && lstUser.size() > 0) {
             //List<TableUsersDomain> lstUserCheck = lstUser.stream().filter(d -> d.getUserName() == users.getUserName()).collect(Collectors.toList());
             TableUsersDomain userCheck = lstUser.stream().filter(d -> (d.getUserName()).equals(users.getUserName())).findAny().orElse(null);
@@ -185,7 +185,7 @@ public class UsersServiceImpl implements UsersService {
                 if (!(userInfo.getUserName()).equals(usersDomain.getUserName())) {
                     num = 1L; // dang co gang sua doi de lieu goc - username khac voi username cap nhat
                 } else {
-                    List<TableUsersDomain> lstUsers = userRepo.findByIsActive(Constants.STATUS.ACTIVE);
+                    List<TableUsersDomain> lstUsers = userRepo.findByIsActiveAndIsRole(Constants.STATUS.ACTIVE, Constants.ROLE.USER_NORMAL);
 
                     // check email da duoc dang ky
                     TableUsersDomain checkEmail = lstUsers.stream().filter(d -> (d.getEmail()).equals(usersDomain.getEmail())).findAny().orElse(null);

@@ -90,34 +90,36 @@ public class RegistrationServiceImpl implements RegistrationService {
     public void deleteRegis(Long idRegis, Long userId) {
         TableRegisDomain hoso = regisRepo.findByIdHosoAndUserIdAndHoatdong(idRegis, userId, Constants.STATUS.ACTIVE);
         if (hoso != null) {
-            hoso.setHoatdong(Constants.STATUS.INACTIVE);
-            regisRepo.save(hoso); // xoa ho so
-            List<TableRegisSchoolDomain> lstClass = regisSchoolRepo.findByIdHosoAndHoatDongOrderByIdSchool(hoso.getIdHoso(), Constants.STATUS.ACTIVE);
-            if (lstClass != null && lstClass.size() > 0) {
-                for (TableRegisSchoolDomain lop : lstClass) {
-                    lop.setHoatDong(Constants.STATUS.INACTIVE);
-                    regisSchoolRepo.save(lop);
+            if (hoso.getMaTrangthai() == Constants.REGIS_STATUS.TAO_MOI) {
+                hoso.setHoatdong(Constants.STATUS.INACTIVE);
+                regisRepo.save(hoso); // xoa ho so
+                List<TableRegisSchoolDomain> lstClass = regisSchoolRepo.findByIdHosoAndHoatDongOrderByIdSchool(hoso.getIdHoso(), Constants.STATUS.ACTIVE);
+                if (lstClass != null && lstClass.size() > 0) {
+                    for (TableRegisSchoolDomain lop : lstClass) {
+                        lop.setHoatDong(Constants.STATUS.INACTIVE);
+                        regisSchoolRepo.save(lop);
+                    }
                 }
-            }
-            List<TableRegisSubXtnDomain> lstSubject = regisSubXtnRepo.findByIdHosoAndHoatdong(hoso.getIdHoso(), Constants.STATUS.ACTIVE);
-            if (lstSubject != null && lstSubject.size() > 0) {
-                for (TableRegisSubXtnDomain monhoc : lstSubject) {
-                    monhoc.setHoatdong(Constants.STATUS.INACTIVE);
-                    regisSubXtnRepo.save(monhoc);
+                List<TableRegisSubXtnDomain> lstSubject = regisSubXtnRepo.findByIdHosoAndHoatdong(hoso.getIdHoso(), Constants.STATUS.ACTIVE);
+                if (lstSubject != null && lstSubject.size() > 0) {
+                    for (TableRegisSubXtnDomain monhoc : lstSubject) {
+                        monhoc.setHoatdong(Constants.STATUS.INACTIVE);
+                        regisSubXtnRepo.save(monhoc);
+                    }
                 }
-            }
-            List<TableRegisExamDomain> lstNguyenvong = regisExamRepo.findByIdHosoAndHoatdong(hoso.getIdHoso(), Constants.STATUS.ACTIVE);
-            if (lstNguyenvong != null && lstNguyenvong.size() > 0) {
-                for (TableRegisExamDomain ngVong : lstNguyenvong) {
-                    ngVong.setHoatdong(Constants.STATUS.INACTIVE);
-                    regisExamRepo.save(ngVong);
+                List<TableRegisExamDomain> lstNguyenvong = regisExamRepo.findByIdHosoAndHoatdong(hoso.getIdHoso(), Constants.STATUS.ACTIVE);
+                if (lstNguyenvong != null && lstNguyenvong.size() > 0) {
+                    for (TableRegisExamDomain ngVong : lstNguyenvong) {
+                        ngVong.setHoatdong(Constants.STATUS.INACTIVE);
+                        regisExamRepo.save(ngVong);
+                    }
                 }
-            }
-            List<TableRegisAttachmentsDomain> lstDinhkem = regisAttachRepo.findByIdHosoAndHoatdong(hoso.getIdHoso(), Constants.STATUS.ACTIVE);
-            if (lstDinhkem != null && lstDinhkem.size() > 0) {
-                for (TableRegisAttachmentsDomain dk : lstDinhkem) {
-                    dk.setHoatdong(Constants.STATUS.INACTIVE);
-                    regisAttachRepo.save(dk);
+                List<TableRegisAttachmentsDomain> lstDinhkem = regisAttachRepo.findByIdHosoAndHoatdong(hoso.getIdHoso(), Constants.STATUS.ACTIVE);
+                if (lstDinhkem != null && lstDinhkem.size() > 0) {
+                    for (TableRegisAttachmentsDomain dk : lstDinhkem) {
+                        dk.setHoatdong(Constants.STATUS.INACTIVE);
+                        regisAttachRepo.save(dk);
+                    }
                 }
             }
         }

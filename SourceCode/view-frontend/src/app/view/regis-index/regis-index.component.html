@@ -119,11 +119,11 @@
                     <thead>
                       <tr>
                         <td class="text-center w1">STT</td>
-                        <td class="text-center w5">Lịch sử</td>
+                        <td class="text-center w7">Lịch sử</td>
                         <td class="text-center w25">Mã hồ sơ</td>
                         <td class="text-center w15">Ngày tạo</td>
                         <td class="text-center w15">Ngày xác nhận</td>
-                        <td class="text-center w29">Trạng thái hồ sơ</td>
+                        <td class="text-center w27">Trạng thái hồ sơ</td>
                         <td class="text-center w10">Chức năng</td>
                       </tr>
                     </thead>
@@ -137,7 +137,9 @@
                         </td>
                         <td style="vertical-align: middle;" class="text-center">
                           {{item.ngayPheduyet | date: 'dd/MM/yyyy'}}</td>
-                        <td style="vertical-align: middle;">{{item.tenTrangthai}}</td>
+                        <td style="vertical-align: middle;">
+                          <a href="javascript:void(0)" (click)="clickTrangthaiHs(item)">{{item.tenTrangthai}}</a>
+                        </td>
                         <td style="vertical-align: middle;">
                           <ul class="nav list-inline text-center action-search">
                             <li

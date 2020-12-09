@@ -20,4 +20,6 @@ public interface TableRegisContentService {
     void phanhoiXinsua(SendData sendData);
 
     void yeucauXinrut(SendData sendData);
+
+    void phanhoiXinrut(SendData sendData);
 }

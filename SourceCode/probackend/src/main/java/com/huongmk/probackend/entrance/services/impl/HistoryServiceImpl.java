@@ -31,4 +31,14 @@ public class HistoryServiceImpl implements HistoryService {
         }
         return new ListJson<TableHistoryDomain>(lstHistory, (Long) countTotal);
     }
+
+    @Override
+    public ListJson<TableHistoryDomain> searchDataForAdmin(SearchHisDto searchDto) {
+        List<TableHistoryDomain> lstHis = new ArrayList<>();
+        Long total = hisRepo.countHis(searchDto);
+        if (total > 0) {
+            lstHis = hisRepo.searchHis(searchDto);
+        }
+        return new ListJson<TableHistoryDomain>(lstHis, (Long) total);
+    }
 }

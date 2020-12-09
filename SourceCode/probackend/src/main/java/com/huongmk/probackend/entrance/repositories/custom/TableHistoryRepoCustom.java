@@ -12,4 +12,8 @@ public interface TableHistoryRepoCustom {
     Long countSearchHis(SearchHisDto searchDto);
 
     List<TableHistoryDomain> searchDataHistory(SearchHisDto searchDto);
+
+    List<TableHistoryDomain> searchHis(SearchHisDto searchDto);
+
+    Long countHis(SearchHisDto searchDto);
 }

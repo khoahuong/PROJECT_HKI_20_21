@@ -48,4 +48,26 @@ public class ApiHistoryController {
         }
         return new ResponseEntity<Object>(value, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/searchForAdmin", method = RequestMethod.GET)
+    public ResponseEntity<?> searchHisForAdmin(@RequestParam String searchHisDto) {
+        ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
+        SearchHisDto searchDto = gson.fromJson(searchHisDto, SearchHisDto.class);
+        ListJson<TableHistoryDomain> lstHistory = new ListJson<>();
+        boolean isSuccess = false;
+        try {
+            if (searchDto.getIdHoso() != null) {
+                lstHistory = hisService.searchDataForAdmin(searchDto);
+                if (lstHistory != null) {
+                    isSuccess = true;
+                }
+            }
+            value.put("data", lstHistory);
+            value.put("success", isSuccess);
+        } catch (Exception e) {
+            value.put("errors", ExceptionLog.createMessage(e));
+            return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<Object>(value, HttpStatus.OK);
+    }
 }

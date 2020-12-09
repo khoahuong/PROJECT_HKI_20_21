@@ -39,7 +39,7 @@ public class TableRegisContentServiceImpl implements TableRegisContentService {
             if (hoso != null) {
                 if (hoso.getMaTrangthai() == Constants.REGIS_STATUS.CHO_PHE_DUYET || hoso.getMaTrangthai() == Constants.REGIS_STATUS.YC_BOSUNG
                         || hoso.getMaTrangthai() == Constants.REGIS_STATUS.DA_BOSUNG || hoso.getMaTrangthai() == Constants.REGIS_STATUS.DA_DUYET
-                        || hoso.getMaTrangthai() == Constants.REGIS_STATUS.TC_XINSUA) {
+                        || hoso.getMaTrangthai() == Constants.REGIS_STATUS.TC_XINSUA || hoso.getMaTrangthai() == Constants.REGIS_STATUS.TC_XINRUT) {
                     hoso.setMaTrangthai(Constants.REGIS_STATUS.YC_BOSUNG);
                     hoso.setTenTrangthai(Constants.REGIS_STATUS.YC_BOSUNG_STR);
                     hoso.setNgayCapnhat(new Date());
@@ -133,10 +133,10 @@ public class TableRegisContentServiceImpl implements TableRegisContentService {
             TableRegisDomain hoso = hosoRepo.findByIdHosoAndHoatdong(sendData.getIdHoso(), Constants.STATUS.ACTIVE);
             if (hoso != null) {
                 if (hoso.getMaTrangthai() == Constants.REGIS_STATUS.XINSUA_HS) {
-                    if (sendData.getTypeConfirm() == 1) {
+                    if (sendData.getTypeConfirm() == Constants.CONFIRM_OK.OK) {
                         hoso.setMaTrangthai(Constants.REGIS_STATUS.DONGY_XINSUA);
                         hoso.setTenTrangthai(Constants.REGIS_STATUS.DONGY_XINSUA_STR);
-                    } else if (sendData.getTypeConfirm() == 2) {
+                    } else if (sendData.getTypeConfirm() == Constants.CONFIRM_OK.NOT_OK) {
                         hoso.setMaTrangthai(Constants.REGIS_STATUS.TC_XINSUA);
                         hoso.setTenTrangthai(Constants.REGIS_STATUS.TC_XINSUA_STR);
                     }
@@ -175,6 +175,31 @@ public class TableRegisContentServiceImpl implements TableRegisContentService {
                     createNoidungClient(hoso, sendData);
                     // luu lich su ho so
                     createLichsuHosoClient(hoso, sendData);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void phanhoiXinrut(SendData sendData) {
+        if (sendData.getIdHoso() != null) {
+            TableRegisDomain hoso = hosoRepo.findByIdHosoAndHoatdong(sendData.getIdHoso(), Constants.STATUS.ACTIVE);
+            if (hoso != null) {
+                if (hoso.getMaTrangthai() == Constants.REGIS_STATUS.XIN_RUT_HS) {
+                    if (sendData.getTypeConfirm() == Constants.CONFIRM_OK.OK) {
+                        hoso.setMaTrangthai(Constants.REGIS_STATUS.DONGY_XINRUT);
+                        hoso.setTenTrangthai(Constants.REGIS_STATUS.DONGY_XINRUT_STR);
+                    } else if (sendData.getTypeConfirm() == Constants.CONFIRM_OK.NOT_OK) {
+                        hoso.setMaTrangthai(Constants.REGIS_STATUS.TC_XINRUT);
+                        hoso.setTenTrangthai(Constants.REGIS_STATUS.TC_XINRUT_STR);
+                    }
+                    hoso.setNgayPheduyet(null);
+                    hoso.setNgayCapnhat(new Date());
+                    hosoRepo.save(hoso);
+                    // luu noi dung phan hoi yeu cau xin rut
+                    createContentRegisEdu(hoso, sendData);
+                    // luu lai lich su ho so
+                    createLichsuHoso(hoso, sendData);
                 }
             }
         }

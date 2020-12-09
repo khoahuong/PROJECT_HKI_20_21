@@ -102,7 +102,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of lstRegistration; index as i;">
+                <tr *ngFor="let item of lstRegistration; index as i;" class="colorCustom-{{item.maTrangthai}}">
                   <td style="vertical-align: middle;" class="text-center">{{((page-1)*size)+(i+1)}}</td>
                   <td class="text-center"><a href="javascript: void(0);" tooltip="Lịch sử hồ sơ"
                       (click)="clickHistory(item)"><i class="fa fa-history"></i></a></td>
@@ -117,8 +117,8 @@
                       <li (click)="clickViewRegis(item)" tooltip="Xem hồ sơ đăng ký"><i class="fa fa-eye"></i></li>
                       <li *ngIf="item.maTrangthai === 10" (click)="phanHoiXinsua(item)"
                         tooltip="Phản hồi xin sửa hồ sơ"><i class="fa fa-pencil-square-o"></i></li>
-                      <li *ngIf="item.maTrangthai === 7" (click)="clickViewRegis(item)"
-                        tooltip="Phản hồi xin rút hồ sơ"><i class="fa fa-arrow-circle-o-down"></i></li>
+                      <li *ngIf="item.maTrangthai === 7" (click)="phanhoiXinrut(item)" tooltip="Phản hồi xin rút hồ sơ">
+                        <i class="fa fa-arrow-circle-o-down"></i></li>
                     </ul>
                   </td>
                 </tr>

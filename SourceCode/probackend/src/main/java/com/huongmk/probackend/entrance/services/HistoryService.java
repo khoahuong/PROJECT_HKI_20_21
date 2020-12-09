@@ -9,4 +9,6 @@ import com.huongmk.probackend.helper.ListJson;
  */
 public interface HistoryService {
     ListJson<TableHistoryDomain> searchData(SearchHisDto searchDto);
+
+    ListJson<TableHistoryDomain> searchDataForAdmin(SearchHisDto searchDto);
 }

@@ -66,4 +66,9 @@ public class Constants {
     public interface FOLDER_FILE {
         public static final String folderFile = "file.upload-dir";
     }
+
+    public interface CONFIRM_OK {
+        public static final Long OK = 1L;
+        public static final Long NOT_OK = 2L;
+    }
 }

@@ -62,18 +62,10 @@ export class CreateUserComponent implements OnInit {
       lastName: ['', [
         Validators.required
       ]],
-      position: ['', [
-        Validators.required
-      ]],
-      birthday: ['', [
-        Validators.required
-      ]],
-      address: ['', [
-        Validators.required
-      ]],
-      phone: ['', [
-        Validators.required
-      ]],
+      position: [''],
+      birthday: [''],
+      address: [''],
+      phone: [''],
       email: ['', [
         Validators.required,
         Validators.email
@@ -111,7 +103,7 @@ export class CreateUserComponent implements OnInit {
   /**
    * function đăng kí tài khoản người dùng
    */
-  clickRegis(): void{
+  clickRegis(): void {
     this.submitted = true;
     if (this.createUserForm.invalid || this.checkPassword()) {
       this.toastr.warning('Cảnh báo', 'Kiểm tra lại dữ liệu nhập vào.');

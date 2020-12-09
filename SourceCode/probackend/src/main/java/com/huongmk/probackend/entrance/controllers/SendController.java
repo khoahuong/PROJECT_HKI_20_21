@@ -124,4 +124,21 @@ public class SendController {
         }
         return new ResponseEntity<Object>(value, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/phanhoiXinrut", method = RequestMethod.POST)
+    public ResponseEntity<?> phanhoiXinrut(@RequestBody SendData sendData) {
+        ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
+        Boolean success = false;
+        try {
+            if (sendData != null) {
+                regisContentService.phanhoiXinrut(sendData);
+                success = true;
+            }
+            value.put("success", success);
+        } catch (Exception e) {
+            value.put("errors", ExceptionLog.createMessage(e));
+            return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<Object>(value, HttpStatus.OK);
+    }
 }

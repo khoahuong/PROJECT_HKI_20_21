@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/common/api/api.service';
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
 import { CONSTANT } from 'src/app/common/constant/constant';
+import { HistoryRegisComponent } from '../history-regis/history-regis.component';
 import { PopupReplyComponent } from '../popup-reply/popup-reply.component';
 declare var $: any;
 
@@ -143,6 +144,50 @@ export class RegistrationComponent implements OnInit {
         });
       }
     })
+  }
+
+  // phản hồi yêu cầu xin rút hồ sơ
+  phanhoiXinrut(item: any): void {
+    const initialState = {
+      title: 'Phản hồi xin rút hồ sơ',
+      placeholder: 'Nhập vào nội dung phản hồi (nếu có) - bắt buộc đối với nội dung từ chối',
+      idHoso: item.idHoso,
+      maTrangthai: item.maTrangthai,
+      maHoso: item.maHoso
+    }
+    this.bsModalRef = this.modalService.show(PopupReplyComponent, { initialState, class: 'modal-lg' });
+    this.bsModalRef.content.event.subscribe(d => {
+      this.loading = true;
+      if (d !== null) {
+        let sendData = {
+          idHoso: item.idHoso,
+          content: d.noidung,
+          typeConfirm: d.typeConfirm
+        }
+
+        this.api.postDataToken(API_CONSTANT.SEND_DATA.PHANHOI_XINRUT, sendData, {}).subscribe(data => {
+          this.loading = false;
+          if (data.success) {
+            this.toastr.success('Gửi phản hồi yêu cầu xin rút hồ sơ thành công.', 'Thành công');
+            this.searchDataRegis(null);
+          } else {
+            this.toastr.error('Gửi phản hồi yêu cầu xin rút hồ sơ thất bại.', 'Lỗi');
+          }
+        }, error => {
+          this.loading = false;
+          this.toastr.error('Hệ thống đang xảy ra lỗi. Vui lòng thử lại sau.', 'Lỗi');
+        });
+      }
+    })
+  }
+
+  // view lich su ho so
+  clickHistory(item: any): void {
+    const initialState = {
+      item: item,
+      title: "Lịch sử hồ sơ"
+    };
+    this.bsModalRef = this.modalService.show(HistoryRegisComponent, { initialState, class: 'modal-lg' });
   }
 
 }

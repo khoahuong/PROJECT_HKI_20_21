@@ -32,11 +32,38 @@ public class TableHistoryRepositoryImpl implements TableHistoryRepoCustom {
         int firstRecord = searchDto.getPage() * searchDto.getSize();
         StringBuilder sql = new StringBuilder("SELECT h");
         createQueryStr(sql, searchDto);
+        sql.append(" ORDER BY h.id DESC");
         Query query = manager.createQuery(sql.toString());
         createQuery(query, searchDto);
         query.setFirstResult(firstRecord);
         query.setMaxResults(searchDto.getSize());
         return query.getResultList();
+    }
+
+    @Override
+    public List<TableHistoryDomain> searchHis(SearchHisDto searchDto) {
+        int firstRe = searchDto.getPage() * searchDto.getSize();
+        StringBuilder sql = new StringBuilder("SELECT h");
+        createQueryStr(sql, searchDto);
+        sql.append(" AND h.maTrangthai != :maTrangthai");
+        sql.append(" ORDER BY h.id DESC");
+        Query query = manager.createQuery(sql.toString());
+        createQuery(query, searchDto);
+        query.setParameter("maTrangthai", Constants.REGIS_STATUS.TAO_MOI);
+        query.setFirstResult(firstRe);
+        query.setMaxResults(searchDto.getSize());
+        return query.getResultList();
+    }
+
+    @Override
+    public Long countHis(SearchHisDto searchDto) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(h)");
+        createQueryStr(sql, searchDto);
+        sql.append(" AND h.maTrangthai != :maTrangthai");
+        Query query = manager.createQuery(sql.toString());
+        createQuery(query, searchDto);
+        query.setParameter("maTrangthai", Constants.REGIS_STATUS.TAO_MOI);
+        return (Long) query.getSingleResult();
     }
 
     private void createQueryStr(StringBuilder sql, SearchHisDto searchDto) {
@@ -46,7 +73,7 @@ public class TableHistoryRepositoryImpl implements TableHistoryRepoCustom {
             sql.append(" AND h.idHoso = :idHoso");
         }
         sql.append(" AND h.hoatdong = :hoatdong");
-        sql.append(" ORDER BY h.id DESC");
+
     }
 
     private void createQuery(Query query, SearchHisDto searchDto) {

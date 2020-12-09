@@ -32,10 +32,15 @@ export class API_CONSTANT {
     YCBS_HS: "sendData/yeucauBosung",
     TUCHOI_HS: "sendData/tuchoiHoso",
     DUYET_HS: "sendData/duyetHoso",
-    PHANHOI_XINSUA: "sendData/phanhoiXinsua"
+    PHANHOI_XINSUA: "sendData/phanhoiXinsua",
+    PHANHOI_XINRUT: "sendData/phanhoiXinrut"
   };
 
   public static REGIS_CONTENT = {
     GET_DATA: "regisContent/getData"
+  }
+
+  public static HISTORY = {
+    SEARCH: "api/history/searchForAdmin"
   }
 }

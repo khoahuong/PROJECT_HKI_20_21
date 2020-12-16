@@ -28,6 +28,8 @@ import { RegisHistoryComponent } from './view/regis-history/regis-history.compon
 import { RegisIndexComponent } from './view/regis-index/regis-index.component';
 import { UserInfoComponent } from './view/user-info/user-info.component';
 import { PopupRegisComponent } from './view/popup-regis/popup-regis.component';
+import { PopupInfoComponent } from './view/popup-info/popup-info.component';
+import { RegisViewComponent } from './view/regis-view/regis-view.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { PopupRegisComponent } from './view/popup-regis/popup-regis.component';
     NotiPopupComponent,
     RegisEditPopupComponent,
     RegisHistoryComponent,
-    PopupRegisComponent
+    PopupRegisComponent,
+    PopupInfoComponent,
+    RegisViewComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,8 @@ import { PopupRegisComponent } from './view/popup-regis/popup-regis.component';
     NotiPopupComponent,
     RegisEditPopupComponent,
     RegisHistoryComponent,
-    PopupRegisComponent
+    PopupRegisComponent,
+    PopupInfoComponent
   ]
 })
 export class AppModule { }

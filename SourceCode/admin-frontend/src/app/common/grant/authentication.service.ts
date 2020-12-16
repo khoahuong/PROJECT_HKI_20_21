@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ParseToken } from 'src/app/model/ParseToken';
 import { ApiService } from '../api/api.service';
 import { API_CONSTANT } from '../constant/apiConstant';
+import * as lodash from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -61,12 +62,18 @@ export class AuthenticationService {
 
     const date = this.getTokenExpirationDate(token);
     if (date === undefined) return false;
+    if (date === null) return true;
     return !(date.valueOf() > new Date().valueOf());
   }
 
   getTokenExpirationDate(token: string): Date {
     this.decoded = jwt_decode(token);
-    if (this.decoded.exp === undefined) return null;
+    let lstAuthor = this.decoded.authorities;
+    let filterLstAuthor = lstAuthor !== null && lstAuthor.length > 0 ? lodash.filter(lstAuthor, (d) => {
+      return d !== '1';
+    }) : [];
+    if (filterLstAuthor.length === 0) return null; // check quyen tai khoan
+    if (this.decoded.exp === undefined) return null; // check thoi han token
     const date = new Date(0);
     date.setUTCSeconds(this.decoded.exp);
     return date;

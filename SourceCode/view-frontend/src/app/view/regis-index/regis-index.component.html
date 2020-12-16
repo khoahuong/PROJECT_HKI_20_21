@@ -132,13 +132,17 @@
                         <td style="vertical-align: middle;" class="text-center">{{((page-1)*size)+(i+1)}}</td>
                         <td class="text-center"><a href="javascript: void(0);" tooltip="Lịch sử hồ sơ"
                             (click)="clickHistory(item)"><i class="fa fa-history" aria-hidden="true"></i></a></td>
-                        <td style="vertical-align: middle;">{{item.maHoso}}</td>
+                        <td style="vertical-align: middle;">
+                          <a href="javascript:void(0)" tooltip="Xem hồ sơ"
+                            (click)="clickViewRegis(item)">{{item.maHoso}}</a>
+                        </td>
                         <td style="vertical-align: middle;" class="text-center">{{item.ngayTao | date: 'dd/MM/yyyy'}}
                         </td>
                         <td style="vertical-align: middle;" class="text-center">
                           {{item.ngayPheduyet | date: 'dd/MM/yyyy'}}</td>
                         <td style="vertical-align: middle;">
-                          <a href="javascript:void(0)" (click)="clickTrangthaiHs(item)">{{item.tenTrangthai}}</a>
+                          <a href="javascript:void(0)" tooltip="Xem nội dung"
+                            (click)="clickTrangthaiHs(item)">{{item.tenTrangthai}}</a>
                         </td>
                         <td style="vertical-align: middle;">
                           <ul class="nav list-inline text-center action-search">

@@ -1,6 +1,8 @@
 {
   "name": "admin-frontend",
   "version": "0.0.0",
+  "description": "project HKI 2020 - 2021 UET - quan ly ho so dang ky du thi tuyen sinh",
+  "author": "maikhoahuong <khoahuonguet@gmail.com>",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -6,4 +6,5 @@ export class ParseToken {
   nbf: number;
   iat: number;
   jti: string;
+  authorities: string[];
 }

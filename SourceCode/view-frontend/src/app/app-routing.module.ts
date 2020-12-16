@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { CreateUserComponent } from './view/create-user/create-user.component';
 import { RegisEditComponent } from './view/regis-edit/regis-edit.component';
 import { RegisIndexComponent } from './view/regis-index/regis-index.component';
+import { RegisViewComponent } from './view/regis-view/regis-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,7 +16,8 @@ const routes: Routes = [
     path: 'regis', component: AuthComponent,
     children: [
       { path: 'home', component: RegisIndexComponent, canActivate: [AuthGaurdService] },
-      { path: 'edit', component: RegisEditComponent, canActivate: [AuthGaurdService] }
+      { path: 'edit', component: RegisEditComponent, canActivate: [AuthGaurdService] },
+      { path: 'view', component: RegisViewComponent, canActivate: [AuthGaurdService] }
     ]
   }
 ];

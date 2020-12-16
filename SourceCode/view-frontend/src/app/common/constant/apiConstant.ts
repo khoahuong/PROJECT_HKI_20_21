@@ -1,6 +1,6 @@
 export class API_CONSTANT {
-  public static API_ROOT = "http://localhost:9999/";
-  // public static API_ROOT = "http://27.72.89.79:9768/probackend/";
+  // public static API_ROOT = "http://localhost:9999/";
+  public static API_ROOT = "http://27.72.89.79:9768/probackend/";
 
   public static API_FILE = {
     UPLOAD_FILE: "file/uploadFile",
@@ -49,5 +49,9 @@ export class API_CONSTANT {
   public static SEND_DATA = {
     YC_XIN_SUA: "sendData/ycXinsua",
     YC_XIN_RUT: "sendData/ycXinrut"
+  };
+
+  public static REGIS_CONTENT = {
+    GET_DATA: "regisContent/getData"
   };
 }

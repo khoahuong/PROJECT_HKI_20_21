@@ -8,6 +8,7 @@ import { ConfirmPopupComponent } from 'src/app/common/confirm-popup/confirm-popu
 import { API_CONSTANT } from 'src/app/common/constant/apiConstant';
 import { CONSTANT } from 'src/app/common/constant/constant';
 import { AppService } from 'src/app/common/services/app.service';
+import { PopupInfoComponent } from '../popup-info/popup-info.component';
 import { PopupRegisComponent } from '../popup-regis/popup-regis.component';
 import { RegisHistoryComponent } from '../regis-history/regis-history.component';
 import { UserInfoComponent } from '../user-info/user-info.component';
@@ -285,10 +286,27 @@ export class RegisIndexComponent implements OnInit {
   // xem trang thai ho so
   clickTrangthaiHs(item: any): void {
     switch (item.maTrangthai) {
+      case 3:
+      case 5:
+      case 9:
+      case 12:
+        const initialState = {
+          title: 'Thông báo nội dung yêu cầu của Bộ GD&ĐT',
+          idHoso: item.idHoso,
+          maTrangthai: item.maTrangthai
+        }
+        this.bsModalRef = this.modalService.show(PopupInfoComponent, { initialState });
+        break;
       default:
         this.app.popupAlert('Thông báo', 'Hồ sơ <b>' + item.maHoso + '</b> đang ở trạng thái <b>' + item.tenTrangthai + '</b>');
         break;
     }
+  }
+
+  // xem thông tin hồ sơ đăng ký
+  clickViewRegis(item: any): void {
+    let id = item && item.idHoso ? item.idHoso : null;
+    this.router.navigate(['/regis/view'], { queryParams: { idHoso: id } });
   }
 
 }

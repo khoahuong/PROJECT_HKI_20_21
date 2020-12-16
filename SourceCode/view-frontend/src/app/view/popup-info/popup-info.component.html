@@ -1,0 +1,28 @@
+<div class="modal-header modal-primary">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="onClose()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <div class="form-group row">
+      <label class="col-md-2 lbl-custome">Mã hồ sơ</label>
+      <div class="col-md-10 lbl-custome-1"><span class="text-center">{{contentRep.maHoso}}</span></div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 lbl-custome">Trạng thái</label>
+      <div class="col-md-10 lbl-custome-1"><span class="text-center">{{contentRep.tenTrangthai}}</span></div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 lbl-custome">Nội dung phản hồi</label>
+      <div class="col-md-10 lbl-custome-1">
+        <span class="text-center">{{contentRep.noidungPhanhoi}}</span>
+      </div>
+    </div>
+</div>
+<div class="modal-footer">
+  <button tooltip="Đóng popup" type="button" class="btn btn-danger" (click)="onCancel()">
+    <i class="fa fa-times" aria-hidden="true"></i>&nbsp;
+    Đóng
+  </button>
+</div>

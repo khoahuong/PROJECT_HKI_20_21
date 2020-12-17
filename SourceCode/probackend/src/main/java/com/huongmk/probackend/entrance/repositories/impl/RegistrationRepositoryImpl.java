@@ -61,6 +61,22 @@ public class RegistrationRepositoryImpl implements RegistrationRepoCustom {
         return query.getResultList();
     }
 
+    @Override
+    public List<TableRegisDomain> getAllDataForAdmin(Long idKhuvucQuanly) {
+        StringBuilder sql = new StringBuilder("SELECT reg");
+        sql.append(" FROM TableRegisDomain reg");
+        sql.append(" INNER JOIN TableRegisKhuvucDomain ra");
+        sql.append(" ON reg.maSoGddt = ra.maSoGddt");
+        sql.append(" WHERE reg.hoatdong = :hoatdong");
+        sql.append(" AND reg.maTrangthai != :maTrangthai");
+        sql.append(" AND ra.idKhuvuc = :idKhuvucQly");
+        Query query = manager.createQuery(sql.toString());
+        query.setParameter("hoatdong", Constants.STATUS.ACTIVE);
+        query.setParameter("maTrangthai", Constants.REGIS_STATUS.TAO_MOI);
+        query.setParameter("idKhuvucQly", idKhuvucQuanly);
+        return query.getResultList();
+    }
+
     private void createQueryStr(StringBuilder sql, SearchRegisDto searchDto) {
         sql.append(" FROM TableRegisDomain reg");
         sql.append(" WHERE 1 = 1");

@@ -5,6 +5,8 @@ import com.huongmk.probackend.entrance.models.dtos.SearchRegisDto;
 import com.huongmk.probackend.helper.DataResponse;
 import com.huongmk.probackend.helper.ListJson;
 
+import java.util.List;
+
 /**
  * @author HuongMK
  */
@@ -22,4 +24,8 @@ public interface RegistrationService {
     DataResponse sendDataRegis(TableRegisDomain regisDomain);
 
     ListJson<TableRegisDomain> searchRegisForAdmin(SearchRegisDto searchRegisDto);
+
+    List<TableRegisDomain> getAllData(Long userId);
+
+    List<TableRegisDomain> getAllDataForAdmin();
 }

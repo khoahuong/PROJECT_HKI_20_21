@@ -17,4 +17,6 @@ public interface RegistrationRepository extends JpaRepository<TableRegisDomain, 
     TableRegisDomain findByIdHosoAndHoatdong(Long idHoso, Long active);
 
     List<TableRegisDomain> findByUserIdAndHoatdong(Long userId, Long active);
+
+    List<TableRegisDomain> findByHoatdong(Long active);
 }

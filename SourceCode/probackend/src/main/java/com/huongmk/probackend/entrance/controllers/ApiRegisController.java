@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -143,6 +145,36 @@ public class ApiRegisController {
             }
             value.put("data", lstHoso);
             value.put("success", success);
+        } catch (Exception e) {
+            value.put("errors", ExceptionLog.createMessage(e));
+            return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<Object>(value, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getAllData", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllData(@RequestParam Long userId) {
+        ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
+        List<TableRegisDomain> lstRegis = new ArrayList<>();
+        try {
+            if (userId != null) {
+                lstRegis = registrationService.getAllData(userId);
+            }
+            value.put("list", lstRegis);
+        } catch (Exception e) {
+            value.put("errors", ExceptionLog.createMessage(e));
+            return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<Object>(value, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getAllDataForAdmin", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllDataForAdmin() {
+        ConcurrentHashMap<String, Object> value = new ConcurrentHashMap<>();
+        List<TableRegisDomain> lstRegis;
+        try {
+            lstRegis = registrationService.getAllDataForAdmin();
+            value.put("list", lstRegis);
         } catch (Exception e) {
             value.put("errors", ExceptionLog.createMessage(e));
             return new ResponseEntity<Object>(value, HttpStatus.EXPECTATION_FAILED);

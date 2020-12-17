@@ -229,6 +229,20 @@ public class RegistrationServiceImpl implements RegistrationService {
         return new ListJson<TableRegisDomain>(lstHoso, countTotal);
     }
 
+    @Override
+    public List<TableRegisDomain> getAllData(Long userId) {
+        TableUsersDomain user = usersRepository.findByIdAndIsRoleAndIsActive(userId, Constants.ROLE.USER_MANAGER, Constants.STATUS.ACTIVE);
+        if (user != null) {
+            return regisRepo.getAllDataForAdmin(user.getKhuvucQuanly());
+        }
+        return null;
+    }
+
+    @Override
+    public List<TableRegisDomain> getAllDataForAdmin() {
+        return regisRepo.findByHoatdong(Constants.STATUS.ACTIVE);
+    }
+
     private void updateDinhkem(TableRegisDomain regisDomain) {
         List<TableRegisAttachmentsDomain> lstDinhkemOld = regisAttachRepo.findByIdHosoAndHoatdong(regisDomain.getIdHoso(), Constants.STATUS.ACTIVE);
         if (lstDinhkemOld != null && lstDinhkemOld.size() > 0) {

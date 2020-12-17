@@ -17,4 +17,5 @@ public interface RegistrationRepoCustom {
 
     List<TableRegisDomain> searchRegisForAdmin(SearchRegisDto searchRegisDto, Long idKhuvuc);
 
+    List<TableRegisDomain> getAllDataForAdmin(Long idKhuvucQuanly);
 }
